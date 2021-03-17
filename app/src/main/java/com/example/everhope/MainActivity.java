@@ -1,11 +1,10 @@
 package com.example.everhope;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Window;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     private static int Splash_time_out = 3000;
@@ -17,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
+                Intent homeIntent = new Intent(MainActivity.this, IntroActivity.class);
                 startActivity(homeIntent);
                 finish();
             }
