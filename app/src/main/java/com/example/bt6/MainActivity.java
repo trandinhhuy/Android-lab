@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
     EditText inputText;
     Button againButton;
     int speed = 0;
-
+    double increasePercent = 0;
     int globalVar = 0, accum = 0 , progressStep = 1;
     final int max_progress = 100;
 
@@ -42,6 +42,8 @@ public class MainActivity extends Activity {
     protected void Start() {
         againButton.setEnabled(false);
         accum = 0;
+        globalVar = 0;
+        loadingPercent.setText("0%");
         horProgressBar.setMax(max_progress);
         horProgressBar.setProgress(0);
         horProgressBar.setVisibility(View.VISIBLE);
@@ -54,7 +56,7 @@ public class MainActivity extends Activity {
         public void run() {
             try{
                 loadingPercent.setText(String.valueOf(globalVar) + "%");
-                horProgressBar.incrementProgressBy(globalVar);
+                horProgressBar.incrementProgressBy(accum);
                 accum ++;
                 if (accum >= horProgressBar.getMax()){
                     horProgressBar.setVisibility(View.INVISIBLE);
@@ -68,12 +70,18 @@ public class MainActivity extends Activity {
     private Runnable backgroundTask = new Runnable() {
         @Override
         public void run() {
+            if (speed < 100) speed = 100;
             try {
-                for (int i = 0 ; i < 100 ; i++){
-                    Thread.sleep(9999 - speed * 10);
-                    globalVar++;
-                    myHandler.post(foreGroundRunnable);
+                for (int i = 0 ; i < speed ; i++){
+                    Thread.sleep(10);
+                    increasePercent += (double) 100 / speed;
+                    if (increasePercent > 1) {
+                        globalVar++;
+                        increasePercent -= 1;
+                        myHandler.post(foreGroundRunnable);
+                    }
                 }
+                myHandler.post(foreGroundRunnable);
             }catch (InterruptedException e){
                 Log.e("background interrupt", e.getMessage());
             }
