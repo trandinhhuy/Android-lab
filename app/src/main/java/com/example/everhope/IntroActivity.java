@@ -44,7 +44,7 @@ public class IntroActivity extends AppCompatActivity {
         txtSkip = (TextView) findViewById(R.id.skip);
 
         List<IntroItem> mList = new ArrayList<>();
-        mList.add(new IntroItem("Cleaning", "a", R.drawable.intro1));
+        mList.add(new IntroItem("Môi trường làm việc công bằng\n Dễ dàng Quản lí cá nhân, thành viên", "Dễ dàng quản lí", R.drawable.intro1));
         mList.add(new IntroItem("Growing", "b", R.drawable.intro2));
         mList.add(new IntroItem("Washing", "n", R.drawable.intro3));
 
@@ -90,7 +90,7 @@ public class IntroActivity extends AppCompatActivity {
         buttonnGetstarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainActivity = new Intent(getApplicationContext(), HomeActivity.class);
+                Intent mainActivity = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(mainActivity);
                 savePrefsData();
                 finish();
@@ -105,7 +105,7 @@ public class IntroActivity extends AppCompatActivity {
     }
     private boolean restorePrefData() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs",MODE_PRIVATE);
-        Boolean isIntroActivityOpnendBefore = pref.getBoolean("isIntroOpnend",false);
+        Boolean isIntroActivityOpnendBefore = pref.getBoolean("isIntroOpened",false);
         return  isIntroActivityOpnendBefore;
     }
 

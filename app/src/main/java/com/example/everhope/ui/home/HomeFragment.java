@@ -1,48 +1,37 @@
-package com.example.everhope;
+package com.example.everhope.ui.home;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.navigation.NavigationView;
+import com.example.everhope.R;
 
-import static com.example.everhope.R.id.toolMenu;
-
-public class HomeActivity extends AppCompatActivity {
+public class HomeFragment extends Fragment {
     ViewGroup scrollView;
     ImageView icon;
     TextView caption;
     TextView day;
-
-    NavigationView navigationView;
-    Toolbar toolbar;
-    ScrollView scrollHome;
-    ImageView imageView;
-    DrawerLayout drawerLayout;
-
     String[] items = {"Nhat rac", "Don bien", "Trong cay"};
     int[] volunteerImages = {R.drawable.volun1, R.drawable.volun2, R.drawable.volun3};
     String[] date = {"25/3/2021", "24/3/2021", "23/3/2021"};
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+    private HomeViewModel homeViewModel;
 
-        toolbar = (Toolbar) findViewById(toolMenu);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        scrollView = (ViewGroup) findViewById(R.id.viewActivity);
+        scrollView = (ViewGroup) root.findViewById(R.id.viewActivity);
         for (int i = 0 ; i < items.length ; i++){
             final View singleFrame = getLayoutInflater().inflate(R.layout.activity_view, null);
             singleFrame.setId(i);
@@ -62,5 +51,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
         }
+        return root;
+
     }
 }

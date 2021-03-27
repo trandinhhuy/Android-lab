@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="330dp"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:paddingRight="30dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
+    <LinearLayout
+        android:background="@drawable/border_radius"
+        android:orientation="vertical"
+        android:layout_width="300dp"
+        android:layout_height="200dp">
+    <ImageView
+        android:id="@+id/iconImg"
+        android:scaleType="fitXY"
+        android:layout_width="280dp"
+        android:layout_margin="10dp"
+        android:layout_height="100dp"></ImageView>
+
+    <TextView
+        android:id="@+id/caption"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:text="Any"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:text="Day"
+        android:textColor="@color/black"></TextView>
+    </LinearLayout>
+
+
+</LinearLayout>

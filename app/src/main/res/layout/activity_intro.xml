@@ -24,15 +24,17 @@
 
     <Button
         android:id="@+id/buttonStart"
-        android:layout_width="132dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="500dp"
         android:text="Get Started"
         android:visibility="invisible"
+        android:background="@drawable/custom_button_gradient"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -78,8 +80,9 @@
         android:id="@+id/skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:text="Skip"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Skip >>"
         android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"

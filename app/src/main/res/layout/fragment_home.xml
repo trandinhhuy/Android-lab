@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity"
-    tools:openDrawer="start"
-    android:id="@+id/home_layout">
+    tools:context=".ui.home.HomeFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,27 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Toolbar
-                android:id="@+id/toolMenu"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:background="#FFFFFF"
-                android:gravity="start"
-                android:navigationIcon="@drawable/ic_menu_icon"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="115dp"
-                    android:layout_marginRight="100dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/logo"></ImageView>
-            </Toolbar>
 
             <ImageView
                 android:id="@+id/imageView"
@@ -138,5 +115,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
