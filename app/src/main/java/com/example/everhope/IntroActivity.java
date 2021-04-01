@@ -44,7 +44,7 @@ public class IntroActivity extends AppCompatActivity {
         txtSkip = (TextView) findViewById(R.id.skip);
 
         List<IntroItem> mList = new ArrayList<>();
-        mList.add(new IntroItem("Môi trường làm việc công bằng\n Dễ dàng Quản lí cá nhân, thành viên", "Dễ dàng quản lí", R.drawable.intro1));
+        mList.add(new IntroItem("Môi trường làm việc công bằng\n Dễ dàng quản lý cá nhân, thành viên.", "Dễ dàng quản lý", R.drawable.intro1));
         mList.add(new IntroItem("Growing", "b", R.drawable.intro2));
         mList.add(new IntroItem("Washing", "n", R.drawable.intro3));
 

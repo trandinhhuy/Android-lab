@@ -14,19 +14,13 @@
 
     <ImageView
         android:id="@+id/everHopelogo"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
         android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="5dp"
+        android:paddingTop="70dp"
         android:layout_gravity="center_horizontal"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo_white" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text=""
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#383434"/>
+
 
 </LinearLayout>

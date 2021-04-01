@@ -11,14 +11,16 @@
         android:orientation="vertical"
         android:layout_width="300dp"
         android:layout_height="200dp">
-    <ImageView
-        android:id="@+id/iconImg"
-        android:scaleType="fitXY"
-        android:layout_width="280dp"
-        android:layout_margin="10dp"
-        android:layout_height="100dp"></ImageView>
 
-    <TextView
+        <ImageView
+            android:id="@+id/iconImg"
+            android:layout_width="280dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/volun1"></ImageView>
+
+        <TextView
         android:id="@+id/caption"
         android:layout_width="match_parent"
         android:layout_height="35dp"

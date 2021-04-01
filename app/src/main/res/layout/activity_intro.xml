@@ -9,32 +9,30 @@
 
     <Button
         android:id="@+id/buttonNext"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="110dp"
         android:layout_height="45dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/white"
-        style="?android:attr/borderlessButtonStyle"
         android:drawableRight="@drawable/ic_baseline_arrow_forward_24"
         android:padding="1dp"
-        android:text="Next"
+        android:text="Tiếp"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/buttonStart"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:text="Get Started"
+        android:layout_marginTop="550dp"
+        android:backgroundTint="@color/logo_red"
+        android:text="GET STARTED"
         android:visibility="invisible"
-        android:background="@drawable/custom_button_gradient"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent"></Button>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -69,8 +67,9 @@
         android:id="@+id/introView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,11 +79,12 @@
         android:id="@+id/skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
-        android:text="Skip >>"
-        android:textColor="@color/black"
-        android:textSize="20dp"
+        android:layout_marginRight="10dp"
+        android:text="Bỏ qua"
+        android:textAllCaps="true"
+        android:textColor="@color/light_gray"
+        android:textSize="10sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

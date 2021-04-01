@@ -12,9 +12,9 @@
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme"></activity>
-        <activity android:name=".HomeActivity" />
+            android:theme="@style/AppTheme" />
         <activity android:name=".IntroActivity" />
+        <activity android:name=".EventInformation"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
