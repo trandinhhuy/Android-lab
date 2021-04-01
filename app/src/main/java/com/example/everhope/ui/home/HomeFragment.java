@@ -1,5 +1,6 @@
 package com.example.everhope.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +11,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.everhope.EventView;
 import com.example.everhope.R;
 
 public class HomeFragment extends Fragment {
@@ -21,6 +24,7 @@ public class HomeFragment extends Fragment {
     ImageView icon;
     TextView caption;
     TextView day;
+    String [] id = {"hd1", "hd2", "hd3"};
     String[] items = {"Nhat rac", "Don bien", "Trong cay"};
     int[] volunteerImages = {R.drawable.volun1, R.drawable.volun2, R.drawable.volun3};
     String[] date = {"25/3/2021", "24/3/2021", "23/3/2021"};
@@ -47,7 +51,8 @@ public class HomeFragment extends Fragment {
             singleFrame.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Intent intent = new Intent(getActivity(), EventView.class);
+                    startActivity(intent);
                 }
             });
         }
