@@ -23,4 +23,9 @@
     <color name="logo_black">#2f302f</color>
     <color name="logo_red_plus">#5b1010</color>
     <color name="light_gray">#707070</color>
+
+    <color name="bg">#A03D50</color>
+    <color name="dark_grey">#595252</color>
+    <color name="bg_view">#857F7F</color>
+    <color name="tv">#EDEDED</color>
 </resources>
