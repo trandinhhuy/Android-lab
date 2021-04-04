@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@android:color/white"
-        app:srcCompat="@drawable/ic_see_more" />
+        app:srcCompat="@drawable/ic_baseline_add_24" />
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -32,7 +32,7 @@
         android:focusable="true"
         android:text="Comment"
         android:visibility="invisible"
-        app:icon="@drawable/ic_add_comment"
+        app:icon="@drawable/ic_baseline_add_comment_24"
         app:iconTint="@color/logo_red"
         app:layout_constraintBottom_toTopOf="@+id/btnSeeMore"
         app:layout_constraintEnd_toEndOf="@+id/btnSeeMore"
@@ -49,7 +49,7 @@
         android:focusable="true"
         android:text="Report"
         android:visibility="invisible"
-        app:icon="@drawable/ic_report"
+        app:icon="@drawable/ic_baseline_report_problem_24"
         app:iconTint="@color/logo_red"
         app:layout_constraintBottom_toTopOf="@+id/btnAddComment"
         app:layout_constraintEnd_toEndOf="@+id/btnAddComment"
@@ -66,7 +66,7 @@
         android:focusable="true"
         android:text="Rate"
         android:visibility="invisible"
-        app:icon="@drawable/ic_rate"
+        app:icon="@drawable/ic_baseline_star_24"
         app:iconTint="@color/logo_red"
         app:layout_constraintBottom_toTopOf="@+id/btnReport"
         app:layout_constraintEnd_toEndOf="@+id/btnReport"
@@ -83,7 +83,7 @@
         android:focusable="true"
         android:text="Locate"
         android:visibility="invisible"
-        app:icon="@drawable/ic_location"
+        app:icon="@drawable/ic_baseline_location_on_24"
         app:iconTint="@color/logo_red"
         app:layout_constraintBottom_toTopOf="@+id/btnRate"
         app:layout_constraintEnd_toEndOf="@+id/btnRate"
@@ -100,7 +100,7 @@
         android:focusable="true"
         android:text="Join now!"
         android:visibility="invisible"
-        app:icon="@drawable/ic_join"
+        app:icon="@drawable/ic_baseline_person_add_24"
         app:iconTint="@color/logo_red"
         app:layout_constraintBottom_toTopOf="@+id/btnMap"
         app:layout_constraintEnd_toEndOf="@+id/btnMap"
