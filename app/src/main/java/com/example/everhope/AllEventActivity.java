@@ -1,14 +1,28 @@
 package com.example.everhope;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.app.ListActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class AllEventActivity extends AppCompatActivity {
+import com.example.everhope.FragmentAllEvent.ListEventFragment;
+import com.example.everhope.FragmentAllEvent.SearchEventFragment;
+
+public class AllEventActivity extends FragmentActivity {
+    FragmentTransaction ft;
+    ListEventFragment listEventFragment;
+    SearchEventFragment searchEventFragment;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_event);
+
     }
 }

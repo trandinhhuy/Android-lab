@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.everhope.AllEventActivity;
 import com.example.everhope.EventInformation;
 import com.example.everhope.R;
 
@@ -30,7 +31,14 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
+        TextView showAll = (TextView) root.findViewById(R.id.activityAll);
+        showAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AllEventActivity.class);
+                startActivity(intent);
+            }
+        });
         scrollView = (ViewGroup) root.findViewById(R.id.viewActivity);
         for (int i = 0 ; i < items.length ; i++){
             final View singleFrame = getLayoutInflater().inflate(R.layout.activity_view, null);
