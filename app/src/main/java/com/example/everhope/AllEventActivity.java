@@ -9,6 +9,7 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.everhope.FragmentAllEvent.ListEventFragment;
@@ -24,5 +25,14 @@ public class AllEventActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_event);
 
+        ft = getSupportFragmentManager().beginTransaction();
+        listEventFragment = ListEventFragment.newInstance();
+        ft.replace(R.id.list_event_fragment, listEventFragment);
+        ft.commit();
+
+        ft = getSupportFragmentManager().beginTransaction();
+        searchEventFragment = SearchEventFragment.newInstance();
+        ft.replace(R.id.search_event_fragment, searchEventFragment);
+        ft.commit();
     }
 }

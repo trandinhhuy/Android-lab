@@ -13,8 +13,9 @@
     </TextView>
     <ListView
         android:id="@+id/list_event"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:dividerHeight="20dp"
+        android:layout_gravity="center"
         android:divider="@color/white"/>
 </LinearLayout>
