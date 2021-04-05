@@ -84,6 +84,7 @@
             app:tint="@color/logo_red" />
 
         <EditText
+            app:passwordToggleEnabled="true"
             android:id="@+id/txtPassword"
             android:layout_width="250dp"
             android:layout_height="wrap_content"

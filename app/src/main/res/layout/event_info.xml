@@ -106,19 +106,37 @@
         app:layout_constraintEnd_toEndOf="@+id/btnMap"
         app:rippleColor="@color/logo_red" />
 
-    <!--
+<!--
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btnJoin"
+        android:id="@+id/btnUnjoin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/white"
         android:clickable="true"
-        android:contentDescription="Join"
+        android:contentDescription="Unjoin"
         android:focusable="true"
-        android:text="Join now!"
+        android:text="Unjoin"
         android:visibility="invisible"
-        app:icon="@drawable/ic_unjoin"
+        app:icon="@drawable/ic_baseline_person_add_disabled_24"
+        app:iconTint="@color/logo_red"
+        app:layout_constraintBottom_toTopOf="@+id/btnMap"
+        app:layout_constraintEnd_toEndOf="@+id/btnMap"
+        app:rippleColor="@color/logo_red" />
+
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btnEditEventInfor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/white"
+        android:clickable="true"
+        android:contentDescription="Edit event's information"
+        android:focusable="true"
+        android:text="Edit"
+        android:visibility="invisible"
+        app:icon="@drawable/ic_baseline_person_edit_24"
         app:iconTint="@color/logo_red"
         app:layout_constraintBottom_toTopOf="@+id/btnMap"
         app:layout_constraintEnd_toEndOf="@+id/btnMap"
