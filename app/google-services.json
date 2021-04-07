@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "953553891458",
+    "project_id": "otpandroid-1ded7",
+    "storage_bucket": "otpandroid-1ded7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953553891458:android:6714ec05f112745d01c49b",
+        "android_client_info": {
+          "package_name": "com.example.everhope"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "953553891458-s0b34lmectsfpltnbbkt2p8o55kn9r6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZFLqjOoD5hlwmADxMO0h7B6NCddWEykM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "953553891458-s0b34lmectsfpltnbbkt2p8o55kn9r6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

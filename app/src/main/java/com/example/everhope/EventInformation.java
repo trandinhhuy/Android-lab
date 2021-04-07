@@ -57,7 +57,13 @@ public class EventInformation extends Activity {
         rotateOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_open_anim);
         fromBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.to_bottom_anim);
-
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         btnSeeMore.setOnClickListener(new View.OnClickListener() {

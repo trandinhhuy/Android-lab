@@ -7,11 +7,14 @@
         android:id="@+id/topic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:textColor="@color/black"
         android:hint="youchoose..."
         android:layout_marginBottom="10dp">
 
     </TextView>
     <ListView
+        android:layout_marginLeft="40dp"
         android:id="@+id/list_event"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
