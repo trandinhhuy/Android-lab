@@ -28,4 +28,6 @@
     <color name="dark_grey">#595252</color>
     <color name="bg_view">#857F7F</color>
     <color name="tv">#EDEDED</color>
+
+    <color name="bag">#FAE4E4</color>
 </resources>

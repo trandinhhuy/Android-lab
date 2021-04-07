@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_name">
+        <item>Nguyen Van A</item>
+        <item>Nguyen Van B</item>
+        <item>Nguyen Van C</item>
+        <item>Nguyen Van D</item>
+        <item>Nguyen Van E</item>
+        <item>Nguyen Van F</item>
+        <item>Nguyen Van G</item>
+    </string-array>
+</resources>
