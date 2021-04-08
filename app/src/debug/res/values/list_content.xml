@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_content">
+        <item>100 events</item>
+        <item>90 events</item>
+        <item>80 events</item>
+        <item>10 events</item>
+        <item>5 events</item>
+        <item>0 event</item>
+        <item>0 event</item>
+
+    </string-array>
+
+</resources>

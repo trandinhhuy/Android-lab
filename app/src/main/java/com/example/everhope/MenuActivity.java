@@ -1,10 +1,16 @@
 package com.example.everhope;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.everhope.FragmentAllEvent.ListEventFragment;
+import com.example.everhope.ui.home.HomeFragment;
+import com.example.everhope.ui.profile.ProfileFragment;
+import com.example.everhope.ui.yourtask.YourTaskFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -27,15 +33,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = findViewById(R.id.toolMenu);
+
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -44,10 +43,17 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 R.id.nav_home, R.id.nav_personalprofile, R.id.nav_yourtask, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openDrawer(Gravity.LEFT);
+            }
+        });
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new HomeFragment()).commit();
     }
 
 
@@ -68,7 +74,18 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_home);
-        return false;
+        if (id == R.id.nav_home){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new HomeFragment()).commit();
+        }
+        if (id == R.id.nav_profile){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new ProfileFragment()).commit();
+        }
+        if (id == R.id.nav_event){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new YourTaskFragment()).commit();
+        }
+        if (id == R.id.nav_logout){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new YourTaskFragment()).commit();
+        }
+        return true;
     }
 }
