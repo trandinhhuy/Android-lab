@@ -11,13 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="135dp"
+        android:layout_marginTop="120dp"
         android:layout_marginEnd="50dp"
         android:gravity="center"
         android:text="Hello,"
         android:textColor="#000000"
         android:textSize="32sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView23"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +41,7 @@
         android:id="@+id/linearLayout8"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/textView23"
         app:layout_constraintStart_toStartOf="@+id/textView23"
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_baseline_person_24"
+            android:src="@drawable/ic_baseline_person_24"
             app:tint="@color/logo_red" />
 
         <EditText
@@ -69,7 +70,7 @@
         android:id="@+id/linearLayout9"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout8"
         app:layout_constraintStart_toStartOf="@+id/linearLayout8"
@@ -80,11 +81,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_baseline_lock_24"
+            android:src="@drawable/ic_baseline_lock_24"
             app:tint="@color/logo_red" />
 
         <EditText
-            app:passwordToggleEnabled="true"
             android:id="@+id/txtNewPassword"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
         android:id="@+id/linearLayout10"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout9"
         app:layout_constraintStart_toStartOf="@+id/linearLayout9"
@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_baseline_lock_24"
+            android:src="@drawable/ic_baseline_lock_24"
             app:tint="@color/logo_red" />
 
         <EditText
@@ -122,8 +122,7 @@
             android:ems="10"
             android:hint="Confirm Password"
             android:inputType="textPassword"
-            android:textSize="14sp"
-            app:passwordToggleEnabled="true" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -131,7 +130,7 @@
         android:id="@+id/linearLayout11"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout10"
         app:layout_constraintStart_toStartOf="@+id/linearLayout10"
@@ -142,7 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_baseline_phone_24"
+            android:src="@drawable/ic_baseline_phone_24"
             app:tint="@color/logo_red" />
 
         <EditText
@@ -158,23 +157,23 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/btnNextSignUp"
+        android:id="@+id/btnSignUp"
         android:layout_width="260dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
         android:background="@drawable/border_button"
         android:gravity="center"
-        android:text="Next"
+        android:text="Sign up"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView22"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout11" />
 
 
     <TextView
@@ -185,7 +184,7 @@
         android:layout_marginTop="5dp"
         android:text="Must contain 8-16 characters, both letters and numbers."
         android:textColor="#c1c1c1"
-        android:textSize="10sp"
+        android:textSize="10.5sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout9"
         app:layout_constraintStart_toStartOf="@+id/linearLayout9"

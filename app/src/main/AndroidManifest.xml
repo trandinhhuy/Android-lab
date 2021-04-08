@@ -17,6 +17,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EverHope">
+<<<<<<< HEAD
+        <activity android:name=".AllEventActivity"></activity>
+        <activity android:name=".SignIn"></activity>
+        <activity android:name=".SignUp"></activity>
+=======
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -35,6 +40,7 @@
             android:label="@string/title_activity_maps"></activity>
         <activity android:name=".AllUserActivity" />
         <activity android:name=".AllEventActivity" />
+>>>>>>> 66b7bf1bd9340109de5772572c3467537235fb76
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"

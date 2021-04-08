@@ -40,7 +40,7 @@
         android:id="@+id/linearLayout3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/textView13"
         app:layout_constraintStart_toStartOf="@+id/textView13"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_baseline_person_24"
+            android:src="@drawable/ic_baseline_person_24"
             app:tint="@color/logo_red" />
 
         <EditText
@@ -69,7 +69,7 @@
         android:id="@+id/linearLayout4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
         app:layout_constraintStart_toStartOf="@+id/linearLayout3"
@@ -80,11 +80,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_baseline_lock_24"
+            android:src="@drawable/ic_baseline_lock_24"
             app:tint="@color/logo_red" />
 
         <EditText
-            app:passwordToggleEnabled="true"
             android:id="@+id/txtPassword"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
@@ -92,7 +91,8 @@
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            app:passwordToggleEnabled="true" />
 
     </LinearLayout>
 
@@ -102,7 +102,6 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
         android:background="@drawable/border_button"
         android:gravity="center"
@@ -111,6 +110,7 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
