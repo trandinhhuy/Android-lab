@@ -1,93 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnSeeMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/logo_red"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/white"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btnSeeMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:backgroundTint="@color/logo_red"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_baseline_add_24"
+            app:tint="@android:color/white" />
 
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btnAddComment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:contentDescription="Comment"
-        android:focusable="true"
-        android:text="Comment"
-        android:visibility="invisible"
-        app:icon="@drawable/ic_baseline_add_comment_24"
-        app:iconTint="@color/logo_red"
-        app:layout_constraintBottom_toTopOf="@+id/btnSeeMore"
-        app:layout_constraintEnd_toEndOf="@+id/btnSeeMore"
-        app:rippleColor="@color/logo_red" />
+            android:id="@+id/btnAddComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:contentDescription="Comment"
+            android:focusable="true"
+            android:text="Comment"
+            android:visibility="invisible"
+            app:icon="@drawable/ic_baseline_add_comment_24"
+            app:iconTint="@color/logo_red"
+            app:layout_constraintBottom_toTopOf="@+id/btnSeeMore"
+            app:layout_constraintEnd_toEndOf="@+id/btnSeeMore"
+            app:rippleColor="@color/logo_red" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btnReport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:contentDescription="Report"
-        android:focusable="true"
-        android:text="Report"
-        android:visibility="invisible"
-        app:icon="@drawable/ic_baseline_report_problem_24"
-        app:iconTint="@color/logo_red"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddComment"
-        app:layout_constraintEnd_toEndOf="@+id/btnAddComment"
-        app:rippleColor="@color/logo_red" />
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btnReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:contentDescription="Report"
+            android:focusable="true"
+            android:text="Report"
+            android:visibility="invisible"
+            app:icon="@drawable/ic_baseline_report_problem_24"
+            app:iconTint="@color/logo_red"
+            app:layout_constraintBottom_toTopOf="@+id/btnAddComment"
+            app:layout_constraintEnd_toEndOf="@+id/btnAddComment"
+            app:rippleColor="@color/logo_red" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btnRate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:contentDescription="Rate"
-        android:focusable="true"
-        android:text="Rate"
-        android:visibility="invisible"
-        app:icon="@drawable/ic_baseline_star_24"
-        app:iconTint="@color/logo_red"
-        app:layout_constraintBottom_toTopOf="@+id/btnReport"
-        app:layout_constraintEnd_toEndOf="@+id/btnReport"
-        app:rippleColor="@color/logo_red" />
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btnRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:contentDescription="Rate"
+            android:focusable="true"
+            android:text="Rate"
+            android:visibility="invisible"
+            app:icon="@drawable/ic_baseline_star_24"
+            app:iconTint="@color/logo_red"
+            app:layout_constraintBottom_toTopOf="@+id/btnReport"
+            app:layout_constraintEnd_toEndOf="@+id/btnReport"
+            app:rippleColor="@color/logo_red" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btnMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:contentDescription="Locate"
-        android:focusable="true"
-        android:text="Locate"
-        android:visibility="invisible"
-        app:icon="@drawable/ic_baseline_location_on_24"
-        app:iconTint="@color/logo_red"
-        app:layout_constraintBottom_toTopOf="@+id/btnRate"
-        app:layout_constraintEnd_toEndOf="@+id/btnRate"
-        app:rippleColor="@color/logo_red" />
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btnMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:contentDescription="Locate"
+            android:focusable="true"
+            android:text="Locate"
+            android:visibility="invisible"
+            app:icon="@drawable/ic_baseline_location_on_24"
+            app:iconTint="@color/logo_red"
+            app:layout_constraintBottom_toTopOf="@+id/btnRate"
+            app:layout_constraintEnd_toEndOf="@+id/btnRate"
+            app:rippleColor="@color/logo_red" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btnJoin"
@@ -98,128 +102,97 @@
         android:clickable="true"
         android:contentDescription="Join"
         android:focusable="true"
-        android:text="Join now!"
+        android:text="Join/Unjoin"
         android:visibility="invisible"
-        app:icon="@drawable/ic_baseline_person_add_24"
+        app:icon="@drawable/ic_baseline_person_24"
         app:iconTint="@color/logo_red"
         app:layout_constraintBottom_toTopOf="@+id/btnMap"
         app:layout_constraintEnd_toEndOf="@+id/btnMap"
         app:rippleColor="@color/logo_red" />
-
-<!--
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btnUnjoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:contentDescription="Unjoin"
-        android:focusable="true"
-        android:text="Unjoin"
-        android:visibility="invisible"
-        app:icon="@drawable/ic_baseline_person_add_disabled_24"
-        app:iconTint="@color/logo_red"
-        app:layout_constraintBottom_toTopOf="@+id/btnMap"
-        app:layout_constraintEnd_toEndOf="@+id/btnMap"
-        app:rippleColor="@color/logo_red" />
-
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btnEditEventInfor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:contentDescription="Edit event's information"
-        android:focusable="true"
-        android:text="Edit"
-        android:visibility="invisible"
-        app:icon="@drawable/ic_baseline_person_edit_24"
-        app:iconTint="@color/logo_red"
-        app:layout_constraintBottom_toTopOf="@+id/btnMap"
-        app:layout_constraintEnd_toEndOf="@+id/btnMap"
-        app:rippleColor="@color/logo_red" />
-    -->
 
     <ScrollView
-        android:id="@+id/scrollView3"
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <View
+                android:id="@+id/view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="150dp"
+                android:background="@color/logo_red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@color/logo_red"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/eventIcon"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="100dp"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/image"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></ImageView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/eventIcon"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="100dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
 
             <TextView
                 android:id="@+id/eventName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
                 android:gravity="center"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                 android:textAllCaps="true"
                 android:textColor="@color/logo_black"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/eventIcon"
+                app:layout_constraintStart_toStartOf="@+id/eventIcon"
+                app:layout_constraintTop_toBottomOf="@+id/eventIcon" />
+
 
             <TextView
                 android:id="@+id/eventDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="55dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="55dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginStart="55dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="55dp"
                 android:gravity="center"
                 android:text="Mo ta Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non est sit amet leo tincidunt tincidunt. Suspendisse potenti. Mauris nec velit commodo, auctor urna aliquet, cursus mauris. Vivamus eu arcu. "
                 android:textColor="@color/light_gray"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/eventName"
+                app:layout_constraintStart_toStartOf="@+id/eventName"
+                app:layout_constraintTop_toBottomOf="@+id/eventName" />
+
 
             <TextView
+                android:id="@+id/textView8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
                 android:text="Interest"
                 android:textColor="@color/logo_red_plus"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eventDescription" />
 
             <LinearLayout
                 android:layout_width="250dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/textView8">
 
                 <View
                     android:layout_width="100dp"
@@ -231,35 +204,42 @@
                     android:layout_height="1dp"
                     android:layout_weight="1"
                     android:background="@color/logo_black" />
-
             </LinearLayout>
+
 
             <TextView
                 android:id="@+id/eventInterest"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                android:text="Enviroment, Education, Culture" />
+                android:layout_marginTop="10dp"
+                android:text="Environment   Education   Culture"
+                app:layout_constraintEnd_toEndOf="@+id/textView8"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
             <TextView
+                android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
                 android:text="Organizer"
                 android:textColor="@color/logo_red_plus"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eventInterest" />
+
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="250dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/textView9">
 
                 <View
                     android:layout_width="100dp"
@@ -276,30 +256,37 @@
 
             <TextView
                 android:id="@+id/eventOrganizer"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                android:text="Nguyen Van A" />
+                android:layout_marginTop="10dp"
+                android:text="Nguyen Van A"
+                app:layout_constraintEnd_toEndOf="@+id/textView9"
+                app:layout_constraintStart_toStartOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
 
             <TextView
+                android:id="@+id/textView10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
                 android:text="Participant"
                 android:textColor="@color/logo_red_plus"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eventOrganizer" />
+
 
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="250dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/textView10">
 
                 <View
                     android:layout_width="100dp"
@@ -315,12 +302,13 @@
             </LinearLayout>
 
             <HorizontalScrollView
-                android:layout_width="match_parent"
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp">
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/textView10"
+                app:layout_constraintStart_toStartOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/textView10">
 
                 <LinearLayout
                     android:id="@+id/eventParticipant"
@@ -331,22 +319,29 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
+
             <TextView
+                android:id="@+id/textView14"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
                 android:text="Date and Time"
                 android:textColor="@color/logo_red_plus"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
 
             <LinearLayout
+                android:id="@+id/linearLayout5"
                 android:layout_width="250dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/textView14">
 
                 <View
                     android:layout_width="100dp"
@@ -363,30 +358,95 @@
 
             <TextView
                 android:id="@+id/eventDatetime"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                android:text="9AM, 30/3/2021" />
+                android:layout_marginTop="10dp"
+                android:text="9AM"
+                app:layout_constraintEnd_toEndOf="@+id/textView14"
+                app:layout_constraintStart_toStartOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
             <TextView
+                android:id="@+id/textView15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
                 android:text="Location"
                 android:textColor="@color/logo_red_plus"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eventDatetime" />
 
             <LinearLayout
                 android:layout_width="250dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/textView15"
+                app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="3dp"
+                    android:background="@color/logo_red" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/logo_black" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/eventLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Thanh pho Ho Chi Minh"
+                app:layout_constraintEnd_toEndOf="@+id/textView15"
+                app:layout_constraintStart_toStartOf="@+id/textView15"
+                app:layout_constraintTop_toBottomOf="@id/textView15" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnSetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_settings_24"
+                app:tint="@color/logo_black" />
+
+
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:text="Contact"
+                android:textColor="@color/logo_red_plus"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/eventLocation" />
+
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/textView35"
+                app:layout_constraintTop_toBottomOf="@+id/textView35">
 
                 <View
                     android:layout_width="100dp"
@@ -402,17 +462,18 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/eventLocation"
-                android:layout_width="match_parent"
+                android:id="@+id/eventContact"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                android:text="Thanh pho Ho Chi Minh" />
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="100dp"
+                android:text="012345655125"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView35"
+                app:layout_constraintStart_toStartOf="@+id/textView35"
+                app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,7 @@ public class SignIn extends Activity {
             public void onClick(View v){
                 String inputEmail = txtEmail.getText().toString();
                 String inputPassword = txtPw.getText().toString();
-
+/*
                 if (inputEmail.length()<1 || inputPassword.length()<1){
                     Toast.makeText(SignIn.this,"Please fill all required fields and try again.",Toast.LENGTH_LONG).show();
                 }
@@ -40,15 +40,19 @@ public class SignIn extends Activity {
                     showDialog("Your password is invalid. Please try again.");
                 }
                 else{
-
-                }
+                    Intent intent = new Intent(SignIn.this, MenuActivity.class);
+                    startActivity(intent);
+                }*/
+                Intent intent = new Intent(SignIn.this, MenuActivity.class);
+                startActivity(intent);
             }
         });
         btnGoToSignUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(SignIn.this, SignUp.class);
+                Intent intent = new Intent(getApplication(), SignUp.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

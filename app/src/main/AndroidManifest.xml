@@ -10,6 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EverHope">
         <activity android:name=".AllEventActivity"></activity>
+        <activity android:name=".SignIn"></activity>
+        <activity android:name=".SignUp"></activity>
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"

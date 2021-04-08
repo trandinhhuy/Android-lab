@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -16,26 +15,23 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
-
 
 public class SignUp extends Activity {
     TextView btnNextSignUp, btnGoToSignIn;
     EditText txtNewEmail,txtNewPw, txtRePw, txtPhone;
 
-    TextView btnSignUp, btnResendOTP;
-    FloatingActionButton btnCloseOTP;
-    EditText txtOTP;
+  //  TextView btnSignUp, btnResendOTP;
+  //  FloatingActionButton btnCloseOTP;
+  //  EditText txtOTP;
 
-    static boolean getStarted = false;
+   // static boolean getStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_in);
+        setContentView(R.layout.sign_up);
 
-        btnNextSignUp = (TextView)findViewById(R.id.btnNextSignUp);
+        btnNextSignUp = (TextView)findViewById(R.id.btnSignUp);
         btnGoToSignIn = (TextView)findViewById(R.id.btnGoToSignIn);
         txtNewEmail = (EditText)findViewById(R.id.txtNewEmail);
         txtNewPw = (EditText)findViewById(R.id.txtNewPassword);
@@ -63,18 +59,23 @@ public class SignUp extends Activity {
                     showDialog("Please make sure your passwords match.");
                 }
                 else {
-                    otp();
-                    if (getStarted){
+                    //otp();
+                    //if (getStarted){
                         // hoàn tất đăng ký -> mở intro lên
-                    }
+                    //}
+                    Toast.makeText(SignUp.this,"Success!",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getApplication(), SignIn.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
         btnGoToSignIn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(SignUp.this, SignIn.class);
+                Intent intent = new Intent(getApplication(), SignIn.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -111,6 +112,7 @@ public class SignUp extends Activity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+    /*
     public void otp(){
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -121,10 +123,10 @@ public class SignUp extends Activity {
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.show();
 
-        btnSignUp = (TextView)findViewById(R.id.btnSignIn);
-        btnResendOTP = (TextView)findViewById(R.id.btnResend);
-        btnCloseOTP = (FloatingActionButton)findViewById(R.id.btnCloseOTP);
-        txtOTP = (EditText)findViewById(R.id.txtCode);
+        btnSignUp = (TextView) view.findViewById(R.id.btnSignUpOTP);
+        btnResendOTP = (TextView) view.findViewById(R.id.btnResend);
+        btnCloseOTP = (FloatingActionButton) view.findViewById(R.id.btnCloseOTP);
+        txtOTP = (EditText) view.findViewById(R.id.txtCode);
 
         btnCloseOTP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,8 +160,8 @@ public class SignUp extends Activity {
                     public void run() {
                         btnResendOTP.setVisibility(view.VISIBLE);
                     }
-                },30000);
+                },5000); // test 5s
             }
         });
-    }
+    }*/
 }

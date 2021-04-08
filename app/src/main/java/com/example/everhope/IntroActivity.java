@@ -90,8 +90,10 @@ public class IntroActivity extends AppCompatActivity {
         buttonnGetstarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainActivity = new Intent(getApplicationContext(), MenuActivity.class);
-                startActivity(mainActivity);
+                Intent signIn = new Intent(getApplicationContext(), SignIn.class);
+                startActivity(signIn);
+                //Intent mainActivity = new Intent(getApplicationContext(), MenuActivity.class);
+                //startActivity(mainActivity);
                 savePrefsData();
                 finish();
             }
