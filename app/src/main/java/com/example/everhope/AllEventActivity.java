@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toolbar;
 
 import com.example.everhope.FragmentAllEvent.ListEventFragment;
 import com.example.everhope.FragmentAllEvent.SearchEventFragment;
@@ -24,6 +25,13 @@ public class AllEventActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_event);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.all_event_tool_bar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         ft = getSupportFragmentManager().beginTransaction();
         listEventFragment = ListEventFragment.newInstance();

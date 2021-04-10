@@ -27,7 +27,9 @@ public class YourTaskFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         yourTaskViewModel =
                 new ViewModelProvider(this).get(YourTaskViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_yourtask, container, false);
+        View root = null;
+        Intent intent = new Intent(getActivity(), AllEventActivity.class);
+        startActivity(intent);
         return root;
     }
 }

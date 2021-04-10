@@ -41,7 +41,6 @@ public class IntroActivity extends AppCompatActivity {
         btnNext = (Button) findViewById(R.id.buttonNext);
         buttonnGetstarted = (Button) findViewById(R.id.buttonStart);
         tabIndicator = (TabLayout) findViewById(R.id.tabLayout);
-        txtSkip = (TextView) findViewById(R.id.skip);
 
         List<IntroItem> mList = new ArrayList<>();
         mList.add(new IntroItem("Môi trường làm việc công bằng\n Dễ dàng quản lý cá nhân, thành viên.", "Dễ dàng quản lý", R.drawable.intro1));
@@ -98,12 +97,6 @@ public class IntroActivity extends AppCompatActivity {
                 finish();
             }
         });
-        txtSkip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                screenPager.setCurrentItem(mList.size());
-            }
-        });
     }
     private boolean restorePrefData() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("myPrefs",MODE_PRIVATE);
@@ -120,7 +113,6 @@ public class IntroActivity extends AppCompatActivity {
     private void loadLastScreen(){
         btnNext.setVisibility(View.INVISIBLE);
         buttonnGetstarted.setVisibility(View.VISIBLE);
-        txtSkip.setVisibility(View.INVISIBLE);
         tabIndicator.setVisibility(View.INVISIBLE);
         buttonnGetstarted.setAnimation(btnAnim);
     }

@@ -17,7 +17,7 @@
         android:backgroundTint="@color/white"
         android:drawableRight="@drawable/ic_baseline_arrow_forward_24"
         android:padding="1dp"
-        android:text="Tiếp"
+        android:text="Next"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -75,17 +75,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/skip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:text="Bỏ qua"
-        android:textAllCaps="true"
-        android:textColor="@color/light_gray"
-        android:textSize="10sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

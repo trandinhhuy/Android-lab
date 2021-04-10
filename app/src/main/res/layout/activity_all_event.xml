@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".AllEventActivity"
     android:orientation="vertical">
+    <Toolbar
+        android:id="@+id/all_event_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:navigationIcon="@drawable/ic_baseline_arrow_back_24">
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:src="@drawable/logo"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"/>
+    </Toolbar>
+
     <FrameLayout
         android:id="@+id/search_event_fragment"
         android:layout_width="match_parent"

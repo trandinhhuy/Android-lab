@@ -8,7 +8,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:theme="@style/Theme.EverHope.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#FFFFFF"
-            android:gravity="start"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +24,7 @@
             app:navigationIcon="@drawable/ic_menu_icon">
             <ImageView
                 android:layout_width="70dp"
-                android:layout_height="match_parent"
+                android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/logo"></ImageView>
 
