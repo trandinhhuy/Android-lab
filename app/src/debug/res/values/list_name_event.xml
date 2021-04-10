@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_name_event">
+        <item>Event A</item>
+        <item>Event B</item>
+        <item>Event C</item>
+
+
+    </string-array>
+
+</resources>

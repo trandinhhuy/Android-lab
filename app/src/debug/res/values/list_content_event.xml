@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_content_event">
+        <item>100 participants</item>
+        <item>50 participants</item>
+        <item>10 participants</item>
+
+
+    </string-array>
+
+</resources>
