@@ -9,6 +9,7 @@ import android.view.Menu;
 
 import com.example.everhope.FragmentAllEvent.ListEventFragment;
 import com.example.everhope.ui.home.HomeFragment;
+import com.example.everhope.ui.leaderboard.LeaderBoardFragment;
 import com.example.everhope.ui.profile.ProfileFragment;
 import com.example.everhope.ui.yourtask.YourTaskFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -40,7 +41,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_personalprofile, R.id.nav_yourtask, R.id.nav_logout)
+                R.id.nav_home, R.id.nav_personalprofile, R.id.nav_yourtask, R.id.nav_leaderboard, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -82,6 +83,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         }
         if (id == R.id.nav_event){
             getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new YourTaskFragment()).commit();
+        }
+        if (id == R.id.nav_leaderboard){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new LeaderBoardFragment()).commit();
         }
         if (id == R.id.nav_logout){
             getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new YourTaskFragment()).commit();

@@ -1,4 +1,4 @@
-package com.example.everhope;
+package com.example.everhope.customlist;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,18 +12,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.everhope.R;
+
 public class CustomEventList extends ArrayAdapter {
     private Activity context;
     private String[] topic;
     private int[] members;
     private Integer[] images;
+    Integer layout;
 
-    public CustomEventList(@NonNull Activity context, Integer[] images, String[] topic, int[] members) {
-        super(context, R.layout.activity_view, topic);
+    public CustomEventList(@NonNull Activity context, Integer[] images, String[] topic, int[] members, Integer layout) {
+        super(context, R.layout.event_view_full, topic);
         this.context = context;
         this.images = images;
         this.topic = topic;
         this.members = members;
+        this.layout = layout;
     }
 
     @NonNull
@@ -32,7 +36,7 @@ public class CustomEventList extends ArrayAdapter {
         View root = convertView;
         LayoutInflater inflater =   context.getLayoutInflater();
         if (convertView == null){
-            root = inflater.inflate(R.layout.activity_view, null, true);
+            root = inflater.inflate(layout, null, true);
         }
         ImageView icon_image = (ImageView) root.findViewById(R.id.iconImg);
         TextView Topic = (TextView) root.findViewById(R.id.caption);

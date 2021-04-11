@@ -20,7 +20,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private String[] names;
     private String[] contents;
     private String[] ranks;
-    Adapter(Context context, String[] name, String[] content, String[] rank){
+    public Adapter(Context context, String[] name, String[] content, String[] rank){
         this.inflater = LayoutInflater.from(context);
         this.names = name;
         this.contents = content;

@@ -10,18 +10,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.everhope.AllEventActivity;
-import com.example.everhope.CustomEventList;
+import com.example.everhope.customlist.CustomEventList;
 import com.example.everhope.EventInformation;
 import com.example.everhope.R;
 
 public class ListEventFragment extends Fragment {
-    AllEventActivity allEventActivity;
     Context context = null;
     Integer [] images = {R.drawable.volun1, R.drawable.volun2, R.drawable.volun3};
     int[] members = {12, 11, 15};
@@ -47,11 +47,11 @@ public class ListEventFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        LinearLayout fragmentListEvent = (LinearLayout) inflater.inflate(R.layout.list_event, null, true);
+        RelativeLayout fragmentListEvent = (RelativeLayout) inflater.inflate(R.layout.list_event, null, true);
         ListView listEvent = (ListView) fragmentListEvent.findViewById(R.id.list_event);
         Bundle bundle = getArguments();
         String topic = bundle.getString("topic", "");
-        CustomEventList customEventList = new CustomEventList((Activity) context, images, topics, members);
+        CustomEventList customEventList = new CustomEventList((Activity) context, images, topics, members, R.layout.event_view_full);
         listEvent.setAdapter(customEventList);
         listEvent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

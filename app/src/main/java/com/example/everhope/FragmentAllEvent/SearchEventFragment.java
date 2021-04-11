@@ -17,7 +17,6 @@ import com.example.everhope.R;
 
 public class SearchEventFragment extends Fragment {
     ViewGroup topicButtons;
-    AllEventActivity allEventActivity;
     Context context = null;
     String [] topics = {"cleaning", "charity", "raising"};
 

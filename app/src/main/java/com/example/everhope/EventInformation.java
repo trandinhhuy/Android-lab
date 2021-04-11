@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -55,6 +56,14 @@ public class EventInformation extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_info);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_event_information);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        String title = "";
         icons_view = (ViewGroup) findViewById(R.id.eventParticipant);
         int maxMember = 10;
         for (int i = 0; i < maxMember; i++) {
@@ -72,6 +81,15 @@ public class EventInformation extends Activity {
             });
         }
 
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String location = "";
+        try {
+            location = bundle.getString("title", "");
+        } catch(NullPointerException e){
+
+        }
+
         btnSeeMore = (FloatingActionButton) findViewById(R.id.btnSeeMore);
         btnAddComment = (ExtendedFloatingActionButton) findViewById(R.id.btnAddComment);
         btnMap = (ExtendedFloatingActionButton) findViewById(R.id.btnMap);
@@ -83,14 +101,25 @@ public class EventInformation extends Activity {
         rotateOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_open_anim);
         fromBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.to_bottom_anim);
+
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("action", "view");
                 startActivity(intent);
+                finish();
             }
         });
 
+        btnAddComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CommentActivity.class);
+                startActivity(intent);
+            }
+        });
         btnSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +162,10 @@ public class EventInformation extends Activity {
         eventDatetime = (TextView) findViewById(R.id.eventDatetime);
         eventContact = (TextView) findViewById(R.id.eventContact);
         eventLocation = (TextView) findViewById(R.id.eventLocation);
-
+        eventLocation.setText(location);
+        if (!location.isEmpty()){
+            showEditDialog();
+        }
         btnSetting = (FloatingActionButton) findViewById(R.id.btnSetting);
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -318,8 +350,11 @@ public class EventInformation extends Activity {
         btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //................
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
+
     }
 }
