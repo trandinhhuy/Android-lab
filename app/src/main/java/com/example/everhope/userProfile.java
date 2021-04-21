@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -39,6 +40,13 @@ public class userProfile extends Activity {
         dob = (TextView) findViewById(R.id.dob);
         interests = (TextView) findViewById(R.id.interests);
         btn_edit = (ImageButton) findViewById(R.id.btn_edit);
+        Toolbar toolbar = findViewById(R.id.user_profile_toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         btn_edit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

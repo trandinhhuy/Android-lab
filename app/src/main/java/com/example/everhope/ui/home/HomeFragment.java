@@ -22,7 +22,7 @@ public class HomeFragment extends Fragment {
     TextView caption;
     TextView day;
     String [] id = {"hd1", "hd2", "hd3"};
-    String[] items = {"Nhat rac", "Don bien", "Trong cay"};
+    String[] items = {"Give away", "Shore cleaning", "Growing trees"};
     int[] volunteerImages = {R.drawable.volun1, R.drawable.volun2, R.drawable.volun3};
     String[] date = {"25/3/2021", "24/3/2021", "23/3/2021"};
     private HomeViewModel homeViewModel;

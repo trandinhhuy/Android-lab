@@ -9,26 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnCloseEventEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/white"
-            android:clickable="true"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_baseline_close_24" />
-
         <TextView
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="30dp"
             android:text="Event"
             android:textColor="@color/logo_red"
             android:textSize="24sp"
@@ -257,40 +243,21 @@
             app:layout_constraintStart_toEndOf="@+id/imageView5"
             app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
-        <TextView
-            android:id="@+id/new_task_cancel"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="70dp"
-            android:layout_marginBottom="70dp"
-            android:background="@drawable/border_button"
-            android:backgroundTint="@color/logo_black"
-            android:gravity="center"
-            android:text="Delete"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/new_task_phone_number" />
-
 
         <TextView
             android:id="@+id/new_task_add_event"
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
+            android:layout_marginTop="70dp"
             android:background="@drawable/border_button"
             android:gravity="center"
-            android:text="Create/Update"
+            android:text="Add"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/new_task_cancel"
-            app:layout_constraintTop_toTopOf="@+id/new_task_cancel" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/new_task_phone_number" />
 
         <Button
             android:id="@+id/new_task_date_time"

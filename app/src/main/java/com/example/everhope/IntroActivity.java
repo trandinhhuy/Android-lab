@@ -41,11 +41,15 @@ public class IntroActivity extends AppCompatActivity {
         btnNext = (Button) findViewById(R.id.buttonNext);
         buttonnGetstarted = (Button) findViewById(R.id.buttonStart);
         tabIndicator = (TabLayout) findViewById(R.id.tabLayout);
-
+        if (restorePrefData()){
+            Intent signIn = new Intent(getApplicationContext(), SignIn.class);
+            startActivity(signIn);
+            finish();
+        }
         List<IntroItem> mList = new ArrayList<>();
-        mList.add(new IntroItem("Môi trường làm việc công bằng\n Dễ dàng quản lý cá nhân, thành viên.", "Dễ dàng quản lý", R.drawable.intro1));
-        mList.add(new IntroItem("Growing", "b", R.drawable.intro2));
-        mList.add(new IntroItem("Washing", "n", R.drawable.intro3));
+        mList.add(new IntroItem("Not all of us can do great things.\nBut we can do small things with great love", "Charity", R.drawable.intro1));
+        mList.add(new IntroItem("We make a living by what we get\nBut we make a life by what we give", "Social Giving", R.drawable.intro2));
+        mList.add(new IntroItem("Small action\nx Lots of people\n= Big change", "Big Change", R.drawable.intro3));
 
         screenPager = (ViewPager) findViewById(R.id.introView);
         introAdapter = new IntroAdapter(this, mList);

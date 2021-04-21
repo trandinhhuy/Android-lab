@@ -6,7 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.appcompat.app.AlertDialog;
@@ -175,22 +174,24 @@ public class EventInformation extends Activity {
         });
     }
 
+    Handler myHandler = new Handler();
+
     public void showEditDialog() {
         AlertDialog.Builder alert;
         alert = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.event_info_edit, null);
 
-        editField = (EditText) view.findViewById(R.id.editField);
-        editName = (EditText) view.findViewById(R.id.editName);
-        editDescription = (EditText) view.findViewById(R.id.editDescription);
-        editDatetime = (EditText) view.findViewById(R.id.editDatetime);
-        editLocation = (EditText) view.findViewById(R.id.editLocation);
-        editHostPhone = (EditText) view.findViewById(R.id.editHostPhone);
-        editHostName = (EditText) view.findViewById(R.id.editHostName);
-        btnLocation =(Button)view.findViewById(R.id.btnEditLocation);
-        btnField =(Button)view.findViewById(R.id.btnEditField);
-        btnDatetime =(Button)view.findViewById(R.id.btnEditDatetime);
+        editField = (EditText) view.findViewById(R.id.new_task_interest);
+        editName = (EditText) view.findViewById(R.id.new_task_name);
+        editDescription = (EditText) view.findViewById(R.id.new_task_description);
+        editDatetime = (EditText) view.findViewById(R.id.new_task_date);
+        editLocation = (EditText) view.findViewById(R.id.new_task_location);
+        editHostPhone = (EditText) view.findViewById(R.id.new_task_phone_number);
+        editHostName = (EditText) view.findViewById(R.id.new_task_host_name);
+        btnLocation =(Button)view.findViewById(R.id.new_task_location_select);
+        btnField =(Button)view.findViewById(R.id.new_task_interest_field);
+        btnDatetime =(Button)view.findViewById(R.id.new_task_date_time);
 
 
 
@@ -203,8 +204,8 @@ public class EventInformation extends Activity {
         editHostName.setText(eventOrganizer.getText().toString());
 
         btnCloseEventEdit = (FloatingActionButton) view.findViewById(R.id.btnCloseEventEdit);
-        btnDeleteEvent = (TextView) view.findViewById(R.id.btnDeleteEvent);
-        btnChange = (TextView) view.findViewById(R.id.btnChange);
+        btnDeleteEvent = (TextView) view.findViewById(R.id.new_task_cancel);
+        btnChange = (TextView) view.findViewById(R.id.new_task_add_event);
 
         alert.setView(view);
         alert.setCancelable(false);
@@ -352,9 +353,19 @@ public class EventInformation extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 startActivity(intent);
-                finish();
             }
+
         });
 
     }
+    protected void start(){
+
+    }
+    private Runnable mapsThread = new Runnable() {
+        @Override
+        public void run() {
+
+        }
+    };
+
 }

@@ -6,10 +6,12 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 
 import com.example.everhope.FragmentAllEvent.ListEventFragment;
 import com.example.everhope.ui.home.HomeFragment;
 import com.example.everhope.ui.leaderboard.LeaderBoardFragment;
+import com.example.everhope.ui.newtask.NewTaskFragment;
 import com.example.everhope.ui.profile.ProfileFragment;
 import com.example.everhope.ui.yourtask.YourTaskFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,9 +35,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        Toolbar toolbar = findViewById(R.id.toolMenu);
+        ImageView menu_icon = findViewById(R.id.menu_icon);
 
-        setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -44,7 +45,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 R.id.nav_home, R.id.nav_personalprofile, R.id.nav_yourtask, R.id.nav_leaderboard, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        menu_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawer.openDrawer(Gravity.LEFT);
@@ -86,6 +87,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         }
         if (id == R.id.nav_leaderboard){
             getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new LeaderBoardFragment()).commit();
+        }
+        if (id == R.id.nav_new_task){
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new NewTaskFragment()).commit();
         }
         if (id == R.id.nav_logout){
             getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new YourTaskFragment()).commit();

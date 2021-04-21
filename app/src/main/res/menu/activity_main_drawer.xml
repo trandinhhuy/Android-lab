@@ -17,6 +17,11 @@
             android:icon="@drawable/ic_baseline_assignment_turned"
             android:title="Your Task" />
         <item
+            android:icon="@drawable/ic_baseline_add_circle_outline_24"
+            android:id="@+id/nav_new_task"
+            android:title="Add new Task"
+            />
+        <item
             android:id="@+id/nav_leaderboard"
             android:icon="@drawable/ic_baseline_leaderboard_24"
             android:title="Leader board"/>
