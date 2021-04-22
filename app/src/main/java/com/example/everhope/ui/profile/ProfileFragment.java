@@ -2,6 +2,9 @@ package com.example.everhope.ui.profile;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,6 +34,8 @@ import java.util.Calendar;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
+    public SQLiteDatabase db;
+    public SharedPreferences pref;
     String curPass = "abc123";
     Button btn_update, btn_exit, btn_changepass, btn_exitpass, btn_updatepass;
     ImageButton btn_edit;
@@ -41,17 +46,32 @@ public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
 
+    public static ProfileFragment newInstance(SQLiteDatabase db, SharedPreferences pref) {
+
+        Bundle args = new Bundle();
+
+        ProfileFragment fragment = new ProfileFragment();
+        fragment.db = db;
+        fragment.pref = pref;
+        fragment.setArguments(args);
+        return fragment;
+    }
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         profileViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
+        int userID = pref.getInt("userID", -1);
+        Cursor cursor = db.rawQuery("Select * from User where id = " + String.valueOf(userID), null);
         username = (TextView) root.findViewById(R.id.username);
         des = (TextView) root.findViewById(R.id.des);
         dob = (TextView) root.findViewById(R.id.dob);
         interests = (TextView) root.findViewById(R.id.interests);
         btn_edit = (ImageButton) root.findViewById(R.id.btn_edit);
-
+        if (cursor.moveToNext()){
+            username.setText(cursor.getString(2));
+            des.setText(cursor.getString(6));
+        }
         btn_edit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -232,9 +252,6 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-
-
-
 
         btn_exitpass.setOnClickListener(new View.OnClickListener() {
             @Override

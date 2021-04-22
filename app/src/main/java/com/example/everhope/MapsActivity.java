@@ -11,6 +11,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.SearchView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -44,35 +45,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         client = LocationServices.getFusedLocationProviderClient(this);
         getCurrentLocation();
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String viewStyle = bundle.getString("action", "view");
         searchView = findViewById(R.id.search_location);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                String location  = searchView.getQuery().toString();
-                List<Address> addressList = null;
-                if (location != null && !location.isEmpty()){
-                    Geocoder geocoder = new Geocoder(MapsActivity.this);
-                    try {
-                        addressList = geocoder.getFromLocationName(location, 1);
-                        Address address = addressList.get(0);
-                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                        mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+        if (viewStyle.compareTo("view") == 0){
+            searchView.setEnabled(false);
+            searchView.setVisibility(View.INVISIBLE);
+        }
+        else {
+            searchView.setEnabled(true);
+            searchView.setVisibility(View.VISIBLE);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    String location = searchView.getQuery().toString();
+                    List<Address> addressList = null;
+                    if (location != null && !location.isEmpty()) {
+                        Geocoder geocoder = new Geocoder(MapsActivity.this);
+                        try {
+                            addressList = geocoder.getFromLocationName(location, 1);
+                            Address address = addressList.get(0);
+                            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                            mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            e.printStackTrace();
+                        }
+
                     }
 
+                    return false;
                 }
 
-                return false;
-            }
 
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+            });
+        }
         mapFragment.getMapAsync(this);
     }
 
@@ -140,10 +154,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), EventInformation.class);
-        // Bundle id event
-        startActivity(intent);
-        finish();
+        Intent getintent = getIntent();
+        Bundle bundle = getintent.getExtras();
+        String viewStyle = bundle.getString("action", "view");
+        if (viewStyle.compareTo("view") == 0){
+            finish();
+        }
+        else {
+            Intent intent = new Intent(getApplicationContext(), EventInformation.class);
+            // Bundle id event
+            startActivity(intent);
+            finish();
+        }
     }
 
 

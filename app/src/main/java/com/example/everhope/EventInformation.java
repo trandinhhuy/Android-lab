@@ -2,6 +2,7 @@ package com.example.everhope;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -37,7 +38,7 @@ public class EventInformation extends Activity {
     Animation rotateClose, rotateOpen, fromBottom, toBottom;
     boolean clicked = false;
     ViewGroup icons_view;
-    int[] icons = {R.drawable.image};
+    int[] icons = {R.drawable.ic_person};
 
     FloatingActionButton btnSetting;
     EditText editName, editDescription, editDatetime, editLocation, editHostPhone, editHostName, editField;
@@ -107,8 +108,8 @@ public class EventInformation extends Activity {
                 Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("action", "view");
+                intent.putExtras(bundle);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -174,7 +175,6 @@ public class EventInformation extends Activity {
         });
     }
 
-    Handler myHandler = new Handler();
 
     public void showEditDialog() {
         AlertDialog.Builder alert;
@@ -351,21 +351,15 @@ public class EventInformation extends Activity {
         btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("action", "edit");
+                Intent intent = new Intent(EventInformation.this, MapsActivity.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
+                finish();
             }
 
         });
 
     }
-    protected void start(){
-
-    }
-    private Runnable mapsThread = new Runnable() {
-        @Override
-        public void run() {
-
-        }
-    };
-
 }

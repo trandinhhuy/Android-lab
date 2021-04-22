@@ -19,11 +19,13 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.everhope.AddEventActivity;
 import com.example.everhope.AllEventActivity;
 import com.example.everhope.EventInformation;
 import com.example.everhope.Leaderboard;
 import com.example.everhope.R;
 import com.example.everhope.customlist.CustomEventList;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class YourTaskFragment extends Fragment {
     private YourTaskViewModel yourTaskViewModel;
@@ -49,6 +51,14 @@ public class YourTaskFragment extends Fragment {
                 new ViewModelProvider(this).get(YourTaskViewModel.class);
         View root = inflater.inflate(R.layout.your_task_view, null, true);
         ListView listView = root.findViewById(R.id.list_your_task);
+        FloatingActionButton floatingActionButton = root.findViewById(R.id.add_event);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddEventActivity.class);
+                startActivity(intent);
+            }
+        });
         CustomEventList customEventList = new CustomEventList((Activity)context, images, topics, members, R.layout.event_view_full);
         listView.setAdapter(customEventList);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

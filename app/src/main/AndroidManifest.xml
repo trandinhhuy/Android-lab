@@ -45,6 +45,7 @@
         <activity android:name=".EventInformation" />
         <activity android:name=".userProfile" />
         <activity android:name=".Leaderboard" />
+        <activity android:name=".AddEventActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
