@@ -2,9 +2,13 @@ package com.example.everhope.ui.profile;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -28,30 +33,43 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.everhope.R;
 import com.example.everhope.userProfile;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
-    public SQLiteDatabase db;
     public SharedPreferences pref;
     String curPass = "abc123";
     Button btn_update, btn_exit, btn_changepass, btn_exitpass, btn_updatepass;
     ImageButton btn_edit;
     EditText edit_name, edit_des, edit_dob, edit_interests, edit_currentpass, edit_newpass, edit_confirmpass;
-    TextView username, dob, des, interests;
+    TextView username, dob, des, interests, events;
     Calendar c;
     DatePickerDialog dpd;
 
+    Uri imageUri;
     private ProfileViewModel profileViewModel;
 
-    public static ProfileFragment newInstance(SQLiteDatabase db, SharedPreferences pref) {
+    public static ProfileFragment newInstance(SharedPreferences pref) {
 
         Bundle args = new Bundle();
 
         ProfileFragment fragment = new ProfileFragment();
-        fragment.db = db;
         fragment.pref = pref;
         fragment.setArguments(args);
         return fragment;
@@ -61,17 +79,73 @@ public class ProfileFragment extends Fragment {
         profileViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        int userID = pref.getInt("userID", -1);
-        Cursor cursor = db.rawQuery("Select * from User where id = " + String.valueOf(userID), null);
-        username = (TextView) root.findViewById(R.id.username);
-        des = (TextView) root.findViewById(R.id.des);
-        dob = (TextView) root.findViewById(R.id.dob);
-        interests = (TextView) root.findViewById(R.id.interests);
+        ImageView avatar = (ImageView) root.findViewById(R.id.avatar);
+        ImageView chooseAvt = (ImageView) root.findViewById(R.id.selectAvatar);
+
+        username = (TextView)root.findViewById(R.id.username);
+        dob = (TextView)root.findViewById(R.id.dob);
+        interests = (TextView)root.findViewById(R.id.interests);
+        des = (TextView)root.findViewById(R.id.des);
+        events = (TextView)root.findViewById(R.id.events);
+        chooseAvt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImages();
+            }
+        });
         btn_edit = (ImageButton) root.findViewById(R.id.btn_edit);
-        if (cursor.moveToNext()){
-            username.setText(cursor.getString(2));
-            des.setText(cursor.getString(6));
+        String userID = pref.getString("userID", "-1");
+
+        if (userID.compareTo("-1") == 0){
+            return root;
         }
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myref = firebaseDatabase.getReference().child("User").child(userID);
+
+        myref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                username.setText(String.valueOf(snapshot.child("Name").getValue()));
+                dob.setText(String.valueOf(snapshot.child("Dob").getValue()));
+                des.setText(String.valueOf(snapshot.child("Description").getValue()));
+                interests.setText(String.valueOf(snapshot.child("Interest").getValue()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference ref = storageReference.child("Avatar/User" + userID + "/");
+        ref.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for (StorageReference item: listResult.getItems()){
+                    try {
+                        final File localFile = File.createTempFile("avatar", "jpg");
+                        item.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                ImageView avatar = (ImageView) root.findViewById(R.id.avatar);
+                                avatar.setImageBitmap(bitmap);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
+
         btn_edit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -81,6 +155,22 @@ public class ProfileFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void selectImages() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && data != null && data.getData() != null){
+            imageUri = data.getData();
+
+        }
     }
 
     private void showDialog() {

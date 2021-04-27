@@ -16,13 +16,30 @@
             android:gravity="center"
             android:paddingTop="15dp"
             android:orientation="vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/avatar">
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/avatar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></ImageView>
 
-            </ImageView>
+                <ImageView
+                    android:id="@+id/selectAvatar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_baseline_create_new_folder_24">
+
+                </ImageView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -233,15 +250,16 @@
 
 
         </LinearLayout>
+
         <TextView
             android:id="@+id/events"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="None"
+            android:layout_height="19dp"
             android:layout_marginLeft="70dp"
             android:layout_marginRight="34dp"
-            android:textSize="18dp"
-            android:textColor="@color/dark_grey"/>
+            android:text="None"
+            android:textColor="@color/dark_grey"
+            android:textSize="18dp" />
 
         <View
             android:layout_width="match_parent"

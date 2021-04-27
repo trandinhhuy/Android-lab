@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "953553891458",
-    "project_id": "otpandroid-1ded7",
-    "storage_bucket": "otpandroid-1ded7.appspot.com"
+    "project_number": "859658693778",
+    "firebase_url": "https://core-invention-309920-default-rtdb.firebaseio.com",
+    "project_id": "core-invention-309920",
+    "storage_bucket": "core-invention-309920.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:953553891458:android:6714ec05f112745d01c49b",
+        "mobilesdk_app_id": "1:859658693778:android:e14a52a5f8aab384c2ca4b",
         "android_client_info": {
           "package_name": "com.example.everhope"
         }
       },
       "oauth_client": [
         {
-          "client_id": "953553891458-s0b34lmectsfpltnbbkt2p8o55kn9r6e.apps.googleusercontent.com",
+          "client_id": "859658693778-kkmm25ipshucfbntcjbr8rkchq9v793u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBZFLqjOoD5hlwmADxMO0h7B6NCddWEykM"
+          "current_key": "AIzaSyDfgQxXCuO6vmSrF5Hb5F2Kv5tBuTAXM5g"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "953553891458-s0b34lmectsfpltnbbkt2p8o55kn9r6e.apps.googleusercontent.com",
+              "client_id": "859658693778-kkmm25ipshucfbntcjbr8rkchq9v793u.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

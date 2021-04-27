@@ -15,6 +15,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.File;
 
 public class SignIn extends Activity {
@@ -33,6 +41,7 @@ public class SignIn extends Activity {
             startActivity(intent);
             finish();
         }
+
 // path to database
         File storagePath = getApplication().getFilesDir();
         String myDBPath = storagePath +"/" + "EverHope";
@@ -64,36 +73,53 @@ public class SignIn extends Activity {
                     showDialog("Your password is invalid. Please try again.");
                 }
                 else{
-                    int ID = -1;
+                    final String[] ID = {"-1"};
+                    final String[] banned = {"0"};
                     String email = txtEmail.getText().toString();
                     String password = SHA256.toSHA(txtPw.getText().toString());
-                    Cursor cursor = db.rawQuery("Select * from Account", null);
-                    while (cursor.moveToNext()){
-                        String dbEmail = cursor.getString(0);
-                        String dbPw = cursor.getString(1);
-                        if (email.compareTo(dbEmail) == 0){
-                            if (password.compareTo(dbPw) == 0){
-                                Cursor userCursor = db.rawQuery("Select id from User join Account on Account.email = '" + email + "'", null);
-                                while (userCursor.moveToNext()){
-                                    ID = userCursor.getInt(0);
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myref = database.getReference().child("User");
+                    myref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                String emailDb = String.valueOf(dataSnapshot.child("Email").getValue());
+                                String passwordDb = String.valueOf(dataSnapshot.child("Password").getValue());
+
+                                if (email.compareTo(emailDb) == 0 && password.compareTo(passwordDb) == 0){
+                                    banned[0] = String.valueOf(dataSnapshot.child("Ban").getValue());
+                                    String userKey = dataSnapshot.getKey();
+                                    ID[0] = userKey;
+
                                 }
                             }
+                            SharedPreferences pref = getApplication().getSharedPreferences("myloginpref", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            if (ID[0].compareTo("-1") != 0) {
+                                if (banned[0].compareTo("1") == 0){
+                                    showDialog("Your account has been banned. Please try another account.");
+                                }
+                                else {
+                                    editor.putBoolean("isLogin", true);
+                                    editor.putString("userID", ID[0]);
+                                    editor.commit();
+                                    Intent intent = new Intent(SignIn.this, MenuActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                            else {
+                                showDialog("Your password is incorrect. Please try again.");
+                            }
                         }
-                    }
-                    SharedPreferences pref = getApplication().getSharedPreferences("myloginpref", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = pref.edit();
-                    if (ID >= 0) {
-                        editor.putBoolean("isLogin", true);
-                        editor.putInt("userID", ID);
-                        editor.commit();
-                        Intent intent = new Intent(SignIn.this, MenuActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                    else {
-                        showDialog("Your password is incorrect. Please try again.");
 
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                 }
             }
         });
