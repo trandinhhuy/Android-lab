@@ -6,6 +6,9 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -22,11 +25,25 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toolbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -34,7 +51,7 @@ import java.util.List;
 
 public class EventInformation extends Activity {
     FloatingActionButton btnSeeMore;
-    ExtendedFloatingActionButton btnRate, btnAddComment, btnReport, btnMap, btnJoin;
+    ExtendedFloatingActionButton btnAddComment, btnReport, btnMap, btnJoin;
     Animation rotateClose, rotateOpen, fromBottom, toBottom;
     boolean clicked = false;
     ViewGroup icons_view;
@@ -63,24 +80,8 @@ public class EventInformation extends Activity {
                 finish();
             }
         });
-        String title = "";
-        icons_view = (ViewGroup) findViewById(R.id.eventParticipant);
-        int maxMember = 10;
-        for (int i = 0; i < maxMember; i++) {
-            final View singleIcon = getLayoutInflater().inflate(R.layout.participant_icon, null);
-            singleIcon.setId(i);
-            ImageView personalIcon = (ImageView) singleIcon.findViewById(R.id.personal_icon);
-            personalIcon.setImageResource(icons[0]);
-            icons_view.addView(singleIcon);
-            singleIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(EventInformation.this, userProfile.class);
-                    startActivity(intent);
-                }
-            });
-        }
-
+        SharedPreferences pref = getApplication().getSharedPreferences("myloginpref", MODE_PRIVATE);
+        String userID = pref.getString("userID", "");
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String location = "";
@@ -89,11 +90,47 @@ public class EventInformation extends Activity {
         } catch(NullPointerException e){
 
         }
+        String EventID = bundle.getString("EventID", "");
+
+        String title = "";
+        icons_view = (ViewGroup) findViewById(R.id.eventParticipant);
+
+        FirebaseDatabase participantFirebase = FirebaseDatabase.getInstance();
+        DatabaseReference participantRef = participantFirebase.getReference().child("EventParticipant/Event" + EventID);
+        participantRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int countID = 0;
+                icons_view = (ViewGroup) findViewById(R.id.eventParticipant);
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    String userParticipant = dataSnapshot.getKey();
+                    final View singleIcon = getLayoutInflater().inflate(R.layout.participant_icon, null);
+                    singleIcon.setId(countID);
+                    countID ++;
+                    setImage("Avatar/User" + userParticipant, R.id.personal_icon, singleIcon);
+                    singleIcon.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent1 = new Intent(getApplicationContext(), userProfile.class);
+                            Bundle bundle1 = new Bundle();
+                            bundle1.putString("UserID", userParticipant);
+                            intent1.putExtras(bundle1);
+                            startActivity(intent1);
+                        }
+                    });
+                    icons_view.addView(singleIcon);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         btnSeeMore = (FloatingActionButton) findViewById(R.id.btnSeeMore);
         btnAddComment = (ExtendedFloatingActionButton) findViewById(R.id.btnAddComment);
         btnMap = (ExtendedFloatingActionButton) findViewById(R.id.btnMap);
-        btnRate = (ExtendedFloatingActionButton) findViewById(R.id.btnRate);
         btnReport = (ExtendedFloatingActionButton) findViewById(R.id.btnReport);
         btnJoin = (ExtendedFloatingActionButton) findViewById(R.id.btnJoin);
 
@@ -101,6 +138,7 @@ public class EventInformation extends Activity {
         rotateOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_open_anim);
         fromBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.to_bottom_anim);
+
 
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,27 +162,23 @@ public class EventInformation extends Activity {
             @Override
             public void onClick(View v) {
                 if (clicked) {
-                    btnRate.setVisibility(View.INVISIBLE);
                     btnAddComment.setVisibility(View.INVISIBLE);
                     btnReport.setVisibility(View.INVISIBLE);
                     btnMap.setVisibility(View.INVISIBLE);
                     btnJoin.setVisibility(View.INVISIBLE);
                 } else {
-                    btnRate.setVisibility(View.VISIBLE);
                     btnAddComment.setVisibility(View.VISIBLE);
                     btnReport.setVisibility(View.VISIBLE);
                     btnMap.setVisibility(View.VISIBLE);
                     btnJoin.setVisibility(View.VISIBLE);
                 }
                 if (clicked) {
-                    btnRate.startAnimation(toBottom);
                     btnAddComment.startAnimation(toBottom);
                     btnReport.startAnimation(toBottom);
                     btnMap.startAnimation(toBottom);
                     btnJoin.startAnimation(toBottom);
                     btnSeeMore.startAnimation(rotateClose);
                 } else {
-                    btnRate.startAnimation(fromBottom);
                     btnAddComment.startAnimation(fromBottom);
                     btnReport.startAnimation(fromBottom);
                     btnMap.startAnimation(fromBottom);
@@ -173,6 +207,91 @@ public class EventInformation extends Activity {
                 showEditDialog();
             }
         });
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myref = firebaseDatabase.getReference().child("Event/" + EventID);
+        myref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+// render data
+                eventName.setText(String.valueOf(snapshot.child("Name").getValue()));
+                eventDescription.setText(String.valueOf(snapshot.child("Description").getValue()));
+                eventInterest.setText(String.valueOf(snapshot.child("Interest").getValue()));
+                String organizerID = String.valueOf(snapshot.child("Organizer").getValue());
+
+                if (organizerID.compareTo(userID) == 0){
+                    btnJoin.setText("Unjoin");
+                    btnSetting.setVisibility(View.VISIBLE);
+                    btnSetting.setEnabled(true);
+                }
+                else {
+
+                    btnSetting.setVisibility(View.INVISIBLE);
+                }
+                FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();
+                DatabaseReference userRef = firebaseDatabase1.getReference().child("User/" + organizerID);
+                userRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        eventOrganizer.setText(String.valueOf(snapshot.child("Name").getValue()));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+                StorageReference eventImageStore = firebaseStorage.getReference().child("Event/Event" + EventID);
+                eventImageStore.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                    @Override
+                    public void onSuccess(ListResult listResult) {
+                        for (StorageReference getImage : listResult.getItems()){
+                            try {
+                                final File eventImageFile = File.createTempFile("eventImage", "jpg");
+                                getImage.getFile(eventImageFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                        Bitmap bitmap = BitmapFactory.decodeFile(eventImageFile.getAbsolutePath());
+                                        ImageView eventImage = (ImageView) findViewById(R.id.event_image);
+                                        eventImage.setImageBitmap(bitmap);
+                                    }
+                                });
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                eventDatetime.setText(String.valueOf(snapshot.child("Datetime").getValue()));
+                eventLocation.setText(String.valueOf(snapshot.child("Location").getValue()));
+                eventContact.setText(String.valueOf(snapshot.child("Phone").getValue()));
+// render data
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        btnReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent reportIntent = new Intent(getApplicationContext(), ReportActivity.class);
+                Bundle reportBundle = new Bundle();
+                reportBundle.putString("EventID", EventID);
+                reportBundle.putString("EventName", String.valueOf(eventName.getText()));
+                reportIntent.putExtras(reportBundle);
+                startActivity(reportIntent);
+            }
+        });
+
     }
 
 
@@ -361,5 +480,30 @@ public class EventInformation extends Activity {
 
         });
 
+    }
+
+    public static void setImage(String imageSrc, Integer layout, View root){
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference imageRef = firebaseStorage.getReference().child(imageSrc);
+        imageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for (StorageReference item : listResult.getItems()){
+                    try {
+                        final File file = File.createTempFile("image", "jpg");
+                        item.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                                ImageView imageLayout = (ImageView) root.findViewById(layout);
+                                imageLayout.setImageBitmap(bitmap);
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 }

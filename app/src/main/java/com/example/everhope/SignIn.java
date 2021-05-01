@@ -43,14 +43,6 @@ public class SignIn extends Activity {
         }
 
 // path to database
-        File storagePath = getApplication().getFilesDir();
-        String myDBPath = storagePath +"/" + "EverHope";
-        try {
-            db = SQLiteDatabase.openDatabase(myDBPath, null, SQLiteDatabase.CREATE_IF_NECESSARY);
-            db = openOrCreateDatabase("EverHope", MODE_PRIVATE, null);
-        } catch (SQLiteException e){
-            e.printStackTrace();
-        }
 
         txtEmail = (EditText) findViewById(R.id.txtEmail);
         txtPw = (EditText) findViewById(R.id.txtPassword);

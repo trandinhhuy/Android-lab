@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,12 +29,22 @@ import com.example.everhope.customlist.CustomEventList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class YourTaskFragment extends Fragment {
+    SharedPreferences pref;
     private YourTaskViewModel yourTaskViewModel;
     Context context = null;
     Integer [] images = {R.drawable.volun1, R.drawable.volun2, R.drawable.volun3};
     int[] members = {12, 11, 15};
     String[] topics = {"1", "v", "a"};
 
+    public static YourTaskFragment newInstance(SharedPreferences pref) {
+
+        Bundle args = new Bundle();
+
+        YourTaskFragment fragment = new YourTaskFragment();
+        fragment.pref = pref;
+        fragment.setArguments(args);
+        return fragment;
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +70,7 @@ public class YourTaskFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        CustomEventList customEventList = new CustomEventList((Activity)context, images, topics, members, R.layout.event_view_full);
+        /*CustomEventList customEventList = new CustomEventList((Activity)context, images, topics, members, R.layout.event_view_full);
         listView.setAdapter(customEventList);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -71,6 +82,7 @@ public class YourTaskFragment extends Fragment {
                 startActivity(intent);
             }
         });
+         */
         return root;
     }
 }

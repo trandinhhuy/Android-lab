@@ -1,6 +1,7 @@
 package com.example.everhope;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -125,15 +126,16 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        pref = getApplication().getSharedPreferences("myloginpref", MODE_PRIVATE);
         int id = item.getItemId();
         if (id == R.id.nav_home){
-            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new HomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, HomeFragment.newInstance(pref)).commit();
         }
         if (id == R.id.nav_profile){
             getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, ProfileFragment.newInstance(pref)).commit();
         }
         if (id == R.id.nav_event){
-            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new YourTaskFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, YourTaskFragment.newInstance(pref)).commit();
         }
         if (id == R.id.nav_leaderboard){
             getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new LeaderBoardFragment()).commit();
@@ -164,5 +166,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
-
+    public static String getMyLoginPref(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("myloginpref", MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userID", "");
+        return  userId;
+    }
 }

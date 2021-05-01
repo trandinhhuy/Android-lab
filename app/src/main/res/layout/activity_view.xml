@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingRight="30dp"
     android:layout_marginLeft="5dp"
@@ -11,14 +12,18 @@
         android:orientation="vertical"
         android:layout_width="300dp"
         android:layout_height="200dp">
-
+        <androidx.cardview.widget.CardView
+            android:layout_width="298dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            app:cardCornerRadius="20dp">
         <ImageView
             android:id="@+id/iconImg"
-            android:layout_width="280dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/volun1"></ImageView>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"></ImageView>
+    </androidx.cardview.widget.CardView>
 
         <TextView
         android:id="@+id/caption"
