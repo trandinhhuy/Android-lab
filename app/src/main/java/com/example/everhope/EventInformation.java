@@ -80,8 +80,8 @@ public class EventInformation extends Activity {
                 finish();
             }
         });
-        SharedPreferences pref = getApplication().getSharedPreferences("myloginpref", MODE_PRIVATE);
-        String userID = pref.getString("userID", "");
+
+        String userID = MenuActivity.getMyLoginPref(getApplicationContext());
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String location = "";

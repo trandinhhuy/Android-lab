@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.everhope.supportClass.UpdateFirebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +43,11 @@ public class ReportActivity extends AppCompatActivity {
 
         eventName.setText(organizer);
 
+        // try to update exists report
+        UpdateFirebase.updateData("EventReport/Event0/0/Detail", "test report");
+
+        // add new report
+        UpdateFirebase.updateData("EventReport/Event2/0/Detail", "New report");
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reportRef = firebaseDatabase.getReference().child("Event/" + eventID);
