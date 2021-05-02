@@ -77,9 +77,8 @@ public class ListEventFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         RelativeLayout fragmentListEvent = (RelativeLayout) inflater.inflate(R.layout.list_event, null, true);
         ListView listEvent = (ListView) fragmentListEvent.findViewById(R.id.list_event);
-        Bundle bundle = getArguments();
+        Bundle bundle = this.getArguments();
         String topic = bundle.getString("topic", "");
-
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference eventRef = firebaseDatabase.getReference().child("Event");
 
@@ -88,7 +87,9 @@ public class ListEventFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot item : snapshot.getChildren()){
                     String banned = String.valueOf(item.child("Ban").getValue());
-                    if (banned.compareTo("1") != 0) {
+                    String interest = String.valueOf(item.child("Interest").getValue());
+                    String eventName = String.valueOf(item.child("Name").getValue());
+                    if (banned.compareTo("1") != 0 && (interest.contains(topic) || topic.contains(interest) || eventName.contains(topic) || topic.contains(eventName))) {
                         name.add(String.valueOf(item.child("Name").getValue()));
                         date.add(String.valueOf(item.child("Datetime").getValue()));
                         String ID = String.valueOf(item.getKey());

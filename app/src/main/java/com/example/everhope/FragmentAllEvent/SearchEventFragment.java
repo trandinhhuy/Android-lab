@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -50,14 +52,32 @@ public class SearchEventFragment extends Fragment {
             Button topBtn = (Button) btnView.findViewById(R.id.buttonTopicView);
             topBtn.setText(topics[i]);
             topicButtons.addView(btnView);
+            int finalI = i;
             btnView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Bundle bundle = new Bundle();
+                    bundle.putString("topic", topics[finalI]);
+                    ListEventFragment listEventFragment = new ListEventFragment();
+                    listEventFragment.setArguments(bundle);
+                    getFragmentManager().beginTransaction().replace(R.id.list_event_fragment, listEventFragment).commit();
                 }
             });
         }
-
+        ImageView searchTopic = (ImageView) fragmentSearchEvent.findViewById(R.id.search_onclick);
+        searchTopic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText topicInput = (EditText) fragmentSearchEvent.findViewById(R.id.search_topic);
+                String template = topicInput.getText().toString();
+                Bundle bundle = new Bundle();
+                bundle.putString("topic", template);
+                ListEventFragment listEventFragment = new ListEventFragment();
+                listEventFragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.list_event_fragment, listEventFragment).commit();
+                topicInput.setText("");
+            }
+        });
         return fragmentSearchEvent;
     }
 }
