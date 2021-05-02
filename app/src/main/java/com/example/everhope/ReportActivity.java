@@ -3,6 +3,9 @@ package com.example.everhope;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -17,11 +20,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class ReportActivity extends AppCompatActivity {
-    TextView eventName, eventDescription;
+    TextView eventName, eventDescription, btn_submit;
+    CheckBox cbIllegal, cbSpam, cbOffensive, cbAbuse, cbSolicitation, cbOthers;
+    EditText detail;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report_event_layout);
+
+        String userID = MenuActivity.getMyLoginPref(getApplicationContext());
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String eventID = bundle.getString("EventID", "");
+        String organizer = bundle.getString("EventName", "");
 
         getSupportActionBar().hide();
         Toolbar reportEventToolBar = (Toolbar) findViewById(R.id.report_event_tool_bar);
@@ -34,11 +45,18 @@ public class ReportActivity extends AppCompatActivity {
 
         eventName = (TextView) findViewById(R.id.report_event_name);
         eventDescription = (TextView) findViewById(R.id.report_event_description);
+        btn_submit = (TextView) findViewById(R.id.report_event_submit);
+        cbIllegal = (CheckBox) findViewById(R.id.report_event_illegal_event);
+        cbSpam= (CheckBox) findViewById(R.id.report_event_spam_event);
+        cbOffensive= (CheckBox) findViewById(R.id.report_event_offensive_event);
+        cbAbuse= (CheckBox) findViewById(R.id.report_event_abuse_event);
+        cbSolicitation= (CheckBox) findViewById(R.id.report_event_solicitation_event);
+        cbOthers= (CheckBox) findViewById(R.id.report_event_other_reason);
+        detail = (EditText) findViewById(R.id.report_event_detail);
 
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        String eventID = bundle.getString("EventID", "");
-        String organizer = bundle.getString("EventName", "");
+
+
+
 
         eventName.setText(organizer);
 
