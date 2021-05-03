@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReportActivity extends AppCompatActivity {
     TextView eventName, eventDescription, btn_submit;
@@ -46,6 +55,7 @@ public class ReportActivity extends AppCompatActivity {
 
         eventName = (TextView) findViewById(R.id.report_event_name);
         eventDescription = (TextView) findViewById(R.id.report_event_description);
+
         btn_submit = (TextView) findViewById(R.id.report_event_submit);
         cbIllegal = (CheckBox) findViewById(R.id.report_event_illegal_event);
         cbSpam= (CheckBox) findViewById(R.id.report_event_spam_event);
@@ -57,16 +67,7 @@ public class ReportActivity extends AppCompatActivity {
 
 
 
-
-
         eventName.setText(organizer);
-
-        // try to update exists report
-        UpdateFirebase.updateData("EventReport/Event0/0/Detail", "test report");
-
-        // add new report
-        UpdateFirebase.updateData("EventReport/Event2/0/Detail", "New report");
-
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reportRef = firebaseDatabase.getReference().child("Event/" + eventID);
         reportRef.addValueEventListener(new ValueEventListener() {
@@ -80,6 +81,36 @@ public class ReportActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        btn_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReportedEvent re = new ReportedEvent();
+
+                re.detail = detail.getText().toString();
+                if (cbSpam.isChecked()) re.reason+= cbSpam.getText().toString()+"   ";
+                if (cbAbuse.isChecked()) re.reason+= cbAbuse.getText().toString()+"   ";
+                if (cbIllegal.isChecked()) re.reason+= cbIllegal.getText().toString()+"   ";
+                if (cbOffensive.isChecked()) re.reason+= cbOffensive.getText().toString()+"   ";
+                if (cbSolicitation.isChecked()) re.reason+= cbSolicitation.getText().toString()+"   ";
+
+                if (re.reason.length()<1 && re.detail.length()<1){
+                    Toast.makeText(getApplicationContext(), "Please complete all needed fields.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (re.reason.length()<1 && re.detail.length()>0 || cbOthers.isChecked()){
+                    re.reason+= cbOthers.getText().toString()+"   ";
+                }
+                String [] datetime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()).split(" ");
+                re.date = datetime[0];
+                re.time = datetime[1];
+                re.userID = userID;
+
+                UpdateFirebase.updateReportedEvent("EventReport/Event0", re);
+                Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
+                
             }
         });
 
