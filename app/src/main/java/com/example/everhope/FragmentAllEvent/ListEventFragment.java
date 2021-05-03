@@ -42,9 +42,6 @@ import java.util.List;
 
 public class ListEventFragment extends Fragment {
     Context context = null;
-    Integer [] images = {R.drawable.volun1, R.drawable.volun2, R.drawable.volun3};
-    int[] members = {12, 11, 15};
-    String[] topics = {"1", "v", "a"};
 
     List<String> name = new ArrayList<>();
     List<String> date = new ArrayList<>();
