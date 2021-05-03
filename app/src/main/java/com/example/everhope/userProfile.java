@@ -35,7 +35,7 @@ import java.util.List;
 public class userProfile extends Activity {
     String curPass = "abc123";
     Button btn_update, btn_exit, btn_changepass, btn_exitpass, btn_updatepass;
-    ImageButton btn_edit;
+    ImageButton btn_edit, btn_rp_user;
     EditText edit_name, edit_des, edit_dob, edit_interests, edit_currentpass, edit_newpass, edit_confirmpass;
     TextView username, dob, des, interests;
     Calendar c;
@@ -52,6 +52,7 @@ public class userProfile extends Activity {
         dob = (TextView) findViewById(R.id.dob);
         interests = (TextView) findViewById(R.id.interests);
         btn_edit = (ImageButton) findViewById(R.id.btn_edit);
+        btn_rp_user = (ImageButton)findViewById(R.id.btn_rp_user) ;
 
         Toolbar toolbar = findViewById(R.id.user_profile_toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -82,11 +83,23 @@ public class userProfile extends Activity {
         if (MenuActivity.getMyLoginPref(getApplicationContext()).compareTo(userId) != 0){
             btn_edit.setVisibility(View.INVISIBLE);
         }
+        if (MenuActivity.getMyLoginPref(getApplicationContext()).compareTo(userId) == 0){
+            btn_rp_user.setVisibility(View.INVISIBLE);
+        }
         btn_edit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
                 showDialog();
+            }
+        });
+        btn_rp_user.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent reportIntent = new Intent(getApplicationContext(), ReportUser.class);
+                Bundle reportBundle = new Bundle();
+                reportBundle.putString("ReportUserID", userId);
+                reportIntent.putExtras(reportBundle);
+                startActivity(reportIntent);
             }
         });
 

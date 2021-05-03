@@ -1,20 +1,20 @@
 package com.example.everhope;
 
-public class ReportedEvent {
+public class ReportedObject {
     String date;
     String detail;
     String reason;
     String time;
     String userID;
 
-    ReportedEvent(){
+    ReportedObject(){
         this.date = "";
         this. detail = "";
         this.reason="";
         this.time = "";
         this.userID = "";
     }
-    ReportedEvent(String date, String detail, String reason,String time, String userID){
+    ReportedObject(String date, String detail, String reason, String time, String userID){
         this.date = date;
         this. detail = detail;
         this.reason=reason;

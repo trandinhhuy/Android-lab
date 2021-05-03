@@ -3,7 +3,6 @@ package com.example.everhope;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,14 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-public class ReportActivity extends AppCompatActivity {
+public class ReportEvent extends AppCompatActivity {
     TextView eventName, eventDescription, btn_submit;
     CheckBox cbIllegal, cbSpam, cbOffensive, cbAbuse, cbSolicitation, cbOthers;
     EditText detail;
@@ -87,7 +81,7 @@ public class ReportActivity extends AppCompatActivity {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReportedEvent re = new ReportedEvent();
+                ReportedObject re = new ReportedObject();
 
                 re.detail = detail.getText().toString();
                 if (cbSpam.isChecked()) re.reason+= cbSpam.getText().toString()+"   ";
@@ -108,9 +102,10 @@ public class ReportActivity extends AppCompatActivity {
                 re.time = datetime[1];
                 re.userID = userID;
 
-                UpdateFirebase.updateReportedEvent("EventReport/Event0", re);
+                UpdateFirebase.updateReportedEvent("EventReport/Event"+eventID, re);
                 Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
-                
+                finish();
+
             }
         });
 

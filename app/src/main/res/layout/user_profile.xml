@@ -53,6 +53,17 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
+                    <ImageButton
+                        android:id="@+id/btn_rp_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:background="@color/white"
+                        android:src="@drawable/ic_rp_user"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/btn_edit" />
+
                     <TextView
                         android:id="@+id/username"
                         android:layout_width="wrap_content"
