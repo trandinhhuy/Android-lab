@@ -2,15 +2,12 @@ package com.example.everhope;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -283,7 +280,7 @@ public class EventInformation extends Activity {
         btnReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent reportIntent = new Intent(getApplicationContext(), ReportActivity.class);
+                Intent reportIntent = new Intent(getApplicationContext(), ReportEvent.class);
                 Bundle reportBundle = new Bundle();
                 reportBundle.putString("EventID", EventID);
                 reportBundle.putString("EventName", String.valueOf(eventName.getText()));

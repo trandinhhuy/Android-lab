@@ -1,8 +1,6 @@
 package com.example.everhope.supportClass;
 
-import android.content.Context;
-
-import com.example.everhope.ReportedEvent;
+import com.example.everhope.ReportedObject;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -15,7 +13,7 @@ public class UpdateFirebase {
         DatabaseReference myRef = firebaseDatabase.getReference(pathToNode);
         myRef.setValue(data);
     }
-    public static void updateReportedEvent(String path, ReportedEvent reportedEvent){
+    public static void updateReportedEvent(String path, ReportedObject reportedEvent){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final String uuid = UUID.randomUUID().toString().replace("-", "");
         path+= "/"+uuid;

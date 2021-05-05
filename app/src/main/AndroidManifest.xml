@@ -21,7 +21,8 @@
         <activity android:name=".AllEventActivity" />
         <activity android:name=".SignIn" />
         <activity android:name=".SignUp" />
-        <activity android:name=".ReportActivity"/>
+        <activity android:name=".ReportEvent"/>
+        <activity android:name=".ReportUser"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
