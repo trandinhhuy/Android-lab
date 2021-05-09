@@ -108,6 +108,9 @@ public class SignIn extends Activity {
                                     }
                                     startActivity(next);
                                     finish();
+
+                                    // khong phai admin
+                                    // start activity menu admin
                                 }
                             }
                             else {
