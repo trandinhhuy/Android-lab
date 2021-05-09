@@ -12,15 +12,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.everhope.EventInformation;
 import com.example.everhope.R;
 
 public class CustomCommentList extends ArrayAdapter {
     Activity context;
-    Integer[] avatar;
+    String[] avatar;
     String[] name;
     String[] comment;
 
-    public CustomCommentList(@NonNull Activity context, Integer[] avatar, String[] name, String[] comment) {
+    public CustomCommentList(@NonNull Activity context, String[] avatar, String[] name, String[] comment) {
         super(context, R.layout.single_comment, name);
         this.avatar = avatar;
         this.name = name;
@@ -36,11 +37,11 @@ public class CustomCommentList extends ArrayAdapter {
         if (convertView == null){
             root = inflater.inflate(R.layout.single_comment, null, true);
         }
-        ImageView user_image = root.findViewById(R.id.user_comment_image);
         TextView user_comment = root.findViewById(R.id.user_comment);
         TextView user_name = root.findViewById(R.id.user_name);
 
-        user_image.setImageResource(avatar[position]);
+        EventInformation.setImage("Avatar/User" + avatar[position], R.id.user_comment_image, root);
+
         user_name.setText(name[position]);
         user_comment.setText(comment[position]);
         return root;
