@@ -18,19 +18,22 @@ public class UpdateFirebase {
     }
     public static void updateReportedEvent(String path, ReportedObject reportedEvent){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        final String uuid = UUID.randomUUID().toString().replace("-", "");
-        path+= "/"+uuid;
+
         firebaseDatabase.getReference(path+"/Detail").setValue(reportedEvent.getDetail());
         firebaseDatabase.getReference(path+"/Reason").setValue(reportedEvent.getReason());
         firebaseDatabase.getReference(path+"/Time").setValue(reportedEvent.getTime());
         firebaseDatabase.getReference(path+"/Date").setValue(reportedEvent.getDate());
-        firebaseDatabase.getReference(path+"/User").setValue(reportedEvent.getUserID());
+        firebaseDatabase.getReference(path+"/ReportedBy").setValue(reportedEvent.getReportBy());
+        firebaseDatabase.getReference(path+"/Reported").setValue(reportedEvent.getReported());
+        firebaseDatabase.getReference(path+"/Key").setValue(reportedEvent.getKey());
     }
-    public static void removeData (String pathToNode){
+
+    public static void removeData (String pathToNode) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = firebaseDatabase.getReference(pathToNode);
         myRef.removeValue();
     }
+
 
     public static void updateNewEvent(String path, EventObj newEvent){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();

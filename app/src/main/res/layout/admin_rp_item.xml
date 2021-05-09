@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/admin_item_btn_ban"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:background="#E3E3E3"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+        android:text="BAN"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/admin_item_txt_rpReason"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:inputType="textMultiLine"
+        android:text="Spam, Offensive, Abuse, Solicitation, Cheat, Boost"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/admin_item_btn_ban"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/admin_item_txt_rpDatetime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="9:00 21/12/2021"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/admin_item_txt_rpReason"
+        app:layout_constraintStart_toStartOf="@+id/admin_item_txt_rpReason"
+        app:layout_constraintTop_toBottomOf="@+id/admin_item_txt_rpReason" />
+
+    <TextView
+        android:id="@+id/admin_item_txt_rpDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:inputType="textMultiLine"
+        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. "
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/admin_item_txt_rpDatetime"
+        app:layout_constraintStart_toStartOf="@+id/admin_item_txt_rpDatetime"
+        app:layout_constraintTop_toBottomOf="@+id/admin_item_txt_rpDatetime" />
+
+    <TextView
+        android:id="@+id/admin_item_btn_showInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Show Info"
+        android:textColor="#1976D2"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/admin_item_txt_rpDetail"
+        app:layout_constraintTop_toBottomOf="@+id/admin_item_txt_rpDetail" />
+
+    <TextView
+        android:id="@+id/admin_item_btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Delete Request"
+        android:textColor="#D32F2F"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/admin_item_txt_rpDetail"
+        app:layout_constraintTop_toTopOf="@+id/admin_item_btn_showInfo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

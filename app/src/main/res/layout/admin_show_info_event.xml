@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView5_aei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Description"
+            android:textColor="@color/logo_red"
+            app:layout_constraintStart_toStartOf="@+id/textView3_aei"
+            app:layout_constraintTop_toBottomOf="@+id/admin_event_rp_eventName" />
+
+        <TextView
+            android:id="@+id/textView1_aei"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Event ID"
+            android:textColor="@color/logo_red"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/admn_event_btn_closeRpInfo" />
+
+        <TextView
+            android:id="@+id/admin_event_rp_eventID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView14_aei"
+            app:layout_constraintTop_toTopOf="@+id/textView1_aei" />
+
+        <TextView
+            android:id="@+id/textView3_aei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Name"
+            android:textColor="@color/logo_red"
+            app:layout_constraintStart_toStartOf="@+id/textView1_aei"
+            app:layout_constraintTop_toBottomOf="@+id/admin_event_rp_eventID" />
+
+        <TextView
+            android:id="@+id/admin_event_rp_eventName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/admin_event_rp_eventID"
+            app:layout_constraintStart_toStartOf="@+id/admin_event_rp_eventID"
+            app:layout_constraintTop_toTopOf="@+id/textView3_aei" />
+
+        <TextView
+            android:id="@+id/admin_event_rp_eventDes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView"
+            app:layout_constraintEnd_toEndOf="@+id/admin_event_rp_eventName"
+            app:layout_constraintStart_toStartOf="@+id/admin_event_rp_eventName"
+            app:layout_constraintTop_toTopOf="@+id/textView5_aei" />
+
+        <TextView
+            android:id="@+id/textView6_aei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Interest"
+            android:textColor="@color/logo_red"
+            app:layout_constraintStart_toStartOf="@+id/textView5_aei"
+            app:layout_constraintTop_toBottomOf="@+id/admin_event_rp_eventDes" />
+
+        <TextView
+            android:id="@+id/textView7_aei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Datetime"
+            android:textColor="@color/logo_red"
+            app:layout_constraintStart_toStartOf="@+id/textView6_aei"
+            app:layout_constraintTop_toBottomOf="@+id/admin_event_rp_eventInterest" />
+
+        <TextView
+            android:id="@+id/admin_event_rp_eventInterest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/admin_event_rp_eventDes"
+            app:layout_constraintStart_toStartOf="@+id/admin_event_rp_eventDes"
+            app:layout_constraintTop_toTopOf="@+id/textView6_aei" />
+
+        <TextView
+            android:id="@+id/admin_event_rp_eventDatetime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/admin_event_rp_eventInterest"
+            app:layout_constraintStart_toStartOf="@+id/admin_event_rp_eventInterest"
+            app:layout_constraintTop_toTopOf="@+id/textView7_aei" />
+
+        <TextView
+            android:id="@+id/textView12_aei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Location"
+            android:textColor="@color/logo_red"
+            app:layout_constraintStart_toStartOf="@+id/textView7_aei"
+            app:layout_constraintTop_toBottomOf="@+id/admin_event_rp_eventDatetime" />
+
+        <TextView
+            android:id="@+id/admin_event_rp_eventLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/admin_event_rp_eventDatetime"
+            app:layout_constraintStart_toStartOf="@+id/admin_event_rp_eventDatetime"
+            app:layout_constraintTop_toTopOf="@+id/textView12_aei" />
+
+        <TextView
+            android:id="@+id/textView14_aei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Organizer ID"
+            android:textColor="@color/logo_red"
+            app:layout_constraintStart_toStartOf="@+id/textView12_aei"
+            app:layout_constraintTop_toBottomOf="@+id/admin_event_rp_eventLocation" />
+
+        <TextView
+            android:id="@+id/admin_event_rp_EventHostID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="@+id/admin_event_rp_eventLocation"
+            app:layout_constraintStart_toStartOf="@+id/admin_event_rp_eventLocation"
+            app:layout_constraintTop_toTopOf="@+id/textView14_aei" />
+
+        <TextView
+            android:id="@+id/textView16_aei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Contact"
+            android:textColor="@color/logo_red"
+            app:layout_constraintStart_toStartOf="@+id/textView14_aei"
+            app:layout_constraintTop_toBottomOf="@+id/admin_event_rp_EventHostID" />
+
+        <TextView
+            android:id="@+id/admin_event_rp_eventContact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/admin_event_rp_EventHostID"
+            app:layout_constraintStart_toStartOf="@+id/admin_event_rp_EventHostID"
+            app:layout_constraintTop_toTopOf="@+id/textView16_aei" />
+
+        <TextView
+            android:id="@+id/admn_event_btn_closeRpInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="x"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

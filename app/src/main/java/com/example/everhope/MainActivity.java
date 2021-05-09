@@ -1,12 +1,10 @@
 package com.example.everhope;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +13,7 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
 
     SQLiteDatabase db;
-    private static int Splash_time_out = 3000;
+    private static int Splash_time_out = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
