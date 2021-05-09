@@ -5,11 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,8 +19,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.File;
 
 public class SignIn extends Activity {
     TextView btnSignIn, btnGoToSignUp;
@@ -39,7 +34,7 @@ public class SignIn extends Activity {
         Boolean isLogin = pref.getBoolean("isLogin", false);
         Boolean isAdmin = pref.getBoolean("isAdmin", false);
         if (isLogin == true ){
-            Intent intent = isAdmin==false?new Intent(getApplicationContext(), MenuActivity.class):new Intent(getApplicationContext(), Homepage_Admin.class);
+            Intent intent = isAdmin==false?new Intent(getApplicationContext(), MenuActivity.class):new Intent(getApplicationContext(), AdminHomepage.class);
             startActivity(intent);
             finish();
         }
@@ -103,7 +98,7 @@ public class SignIn extends Activity {
                                     if (typeAccount.compareTo("1")==0){
                                         editor.putBoolean("isAdmin", true);
                                         editor.commit();
-                                        next = new Intent(SignIn.this, Homepage_Admin.class);
+                                        next = new Intent(SignIn.this, AdminHomepage.class);
                                     }
 
                                     else{

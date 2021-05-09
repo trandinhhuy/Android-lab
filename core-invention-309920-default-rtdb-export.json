@@ -1,6 +1,6 @@
 {
   "Event" : [ {
-    "Ban" : "1",
+    "Ban" : 0,
     "Datetime" : "15/08/2021 10:00",
     "Description" : "Lorem Ipsum als den Standardtext, auch die Suche im Internet nach lorem ipsum macht viele Webseiten sichtbar, wo diese noch immer vorkommen. Mittlerweile gibt es mehrere Versionen des Lorem Ipsum, einige zufällig, andere bewusst (beeinflusst von Witz und des eigenen Geschmacks)",
     "Interest" : "Homeless, Health, People",
@@ -22,7 +22,7 @@
     "Organizer" : "0",
     "Phone" : "0971718586"
   }, {
-    "Ban" : "1",
+    "Ban" : 0,
     "Datetime" : "17/04/2021 12:00",
     "Description" : "Lorem Ipsum als den Standardtext, auch die Suche im Internet nach lorem ipsum macht viele Webseiten sichtbar, wo diese noch immer vorkommen. Mittlerweile gibt es mehrere Versionen des Lorem Ipsum, einige zufällig, andere bewusst (beeinflusst von Witz und des eigenen Geschmacks)",
     "Interest" : "Animals, Homeless, Health",
@@ -283,6 +283,33 @@
     }
   },
   "EventReport" : {
+    "2633a31a959f4ea79852b88f7b06792c" : {
+      "Date" : "10/05/2021",
+      "Detail" : "waste time!!!$#@#$$@@",
+      "Key" : "2633a31a959f4ea79852b88f7b06792c",
+      "Reason" : "Spam, Abuse, OffensiveOthers   ",
+      "Reported" : "9",
+      "ReportedBy" : "0",
+      "Time" : "01:24:47"
+    },
+    "284dcd93a54e40e9a3083ae82a0d583d" : {
+      "Date" : "10/05/2021",
+      "Detail" : "wrong information\nthe location is fake",
+      "Key" : "284dcd93a54e40e9a3083ae82a0d583d",
+      "Reason" : "Spam, Illegal",
+      "Reported" : "8",
+      "ReportedBy" : "0",
+      "Time" : "01:24:11"
+    },
+    "5842e6d7d7a94c1690376f3edfd9fc10" : {
+      "Date" : "10/05/2021",
+      "Detail" : "virtual project, buff ranking",
+      "Key" : "5842e6d7d7a94c1690376f3edfd9fc10",
+      "Reason" : "Spam",
+      "Reported" : "10",
+      "ReportedBy" : "0",
+      "Time" : "01:29:52"
+    },
     "9a5badd1bcb643b5b7d9096735208f4a" : {
       "Date" : "09/05/2021",
       "Detail" : "",
@@ -300,6 +327,15 @@
       "Reported" : "0",
       "ReportedBy" : "0",
       "Time" : "14:25:14"
+    },
+    "e1473a6f369249d292f6540b67ebeb24" : {
+      "Date" : "10/05/2021",
+      "Detail" : "poor quality",
+      "Key" : "e1473a6f369249d292f6540b67ebeb24",
+      "Reason" : "Others   ",
+      "Reported" : "13",
+      "ReportedBy" : "0",
+      "Time" : "01:25:18"
     },
     "e1fa7d82782e413da5452ab3a8464494" : {
       "Date" : "09/05/2021",
@@ -335,7 +371,7 @@
     "Phone" : "0832674232"
   }, {
     "Admin" : 0,
-    "Ban" : "1",
+    "Ban" : "0",
     "Description" : "Lorem Ipsum als den Standardtext, auch die Suche im Internet nach lorem ipsum macht viele Webseiten sichtbar, wo diese noch immer vorkommen. Mittlerweile gibt es mehrere Versionen des Lorem Ipsum, einige zufällig, andere bewusst (beeinflusst von Witz und des eigenen Geschmacks)",
     "Dob" : "01/01/2000",
     "Email" : "tranminhanh@gmail.com",
@@ -379,7 +415,7 @@
     "Phone" : "0123456789"
   }, {
     "Admin" : 0,
-    "Ban" : 1,
+    "Ban" : 0,
     "Description" : "Lorem Ipsum als den Standardtext, auch die Suche im Internet nach lorem ipsum macht viele Webseiten sichtbar, wo diese noch immer vorkommen. Mittlerweile gibt es mehrere Versionen des Lorem Ipsum, einige zufällig, andere bewusst (beeinflusst von Witz und des eigenen Geschmacks)",
     "Dob" : "19/01/2000",
     "Email" : "hello123@gmail.com",
@@ -390,7 +426,7 @@
     "Phone" : "0978785653"
   }, {
     "Admin" : 0,
-    "Ban" : 1,
+    "Ban" : 0,
     "Description" : "Lorem Ipsum als den Standardtext, auch die Suche im Internet nach lorem ipsum macht viele Webseiten sichtbar, wo diese noch immer vorkommen. Mittlerweile gibt es mehrere Versionen des Lorem Ipsum, einige zufällig, andere bewusst (beeinflusst von Witz und des eigenen Geschmacks)",
     "Dob" : "01/11/2000",
     "Email" : "nvk453248@gmail.com",
@@ -435,23 +471,23 @@
     "Phone" : "0971718586"
   } ],
   "UserReport" : {
-    "2e9a39b07af446d7ab196a356c95f5ef" : {
-      "Date" : "09/05/2021",
+    "446e5c879d1f40ec98c5ea1b17878d2b" : {
+      "Date" : "10/05/2021",
       "Detail" : "",
-      "Key" : "2e9a39b07af446d7ab196a356c95f5ef",
-      "Reason" : "Spam, Abuse, Illegal",
-      "Reported" : "9",
+      "Key" : "446e5c879d1f40ec98c5ea1b17878d2b",
+      "Reason" : "Abuse, Illegal",
+      "Reported" : "7",
       "ReportedBy" : "0",
-      "Time" : "14:25:01"
+      "Time" : "01:27:08"
     },
-    "c923032b3c4b45b2965c903b335aa2ae" : {
-      "Date" : "09/05/2021",
-      "Detail" : "",
-      "Key" : "c923032b3c4b45b2965c903b335aa2ae",
-      "Reason" : "Spam, Illegal, Offensive",
+    "de9c6f2275884a959aa1ae21ff1a5f77" : {
+      "Date" : "10/05/2021",
+      "Detail" : "boosting and spam",
+      "Key" : "de9c6f2275884a959aa1ae21ff1a5f77",
+      "Reason" : "Spam, SolicitationOthers   ",
       "Reported" : "3",
       "ReportedBy" : "0",
-      "Time" : "14:24:54"
+      "Time" : "01:25:51"
     }
   }
 }
