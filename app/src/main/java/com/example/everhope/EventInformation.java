@@ -25,6 +25,7 @@ import android.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
+import com.example.everhope.supportClass.UpdateFirebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -137,16 +138,7 @@ public class EventInformation extends Activity {
         toBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.to_bottom_anim);
 
 
-        btnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("action", "view");
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+
 
         btnAddComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,6 +261,19 @@ public class EventInformation extends Activity {
                 eventDatetime.setText(String.valueOf(snapshot.child("Datetime").getValue()));
                 eventLocation.setText(String.valueOf(snapshot.child("Location").getValue()));
                 eventContact.setText(String.valueOf(snapshot.child("Phone").getValue()));
+                btnMap.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("action", "view");
+                        bundle.putString("Lat", String.valueOf(snapshot.child("Lat").getValue()));
+                        bundle.putString("Long", String.valueOf(snapshot.child("Long").getValue()));
+                        bundle.putString("Position", String.valueOf(snapshot.child("Location").getValue()));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
 // render data
             }
 
@@ -341,6 +346,21 @@ public class EventInformation extends Activity {
                 eventOrganizer.setText(editHostName.getText().toString());
                 eventContact.setText(editHostPhone.getText().toString());
                 ///////////////// luu vao database
+                Intent intent = getIntent();
+                Bundle bundle = intent.getExtras();
+                String EventID = bundle.getString("EventID", "");
+                String lat = bundle.getString("latitude", "");
+                String lng = bundle.getString("longitude", "");
+                UpdateFirebase.updateData("Event/" + EventID + "/Name", editName.getText().toString());
+                UpdateFirebase.updateData("Event/" + EventID + "/Interest", editField.getText().toString());
+                UpdateFirebase.updateData("Event/" + EventID + "/Description", editDescription.getText().toString());
+                UpdateFirebase.updateData("Event/" + EventID + "/Datetime", editDatetime.getText().toString());
+                UpdateFirebase.updateData("Event/" + EventID + "/Location", editLocation.getText().toString());
+                UpdateFirebase.updateData("Event/" + EventID + "/Phone", editHostPhone.getText().toString());
+                if (!lat.isEmpty() && !lng.isEmpty()){
+                    UpdateFirebase.updateData("Event/" + EventID + "/Lat", lat);
+                    UpdateFirebase.updateData("Event/" + EventID + "/Long", lng);
+                }
                 dialog.dismiss();
             }
         });

@@ -19,6 +19,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.everhope.AllEventActivity;
 import com.example.everhope.customlist.CustomEventList;
@@ -42,7 +44,6 @@ import java.util.List;
 
 public class ListEventFragment extends Fragment {
     Context context = null;
-
     List<String> name = new ArrayList<>();
     List<String> date = new ArrayList<>();
     List<String> eventID = new ArrayList<>();
@@ -74,6 +75,7 @@ public class ListEventFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         RelativeLayout fragmentListEvent = (RelativeLayout) inflater.inflate(R.layout.list_event, null, true);
         ListView listEvent = (ListView) fragmentListEvent.findViewById(R.id.list_event);
+
         Bundle bundle = this.getArguments();
         String topic = bundle.getString("topic", "");
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -122,8 +124,6 @@ public class ListEventFragment extends Fragment {
 
             }
         });
-
-
 
         return fragmentListEvent;
     }

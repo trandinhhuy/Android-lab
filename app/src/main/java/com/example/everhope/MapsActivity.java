@@ -52,6 +52,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (viewStyle.compareTo("view") == 0){
             searchView.setEnabled(false);
             searchView.setVisibility(View.INVISIBLE);
+            Double lat = Double.parseDouble(bundle.getString("Lat"));
+            Double lng = Double.parseDouble(bundle.getString("Long"));
+            String title = bundle.getString("Position");
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},44);
+                return;
+            }
+            Task<Location> task = client.getLastLocation();
+            task.addOnSuccessListener(new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null){
+                        mapFragment.getMapAsync(new OnMapReadyCallback() {
+                            @Override
+                            public void onMapReady(GoogleMap googleMap) {
+                                LatLng latLng = new LatLng(lat, lng);
+                                MarkerOptions options = new MarkerOptions().position(latLng).title(title);
+                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                                googleMap.addMarker(options);
+                            }
+                        });
+                    }
+                }
+            });
         }
         else {
             searchView.setEnabled(true);
@@ -111,7 +142,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mapFragment.getMapAsync(new OnMapReadyCallback() {
                         @Override
                         public void onMapReady(GoogleMap googleMap) {
-                            LatLng latLng = new LatLng(10.782382383380888, 106.63053463669945);
+                            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
                             MarkerOptions options = new MarkerOptions().position(latLng).title("You are here");
                             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
                             googleMap.addMarker(options);
@@ -135,20 +166,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Intent intent = new Intent(getApplicationContext(), EventInformation.class);
-                Bundle bundle = new Bundle();
-                bundle.putDouble("latitude", marker.getPosition().latitude);
-                bundle.putDouble("longitude", marker.getPosition().longitude);
-                bundle.putString("title", marker.getTitle());
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
-                return true;
-            }
-        });
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String action = bundle.getString("action", "view");
+        if (action.compareTo("view") != 0) {
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    Intent intent = new Intent(getApplicationContext(), EventInformation.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("latitude", String.valueOf(marker.getPosition().latitude));
+                    bundle.putString("longitude", String.valueOf(marker.getPosition().longitude));
+                    bundle.putString("title", marker.getTitle());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    finish();
+                    return true;
+                }
+            });
+        }
     }
 
     @Override

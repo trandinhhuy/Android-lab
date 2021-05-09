@@ -12,13 +12,16 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.everhope.EventInformation;
+import com.example.everhope.FragmentAllEvent.ListEventFragment;
+import com.example.everhope.FragmentAllEvent.SearchEventFragment;
 import com.example.everhope.R;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class CustomEventList extends ArrayAdapter {
+public class CustomEventList extends ArrayAdapter{
     private Activity context;
     private String[] name;
     private String[] eventID;
@@ -47,6 +50,8 @@ public class CustomEventList extends ArrayAdapter {
         Name.setText(name[position]);
         Date.setText(date[position]);
         EventInformation.setImage("Event/Event" + eventID[position], R.id.iconImg, root);
+
         return root;
     }
+
 }

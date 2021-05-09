@@ -17,12 +17,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.everhope.AddEventActivity;
 import com.example.everhope.AllEventActivity;
 import com.example.everhope.EventInformation;
+import com.example.everhope.FragmentAllEvent.SearchEventFragment;
 import com.example.everhope.Leaderboard;
 import com.example.everhope.MenuActivity;
 import com.example.everhope.R;
@@ -88,8 +91,7 @@ public class YourTaskFragment extends Fragment {
                         String user1 = String.valueOf(user.getKey());
                         if (user1.compareTo(userID) == 0){
                             String event = String.valueOf(item.getKey());
-                            String split[] = event.split("t");
-                            String eventID = split[1];
+                            String eventID = event.substring(5);
                             idList.add(eventID);
                             break;
                         }
@@ -116,7 +118,7 @@ public class YourTaskFragment extends Fragment {
                             }
                         }
                         ListView listView = root.findViewById(R.id.list_your_task);
-                        CustomEventList customEventList = new CustomEventList((Activity)context, id, name, date, R.layout.event_view_full);
+                        CustomEventList customEventList = new CustomEventList((Activity) context, id, name, date, R.layout.event_view_full);
                         listView.setAdapter(customEventList);
                         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override

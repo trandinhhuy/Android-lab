@@ -191,8 +191,8 @@ public class AddEventActivity extends AppCompatActivity {
                 }
                 EventObj n = new EventObj("0",task_date,task_description,task_interest,Lat,Long,task_location,task_name,userID,task_phone_number);
                 UpdateFirebase.updateNewEvent("Event/"+uuid,n);
-                UpdateFirebase.updateParticipant("EventParticipant/"+uuid,userID,"1");
-                UpdateFirebase.updateComment("EventComment/"+uuid,new CommentObj(userID, "Welcome! Join us!"));
+                UpdateFirebase.updateParticipant("EventParticipant/Event" + uuid,userID,"1");
+                UpdateFirebase.updateComment("EventComment/Event"+uuid,new CommentObj(userID, "Welcome! Join us!"));
             }
         });
 

@@ -95,10 +95,15 @@ public class SignIn extends Activity {
                                 else {
                                     editor.putBoolean("isLogin", true);
                                     editor.putString("userID", ID[0]);
+
+                                    // kiem tra khong phai admin
                                     editor.commit();
                                     Intent intent = new Intent(SignIn.this, MenuActivity.class);
                                     startActivity(intent);
                                     finish();
+
+                                    // khong phai admin
+                                    // start activity menu admin
                                 }
                             }
                             else {
