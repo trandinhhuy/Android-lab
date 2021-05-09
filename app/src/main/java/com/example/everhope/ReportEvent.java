@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class ReportEvent extends AppCompatActivity {
     TextView eventName, eventDescription, btn_submit;
@@ -84,11 +85,13 @@ public class ReportEvent extends AppCompatActivity {
                 ReportedObject re = new ReportedObject();
 
                 re.detail = detail.getText().toString();
-                if (cbSpam.isChecked()) re.reason+= cbSpam.getText().toString()+"   ";
-                if (cbAbuse.isChecked()) re.reason+= cbAbuse.getText().toString()+"   ";
-                if (cbIllegal.isChecked()) re.reason+= cbIllegal.getText().toString()+"   ";
-                if (cbOffensive.isChecked()) re.reason+= cbOffensive.getText().toString()+"   ";
-                if (cbSolicitation.isChecked()) re.reason+= cbSolicitation.getText().toString()+"   ";
+                if (cbSpam.isChecked()) re.reason+= cbSpam.getText().toString()+" ";
+                if (cbAbuse.isChecked()) re.reason+= cbAbuse.getText().toString()+" ";
+                if (cbIllegal.isChecked()) re.reason+= cbIllegal.getText().toString()+" ";
+                if (cbOffensive.isChecked()) re.reason+= cbOffensive.getText().toString()+" ";
+                if (cbSolicitation.isChecked()) re.reason+= cbSolicitation.getText().toString()+" ";
+                re.reason = re.reason.trim().replace(" ",", ");
+
 
                 if (re.reason.length()<1 && re.detail.length()<1){
                     Toast.makeText(getApplicationContext(), "Please complete all needed fields.", Toast.LENGTH_SHORT).show();
@@ -100,9 +103,12 @@ public class ReportEvent extends AppCompatActivity {
                 String [] datetime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()).split(" ");
                 re.date = datetime[0];
                 re.time = datetime[1];
-                re.userID = userID;
+                re.reportBy = userID;
+                re.reported = eventID;
 
-                UpdateFirebase.updateReportedEvent("EventReport/Event"+eventID, re);
+                String uuid =  UUID.randomUUID().toString().replace("-", "");
+                re.key = uuid;
+                UpdateFirebase.updateReportedEvent("EventReport/"+uuid, re);
                 Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
                 finish();
 

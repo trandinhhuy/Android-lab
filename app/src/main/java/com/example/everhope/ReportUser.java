@@ -15,6 +15,7 @@ import com.example.everhope.supportClass.UpdateFirebase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 
 public class ReportUser extends AppCompatActivity {
@@ -55,11 +56,12 @@ public class ReportUser extends AppCompatActivity {
             public void onClick(View v) {
                 ReportedObject re = new ReportedObject();
                 re.detail = detail.getText().toString();
-                if (cbSpam.isChecked()) re.reason+= cbSpam.getText().toString()+"   ";
-                if (cbAbuse.isChecked()) re.reason+= cbAbuse.getText().toString()+"   ";
-                if (cbIllegal.isChecked()) re.reason+= cbIllegal.getText().toString()+"   ";
-                if (cbOffensive.isChecked()) re.reason+= cbOffensive.getText().toString()+"   ";
-                if (cbSolicitation.isChecked()) re.reason+= cbSolicitation.getText().toString()+"   ";
+                if (cbSpam.isChecked()) re.reason+= cbSpam.getText().toString()+" ";
+                if (cbAbuse.isChecked()) re.reason+= cbAbuse.getText().toString()+" ";
+                if (cbIllegal.isChecked()) re.reason+= cbIllegal.getText().toString()+" ";
+                if (cbOffensive.isChecked()) re.reason+= cbOffensive.getText().toString()+" ";
+                if (cbSolicitation.isChecked()) re.reason+= cbSolicitation.getText().toString()+" ";
+                re.reason = re.reason.trim().replace(" ",", ");
 
                 if (re.reason.length()<1 && re.detail.length()<1){
                     Toast.makeText(getApplicationContext(), "Please complete all needed fields.", Toast.LENGTH_SHORT).show();
@@ -71,9 +73,12 @@ public class ReportUser extends AppCompatActivity {
                 String [] datetime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()).split(" ");
                 re.date = datetime[0];
                 re.time = datetime[1];
-                re.userID = userID;
+                re.reportBy = userID;
+                re.reported = rpUserID;
+                String uuid =  UUID.randomUUID().toString().replace("-", "");
+                re.key = uuid;
 
-                UpdateFirebase.updateReportedEvent("UserReport/User"+rpUserID, re);
+                UpdateFirebase.updateReportedEvent("UserReport/"+uuid, re);
                 Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
                 finish();
 

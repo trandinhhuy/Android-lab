@@ -5,21 +5,27 @@ public class ReportedObject {
     String detail;
     String reason;
     String time;
-    String userID;
+    String reported;
+    String reportBy;
+    String key;
 
     ReportedObject(){
         this.date = "";
         this. detail = "";
         this.reason="";
         this.time = "";
-        this.userID = "";
+        this.reportBy = "";
+        this.reported = "";
+        this.key = "";
     }
-    ReportedObject(String date, String detail, String reason, String time, String userID){
+    ReportedObject(String date, String detail, String reason, String time, String reportBy,String reported,String key){
         this.date = date;
         this. detail = detail;
         this.reason=reason;
         this.time = time;
-        this.userID = userID;
+        this.reportBy = reportBy;
+        this.reported = reported;
+        this.key = key;
     }
 
     public String getDate() {
@@ -38,7 +44,11 @@ public class ReportedObject {
         return reason;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getReportBy() {   return reportBy;}
+
+    public String getReported() {
+        return reported;
     }
+
+    public String getKey() { return key; }
 }

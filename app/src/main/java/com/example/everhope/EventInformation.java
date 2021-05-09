@@ -144,6 +144,9 @@ public class EventInformation extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CommentActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("EventID", EventID);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
