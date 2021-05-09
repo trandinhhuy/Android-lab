@@ -171,15 +171,23 @@ public class userProfile extends Activity {
         edit_interests.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(userProfile.this);
-                String[] interestsArray = new String[] {"Children","Environment"};
-                final boolean[] checkedInterests = new boolean[]{
-                  false,
-                  false
 
-                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(userProfile.this);
+                String[] interestsArray = new String[]{"Environment", "Children", "Culture", "Education", "Animals", "Homeless", "Health", "Broadcasting", "Sports", "People"};
+                boolean[] checkedInterests = new boolean[]{false, false, false, false,false, false, false, false,false, false};
+
+                String[] tempToken = edit_interests.getText().toString().split(", ");
+                for (int idx = 0; idx < tempToken.length; idx++) {
+                    for (int idy = 0; idy < interestsArray.length; idy++) {
+                        if (tempToken[idx].compareTo(interestsArray[idy]) == 0) {
+                            checkedInterests[idy] = true;
+                            break;
+                        }
+                    }
+                }
+
                 final List<String> interestsList = Arrays.asList(interestsArray);
-                builder.setTitle("Select interests");
+                builder.setTitle("Select this event's interests/fields");
                 builder.setMultiChoiceItems(interestsArray, checkedInterests, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which, boolean isChecked) {
@@ -187,23 +195,21 @@ public class userProfile extends Activity {
                     }
                 });
 
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String intst= "";
-                        int i=0;
-                        for(;i<checkedInterests.length;i++){
+                        String intst = "";
+                        for (int i = 0; i < checkedInterests.length; i++) {
                             boolean checked = checkedInterests[i];
-                            if(checked){
-                                intst+=interestsList.get(i)+"   ";
+                            if (checked) {
+                                intst += (intst.length()>0 ?", ":"")+interestsList.get(i);
                             }
                         }
-
                         edit_interests.setText(intst);
                     }
-
-
                 });
+
+
                 builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {

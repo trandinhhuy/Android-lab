@@ -43,6 +43,11 @@
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Homepage_Admin"
+            android:label="HomepageAdmin"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".AdminReportMain" />
         <activity android:name=".IntroActivity" />
         <activity android:name=".EventInformation" />
         <activity android:name=".userProfile" />

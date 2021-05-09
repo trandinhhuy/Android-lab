@@ -29,6 +29,7 @@ public class SignIn extends Activity {
     TextView btnSignIn, btnGoToSignUp;
     EditText txtEmail, txtPw;
     SQLiteDatabase db;
+    String typeAccount; //todo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +37,9 @@ public class SignIn extends Activity {
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("myloginpref", MODE_PRIVATE);
         Boolean isLogin = pref.getBoolean("isLogin", false);
-        if (isLogin == true){
-            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        Boolean isAdmin = pref.getBoolean("isAdmin", false);
+        if (isLogin == true ){
+            Intent intent = isAdmin==false?new Intent(getApplicationContext(), MenuActivity.class):new Intent(getApplicationContext(), Homepage_Admin.class);
             startActivity(intent);
             finish();
         }
@@ -81,6 +83,7 @@ public class SignIn extends Activity {
 
                                 if (email.compareTo(emailDb) == 0 && password.compareTo(passwordDb) == 0){
                                     banned[0] = String.valueOf(dataSnapshot.child("Ban").getValue());
+                                    typeAccount = String.valueOf(dataSnapshot.child("Admin").getValue()); //todo
                                     String userKey = dataSnapshot.getKey();
                                     ID[0] = userKey;
 
@@ -90,14 +93,25 @@ public class SignIn extends Activity {
                             SharedPreferences.Editor editor = pref.edit();
                             if (ID[0].compareTo("-1") != 0) {
                                 if (banned[0].compareTo("1") == 0){
-                                    showDialog("Your account has been banned. Please try another account.");
+                                    showDialog("Your account has been banned!");
                                 }
                                 else {
                                     editor.putBoolean("isLogin", true);
                                     editor.putString("userID", ID[0]);
-                                    editor.commit();
-                                    Intent intent = new Intent(SignIn.this, MenuActivity.class);
-                                    startActivity(intent);
+
+                                    Intent next;
+                                    if (typeAccount.compareTo("1")==0){
+                                        editor.putBoolean("isAdmin", true);
+                                        editor.commit();
+                                        next = new Intent(SignIn.this, Homepage_Admin.class);
+                                    }
+
+                                    else{
+                                        editor.putBoolean("isAdmin", false);
+                                        editor.commit();
+                                        next = new Intent(SignIn.this, MenuActivity.class);
+                                    }
+                                    startActivity(next);
                                     finish();
                                 }
                             }

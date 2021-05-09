@@ -321,6 +321,7 @@ public class EventInformation extends Activity {
         editLocation.setText(eventLocation.getText().toString());
         editHostPhone.setText(eventContact.getText().toString());
         editHostName.setText(eventOrganizer.getText().toString());
+        editHostName.setEnabled(false);
 
         btnCloseEventEdit = (FloatingActionButton) view.findViewById(R.id.btnCloseEventEdit);
         btnDeleteEvent = (TextView) view.findViewById(R.id.new_task_cancel);
@@ -369,6 +370,7 @@ public class EventInformation extends Activity {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                         /////////////////(?) xoa event khoi database
+                        //todo
                         arg0.dismiss();
                         dialog.dismiss();
                     }
@@ -383,10 +385,10 @@ public class EventInformation extends Activity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(EventInformation.this);
-                String[] interestsArray = new String[]{"Children", "Environment", "Culture", "Education"};
-                boolean[] checkedInterests = new boolean[]{false, false, false, false};
+                String[] interestsArray = new String[]{"Environment", "Children", "Culture", "Education", "Animals", "Homeless", "Health", "Broadcasting", "Sports", "People"};
+                boolean[] checkedInterests = new boolean[]{false, false, false, false,false, false, false, false,false, false};
 
-                String[] tempToken = editField.getText().toString().split("   ");
+                String[] tempToken = editField.getText().toString().split(", ");
                 for (int idx = 0; idx < tempToken.length; idx++) {
                     for (int idy = 0; idy < interestsArray.length; idy++) {
                         if (tempToken[idx].compareTo(interestsArray[idy]) == 0) {
@@ -409,11 +411,10 @@ public class EventInformation extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String intst = "";
-                        int i = 0;
-                        for (; i < checkedInterests.length; i++) {
+                        for (int i = 0; i < checkedInterests.length; i++) {
                             boolean checked = checkedInterests[i];
                             if (checked) {
-                                intst += interestsList.get(i) + "   ";
+                                intst += (intst.length()>0 ?", ":"")+interestsList.get(i);
                             }
                         }
                         editField.setText(intst);
@@ -443,7 +444,7 @@ public class EventInformation extends Activity {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                dt+=dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                                dt+=(dayOfMonth<10?"0":"")+dayOfMonth + "/" + (monthOfYear<9?"0":"")+(monthOfYear + 1) + "/" + year;
 
                                 final Calendar c = Calendar.getInstance();
                                 mHour = c.get(Calendar.HOUR_OF_DAY);
@@ -455,7 +456,7 @@ public class EventInformation extends Activity {
                                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                                   int minute) {
 
-                                                dt+="   " + hourOfDay + ":" + minute;
+                                                dt+=" " + (hourOfDay<10?"0":"")+hourOfDay + ":" + (minute<10?"0":"")+minute;
                                                 editDatetime.setText(dt);
                                             }
                                         }, mHour, mMinute, false);
