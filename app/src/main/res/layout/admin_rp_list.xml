@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AdminReportMain">
+    tools:context=".AdminUserReport">
 
     <Toolbar
         android:id="@+id/admin_tool_rp_main"
@@ -22,18 +22,10 @@
             android:src="@drawable/logo" />
     </Toolbar>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/rp_main_tabs"
+    <ListView
+        android:id="@+id/admin_rp_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        app:tabIndicatorColor="@color/logo_red"
-        app:tabSelectedTextColor="@color/logo_red" />
+        android:layout_height="match_parent" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/rp_main_view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </LinearLayout>
