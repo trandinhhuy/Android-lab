@@ -50,6 +50,7 @@ public class CustomCommentList extends ArrayAdapter {
         }
         TextView user_comment = root.findViewById(R.id.user_comment);
         TextView user_name = root.findViewById(R.id.user_name);
+        TextView cmt_dt = root.findViewById(R.id.cmt_dt);
         ImageView userCommentImage = (ImageView) root.findViewById(R.id.user_comment_image);
         EventInformation.setImage("Avatar/User" + UID[position], R.id.user_comment_image, root);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -62,6 +63,8 @@ public class CustomCommentList extends ArrayAdapter {
                 if(banned.compareTo("1")!=0){
                     user_name.setText(String.valueOf(snapshot.child("Name").getValue()));
                     user_comment.setText(comment[position]);
+                    String cmt = time[position]+" "+date[position];
+                    cmt_dt.setText(cmt);
                     userCommentImage.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -77,6 +80,7 @@ public class CustomCommentList extends ArrayAdapter {
                     user_comment.setVisibility(View.GONE);
                     user_name.setVisibility(View.GONE);
                     userCommentImage.setVisibility(View.GONE);
+                    cmt_dt.setVisibility(View.GONE);
 
                 }
             }
