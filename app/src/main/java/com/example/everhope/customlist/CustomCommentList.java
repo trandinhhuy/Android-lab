@@ -1,5 +1,6 @@
 package com.example.everhope.customlist;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -50,15 +51,34 @@ public class CustomCommentList extends ArrayAdapter {
         TextView user_comment = root.findViewById(R.id.user_comment);
         TextView user_name = root.findViewById(R.id.user_name);
         ImageView userCommentImage = (ImageView) root.findViewById(R.id.user_comment_image);
-
-        // bên list đẩy id người dùng qua thì lấy name với avatar nè
         EventInformation.setImage("Avatar/User" + UID[position], R.id.user_comment_image, root);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("User/" + UID[position]);
         databaseReference.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("WrongConstant")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                user_name.setText(String.valueOf(snapshot.child("Name").getValue())); // set name luôn
+                String banned = String.valueOf(snapshot.child("Ban").getValue());
+                if(banned.compareTo("1")!=0){
+                    user_name.setText(String.valueOf(snapshot.child("Name").getValue()));
+                    user_comment.setText(comment[position]);
+                    userCommentImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), userProfile.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("UserID", UID[position]);
+                            intent.putExtras(bundle);
+                            context.startActivity(intent);
+                        }
+                    });
+                }
+                else{
+                    user_comment.setVisibility(View.GONE);
+                    user_name.setVisibility(View.GONE);
+                    userCommentImage.setVisibility(View.GONE);
+
+                }
             }
 
             @Override
@@ -66,17 +86,7 @@ public class CustomCommentList extends ArrayAdapter {
 
             }
         });
-        user_comment.setText(comment[position]);
-        userCommentImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), userProfile.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("UserID", UID[position]);
-                intent.putExtras(bundle);
-                context.startActivity(intent); // t làm thêm bấm vô avatar thì coi thông tin người dùng
-            }
-        });
+
         return root;
     }
 }
