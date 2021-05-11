@@ -84,15 +84,13 @@ public class CommentView extends Fragment {
                     String content = String.valueOf(item.child("Content").getValue());
                     String date = String.valueOf(item.child("Date").getValue());
                     String time = String.valueOf(item.child("Time").getValue());
-// chỉ đẩy id người dùng sang cho bên custom event xử í
-                    UID.add(uID); // nó nè
+                    UID.add(uID);
                     cmt.add(content);
                     dateList.add(date);
                     timeList.add(time);
 
                 }
 
-                Toast.makeText(context.getApplicationContext(), "name: "+cmt.size(), Toast.LENGTH_SHORT).show();
                 comment  = new String[cmt.size()];
                 userID = new String[UID.size()];
                 date = new String[dateList.size()];
@@ -105,7 +103,7 @@ public class CommentView extends Fragment {
                     time[i] = timeList.get(i);
 
                 }
-                CustomCommentList customCommentList = new CustomCommentList((Activity) context, userID, comment, date, time); // t sửa lại operator lấy id người dùng với comment thôi
+                CustomCommentList customCommentList = new CustomCommentList((Activity) context, userID, comment, date, time);
                 commentList.setAdapter(customCommentList);
 
             }
@@ -116,17 +114,6 @@ public class CommentView extends Fragment {
             }
         });
 
-
-//                listEvent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        Intent intent = new Intent(getActivity(), EventInformation.class);
-//                        Bundle bundle1 = new Bundle();
-//                        bundle1.putString("EventID", adapterID[position]);
-//                        intent.putExtras(bundle1);
-//                        startActivity(intent);
-//                    }
-//                });
 
         return commentView;
     }
