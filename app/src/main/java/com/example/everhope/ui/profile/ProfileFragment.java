@@ -31,11 +31,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.everhope.MenuActivity;
 import com.example.everhope.R;
 import com.example.everhope.userProfile;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,12 +57,16 @@ import java.util.List;
 public class ProfileFragment extends Fragment {
     public SharedPreferences pref;
     String curPass = "abc123";
-    Button btn_update, btn_exit, btn_changepass, btn_exitpass, btn_updatepass;
+    Button btn_update, btn_changepass, btn_updatepass;
     ImageButton btn_edit;
-    EditText edit_name, edit_des, edit_dob, edit_interests, edit_currentpass, edit_newpass, edit_confirmpass;
-    TextView username, dob, des, interests, events;
+    EditText edit_name, edit_des, edit_dob, edit_interests, edit_currentpass, edit_newpass, edit_confirmpass, edit_gender, edit_phone;
+    TextView username, dob, des, interests, events, gender, phone;
     Calendar c;
     DatePickerDialog dpd;
+    FloatingActionButton btn_exit,btn_exitpass;
+    int checkedItem=0;
+    String dt="";
+
 
     Uri imageUri;
     private ProfileViewModel profileViewModel;
@@ -86,6 +92,8 @@ public class ProfileFragment extends Fragment {
         dob = (TextView)root.findViewById(R.id.dob);
         interests = (TextView)root.findViewById(R.id.interests);
         des = (TextView)root.findViewById(R.id.des);
+        gender = (TextView) root.findViewById(R.id.gender);
+        phone = (TextView) root.findViewById(R.id.phone);
         events = (TextView)root.findViewById(R.id.events);
         chooseAvt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +116,8 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 username.setText(String.valueOf(snapshot.child("Name").getValue()));
                 dob.setText(String.valueOf(snapshot.child("Dob").getValue()));
+                gender.setText(String.valueOf(snapshot.child("Gender").getValue()));
+                phone.setText(String.valueOf(snapshot.child("Phone").getValue()));
                 des.setText(String.valueOf(snapshot.child("Description").getValue()));
                 interests.setText(String.valueOf(snapshot.child("Interest").getValue()));
             }
@@ -176,12 +186,8 @@ public class ProfileFragment extends Fragment {
     private void showDialog() {
         AlertDialog.Builder alert;
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            alert = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Dialog_Alert);
-        }
-        else{
-            alert = new AlertDialog.Builder(getActivity());
-        }
+        alert = new AlertDialog.Builder(this.getContext(),R.style.MaterialThemeDialog);
+
 
         LayoutInflater inflater = getLayoutInflater();
 
@@ -193,17 +199,20 @@ public class ProfileFragment extends Fragment {
         edit_des.setText(des.getText().toString());
         edit_dob = (EditText) view.findViewById(R.id.edit_dob);
         edit_dob.setText(dob.getText().toString());
+        edit_gender = (EditText) view.findViewById(R.id.edit_gender);
+        edit_gender.setText(gender.getText().toString());
+        edit_phone = (EditText) view.findViewById(R.id.edit_phone);
+        edit_phone.setText(phone.getText().toString());
         edit_interests = (EditText) view.findViewById(R.id.edit_interests);
         edit_interests.setText(interests.getText().toString());
         btn_update = (Button) view.findViewById(R.id.btn_update);
-        btn_exit = (Button) view.findViewById(R.id.btn_exit);
+        btn_exit = (FloatingActionButton) view.findViewById(R.id.btn_exit);
         btn_changepass = (Button) view.findViewById(R.id.btn_changepass);
 
         alert.setView(view);
         alert.setCancelable(false);
 
         AlertDialog dialog = alert.create();
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.show();
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,6 +221,19 @@ public class ProfileFragment extends Fragment {
                 des.setText(edit_des.getText().toString());
                 dob.setText(edit_dob.getText().toString());
                 interests.setText(edit_interests.getText().toString());
+                gender.setText(edit_gender.getText().toString());
+                phone.setText(edit_phone.getText().toString());
+                String ID = MenuActivity.getMyLoginPref(getActivity());
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                String path = "User/"+ID;
+                firebaseDatabase.getReference(path+"/Description").setValue(edit_des.getText().toString());
+                firebaseDatabase.getReference(path+"/Dob").setValue(edit_dob.getText().toString());
+                firebaseDatabase.getReference(path+"/Interest").setValue(edit_interests.getText().toString());
+                firebaseDatabase.getReference(path+"/Gender").setValue(edit_gender.getText().toString());
+                firebaseDatabase.getReference(path+"/Phone").setValue(edit_phone.getText().toString());
+                firebaseDatabase.getReference(path+"/Name").setValue(edit_name.getText().toString());
+
+
                 dialog.dismiss();
 
             }
@@ -225,28 +247,77 @@ public class ProfileFragment extends Fragment {
                 int month = c.get(Calendar.MONTH);
                 int year = c.get(Calendar.YEAR);
 
-                dpd = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                dpd = new DatePickerDialog(getActivity(), R.style.alert,new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
-                        edit_dob.setText(mDay+"/"+(mMonth+1)+"/"+mYear);
+                        dt=(mDay<10?"0":"")+mDay + "/" + (mMonth<9?"0":"")+(mMonth + 1) + "/" + mYear;
+                        edit_dob.setText(dt);
                     }
                 }, day,month, year);
                 dpd.show();
             }
         });
 
+        edit_gender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity(), R.style.alert);
+                alertDialog.setTitle("Choose Gender");
+                String[] items = {"Male","Female","Others"};
+                String g = edit_gender.getText().toString();
+                if(g.compareTo("Male")==0){
+                    checkedItem=0;
+                }
+                else if(g.compareTo("Female")==0){
+                    checkedItem=1;
+                }
+                else checkedItem=2;
+                alertDialog.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        checkedItem = which;
+                    }
+                });
+
+                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        edit_gender.setText(items[checkedItem]);
+                    }
+                });
+
+                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog alert = alertDialog.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
+            }
+        });
+
         edit_interests.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                String[] interestsArray = new String[] {"Children","Environment"};
-                final boolean[] checkedInterests = new boolean[]{
-                        false,
-                        false
 
-                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.alert);
+                String[] interestsArray = new String[]{"Environment", "Children", "Culture", "Education", "Animals", "Homeless", "Health", "Broadcasting", "Sports", "People"};
+                boolean[] checkedInterests = new boolean[]{false, false, false, false,false, false, false, false,false, false};
+
+                String[] tempToken = edit_interests.getText().toString().split(", ");
+                for (int idx = 0; idx < tempToken.length; idx++) {
+                    for (int idy = 0; idy < interestsArray.length; idy++) {
+                        if (tempToken[idx].compareTo(interestsArray[idy]) == 0) {
+                            checkedInterests[idy] = true;
+                            break;
+                        }
+                    }
+                }
+
                 final List<String> interestsList = Arrays.asList(interestsArray);
-                builder.setTitle("Select interests");
+                builder.setTitle("Select this event's interests/fields");
                 builder.setMultiChoiceItems(interestsArray, checkedInterests, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which, boolean isChecked) {
@@ -254,22 +325,18 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String intst= "";
-                        int i=0;
-                        for(;i<checkedInterests.length;i++){
+                        String intst = "";
+                        for (int i = 0; i < checkedInterests.length; i++) {
                             boolean checked = checkedInterests[i];
-                            if(checked){
-                                intst+=interestsList.get(i)+"   ";
+                            if (checked) {
+                                intst += (intst.length()>0 ?", ":"")+interestsList.get(i);
                             }
                         }
-
                         edit_interests.setText(intst);
                     }
-
-
                 });
                 builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -303,12 +370,8 @@ public class ProfileFragment extends Fragment {
     private void showDialog1() {
         AlertDialog.Builder alert1;
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            alert1 = new AlertDialog.Builder(getActivity(), android.R.style.Theme_Material_Dialog_Alert);
-        }
-        else{
-            alert1 = new AlertDialog.Builder(getActivity());
-        }
+        alert1 = new AlertDialog.Builder(getActivity(), R.style.MaterialThemeDialog);
+
 
         LayoutInflater inflater1 = getLayoutInflater();
 
@@ -319,7 +382,7 @@ public class ProfileFragment extends Fragment {
         edit_newpass = (EditText) view1.findViewById(R.id.edit_newpass);
         edit_confirmpass = (EditText) view1.findViewById(R.id.edit_confirmpass);
         btn_updatepass = (Button) view1.findViewById(R.id.btn_updatepass);
-        btn_exitpass = (Button) view1.findViewById(R.id.btn_exitpass);
+        btn_exitpass = (FloatingActionButton) view1.findViewById(R.id.btn_exitpass);
 
         alert1.setView(view1);
         alert1.setCancelable(false);
