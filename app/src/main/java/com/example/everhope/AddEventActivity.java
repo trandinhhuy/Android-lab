@@ -4,7 +4,10 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,11 +21,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.everhope.supportClass.UpdateFirebase;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -30,7 +37,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class AddEventActivity extends AppCompatActivity {
+public class AddEventActivity extends Activity {
     Button new_task_date_time,new_task_location_select,new_task_interest_field;
     TextView new_task_add_event;
     EditText new_task_name,new_task_description,new_task_date,new_task_location,new_task_interest,new_task_phone_number,new_task_host_name;
@@ -45,11 +52,12 @@ public class AddEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_new_task);
         String userID = MenuActivity.getMyLoginPref(getApplicationContext());
-        getSupportActionBar().hide();
         Toolbar toolbar = findViewById(R.id.new_task_toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -188,11 +196,16 @@ public class AddEventActivity extends AppCompatActivity {
                     showDialog("Please fill all the required fields and try again!");
                     return;
                 }
+
                 EventObj n = new EventObj("0",task_date,task_description,task_interest,Lat,Long,task_location,task_name,userID,task_phone_number);
-                UpdateFirebase.updateNewEvent("Event/"+uuid,n);
+                //
                 UpdateFirebase.updateParticipant("EventParticipant/Event"+uuid,userID,"1");
                 UpdateFirebase.updateComment("EventComment/Event"+uuid,new CommentObj(userID, "Welcome! Join us!"));
-                UpdateFirebase.updateData("EventParticipant/Event" + uuid + "/" + MenuActivity.getMyLoginPref(getApplicationContext()), "1");
+                try {
+                    UpdateFirebase.updateNewEvent("Event/" + uuid, n);
+                } catch (IllegalStateException e){
+                    finish();
+                }
             }
         });
 

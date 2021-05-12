@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +32,7 @@ import com.example.everhope.MenuActivity;
 import com.example.everhope.R;
 import com.example.everhope.customlist.CustomCommentList;
 import com.example.everhope.customlist.CustomEventList;
+import com.example.everhope.ui.home.HomeFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,16 +51,17 @@ public class YourTaskFragment extends Fragment {
     List<String> nameList = new ArrayList<>();
     List<String> dateList = new ArrayList<>();
     List<String> idList = new ArrayList<>();
-
+    Activity activity;
     String[] name;
     String[] date;
     String[] id;
-    public static YourTaskFragment newInstance(SharedPreferences pref) {
+    public static YourTaskFragment newInstance(SharedPreferences pref, Activity host) {
 
         Bundle args = new Bundle();
 
         YourTaskFragment fragment = new YourTaskFragment();
         fragment.pref = pref;
+        fragment.activity = host;
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,8 +78,7 @@ public class YourTaskFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        yourTaskViewModel =
-                new ViewModelProvider(this).get(YourTaskViewModel.class);
+        Activity activity = getActivity();
         View root = inflater.inflate(R.layout.your_task_view, null, true);
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -154,19 +156,6 @@ public class YourTaskFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        /*CustomEventList customEventList = new CustomEventList((Activity)context, images, topics, members, R.layout.event_view_full);
-        listView.setAdapter(customEventList);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), EventInformation.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("id", "id");
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
-         */
         return root;
     }
 }

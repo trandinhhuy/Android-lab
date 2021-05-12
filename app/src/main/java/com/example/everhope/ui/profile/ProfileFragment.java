@@ -1,5 +1,6 @@
 package com.example.everhope.ui.profile;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -69,13 +70,14 @@ public class ProfileFragment extends Fragment {
     DatePickerDialog dpd;
     Uri imageUri;
     private ProfileViewModel profileViewModel;
-
-    public static ProfileFragment newInstance(SharedPreferences pref) {
+    Activity activity;
+    public static ProfileFragment newInstance(SharedPreferences pref, Activity host) {
 
         Bundle args = new Bundle();
 
         ProfileFragment fragment = new ProfileFragment();
         fragment.pref = pref;
+        fragment.activity = host;
         fragment.setArguments(args);
         return fragment;
     }

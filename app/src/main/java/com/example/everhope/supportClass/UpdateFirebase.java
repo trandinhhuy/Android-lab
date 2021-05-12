@@ -1,6 +1,7 @@
 package com.example.everhope.supportClass;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 
 import com.example.everhope.CommentObj;
