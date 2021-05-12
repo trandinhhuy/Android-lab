@@ -3,20 +3,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
+
+import com.example.everhope.FragmentAdminReport.AdminReportListFragment;
+import com.example.everhope.FragmentAdminReport.AdminReportTabsFragment;
 import com.google.android.material.tabs.TabLayout;
 
-public class AdminReportMain extends AppCompatActivity {
+public class AdminReportMain extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_rp_main);
-
-
-
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.admin_tool_rp_main);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -26,12 +25,7 @@ public class AdminReportMain extends AppCompatActivity {
             }
         });
 
-        ReportedPagerAdapter sectionsPagerAdapter = new ReportedPagerAdapter(this, getSupportFragmentManager());
-
-        ViewPager viewPager = findViewById(R.id.rp_main_view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-
-        TabLayout tabs = findViewById(R.id.rp_main_tabs);
-        tabs.setupWithViewPager(viewPager);
+        getFragmentManager().beginTransaction().replace(R.id.admin_report_tabs, new AdminReportTabsFragment()).commit();
+        getFragmentManager().beginTransaction().replace(R.id.admin_report_list, new AdminReportListFragment()).commit();
     }
 }

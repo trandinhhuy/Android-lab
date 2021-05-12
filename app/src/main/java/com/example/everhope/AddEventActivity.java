@@ -192,6 +192,7 @@ public class AddEventActivity extends AppCompatActivity {
                 UpdateFirebase.updateNewEvent("Event/"+uuid,n);
                 UpdateFirebase.updateParticipant("EventParticipant/Event"+uuid,userID,"1");
                 UpdateFirebase.updateComment("EventComment/Event"+uuid,new CommentObj(userID, "Welcome! Join us!"));
+                UpdateFirebase.updateData("EventParticipant/Event" + uuid + "/" + MenuActivity.getMyLoginPref(getApplicationContext()), "1");
             }
         });
 

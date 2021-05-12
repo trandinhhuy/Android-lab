@@ -84,6 +84,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             });
         }
+        if (viewStyle.compareTo("add") == 0){
+
+        }
         else {
             searchView.setEnabled(true);
             searchView.setVisibility(View.VISIBLE);
@@ -173,11 +176,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
+                    Intent getEventID = getIntent();
+                    Bundle getEventIdBundle = getEventID.getExtras();
+                    String eventID = getEventIdBundle.getString("EventID", "");
+
                     Intent intent = new Intent(getApplicationContext(), EventInformation.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("latitude", String.valueOf(marker.getPosition().latitude));
                     bundle.putString("longitude", String.valueOf(marker.getPosition().longitude));
                     bundle.putString("title", marker.getTitle());
+                    bundle.putString("EventID", eventID);
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
@@ -197,8 +205,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             finish();
         }
         else {
+            Intent getID = getIntent();
+            Bundle getIdBundle = getID.getExtras();
+            String eventId = getIdBundle.getString("EventID", "-1");
             Intent intent = new Intent(getApplicationContext(), EventInformation.class);
-            // Bundle id event
+            Bundle putIntent = new Bundle();
+            putIntent.putString("EventID", eventId);
+            intent.putExtras(putIntent);
             startActivity(intent);
             finish();
         }

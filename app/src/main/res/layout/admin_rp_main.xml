@@ -22,18 +22,12 @@
             android:src="@drawable/logo" />
     </Toolbar>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/rp_main_tabs"
+    <FrameLayout
+        android:id="@+id/admin_report_tabs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        app:tabIndicatorColor="@color/logo_red"
-        app:tabSelectedTextColor="@color/logo_red" />
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/rp_main_view_pager"
+        android:layout_height="50dp"/>
+    <FrameLayout
+        android:id="@+id/admin_report_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
+        android:layout_height="match_parent"/>
 </LinearLayout>

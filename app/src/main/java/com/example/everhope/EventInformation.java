@@ -53,8 +53,7 @@ public class EventInformation extends Activity {
     Animation rotateClose, rotateOpen, fromBottom, toBottom;
     boolean clicked = false;
     ViewGroup icons_view;
-    int[] icons = {R.drawable.ic_person};
-
+    String location;
     FloatingActionButton btnSetting;
     EditText editName, editDescription, editDatetime, editLocation, editHostPhone, editHostName, editField;
     TextView btnDeleteEvent, btnChange;
@@ -65,6 +64,7 @@ public class EventInformation extends Activity {
 
     int mYear, mMonth, mDay, mHour, mMinute;
     String dt="";
+    private String EventID;
 
 
     @Override
@@ -82,15 +82,11 @@ public class EventInformation extends Activity {
         String userID = MenuActivity.getMyLoginPref(getApplicationContext());
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        String location = "";
-        try {
-            location = bundle.getString("title", "");
-        } catch(NullPointerException e){
 
-        }
-        String EventID = bundle.getString("EventID", "");
+        location = bundle.getString("title", "");
 
-        String title = "";
+        EventID = bundle.getString("EventID", "");
+
         icons_view = (ViewGroup) findViewById(R.id.eventParticipant);
 
         FirebaseDatabase participantFirebase = FirebaseDatabase.getInstance();
@@ -150,6 +146,7 @@ public class EventInformation extends Activity {
                 startActivity(intent);
             }
         });
+        String finalLocation1 = location;
         btnSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,7 +159,55 @@ public class EventInformation extends Activity {
                     btnAddComment.setVisibility(View.VISIBLE);
                     btnReport.setVisibility(View.VISIBLE);
                     btnMap.setVisibility(View.VISIBLE);
-                    btnJoin.setVisibility(View.VISIBLE);
+
+                    FirebaseDatabase checkParticipant = FirebaseDatabase.getInstance();
+                    DatabaseReference checkParticipantRef = checkParticipant.getReference().child("EventParticipant/Event" + EventID);
+                    String finalLocation = finalLocation1;
+                    checkParticipantRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot userParticipant : snapshot.getChildren()){
+                                if (userID.compareTo(String.valueOf(userParticipant.getKey())) == 0) {
+                                    btnJoin.setText("Unjoin");
+                                    if (String.valueOf(userParticipant.getValue()).compareTo("1") == 0){
+                                        btnJoin.setEnabled(false);
+                                    }
+                                    btnJoin.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent1 = new Intent(getApplicationContext(), EventInformation.class);
+                                            Bundle bundle1 = new Bundle();
+                                            bundle1.putString("title", finalLocation);
+                                            bundle1.putString("EventID", EventID);
+                                            intent1.putExtras(bundle1);
+                                            UpdateFirebase.removeData("EventParticipant/Event" + EventID + "/" + userID);
+                                            startActivity(intent1);
+                                            finish();
+                                        }
+                                    });
+                                    return;
+                                }
+                            }
+                            btnJoin.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    UpdateFirebase.updateData("EventParticipant/Event" + EventID + "/" + userID, "0");
+                                    Intent intent2 = new Intent(getApplicationContext(), EventInformation.class);
+                                    Bundle bundle2 = new Bundle();
+                                    bundle2.putString("title", finalLocation);
+                                    bundle2.putString("EventID", EventID);
+                                    intent2.putExtras(bundle2);
+                                    startActivity(intent2);
+                                    finish();
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
                 if (clicked) {
                     btnAddComment.startAnimation(toBottom);
@@ -189,9 +234,7 @@ public class EventInformation extends Activity {
         eventContact = (TextView) findViewById(R.id.eventContact);
         eventLocation = (TextView) findViewById(R.id.eventLocation);
         eventLocation.setText(location);
-        if (!location.isEmpty()){
-            showEditDialog();
-        }
+
         btnSetting = (FloatingActionButton) findViewById(R.id.btnSetting);
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,8 +243,10 @@ public class EventInformation extends Activity {
             }
         });
 
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myref = firebaseDatabase.getReference().child("Event/" + EventID);
+        String finalLocation = location;
         myref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -212,7 +257,7 @@ public class EventInformation extends Activity {
                 String organizerID = String.valueOf(snapshot.child("Organizer").getValue());
 
                 if (organizerID.compareTo(userID) == 0){
-                    btnJoin.setText("Unjoin");
+                    btnJoin.setVisibility(View.INVISIBLE);
                     btnSetting.setVisibility(View.VISIBLE);
                     btnSetting.setEnabled(true);
                 }
@@ -278,6 +323,9 @@ public class EventInformation extends Activity {
                     }
                 });
 // render data
+                if (!finalLocation.isEmpty()){
+                    showEditDialog();
+                }
             }
 
             @Override
@@ -323,9 +371,28 @@ public class EventInformation extends Activity {
         editName.setText(eventName.getText().toString());
         editDescription.setText(eventDescription.getText().toString());
         editDatetime.setText(eventDatetime.getText().toString());
-        editLocation.setText(eventLocation.getText().toString());
+        if (location.isEmpty())
+            editLocation.setText(eventLocation.getText().toString());
+        else
+            editLocation.setText(location);
         editHostPhone.setText(eventContact.getText().toString());
-        editHostName.setText(eventOrganizer.getText().toString());
+        if (location.isEmpty())
+            editHostName.setText(eventOrganizer.getText().toString());
+        else{
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = firebaseDatabase.getReference().child("User/" + MenuActivity.getMyLoginPref(getApplicationContext()));
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    editHostName.setText(String.valueOf(snapshot.child("Name").getValue()));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
         editHostName.setEnabled(false);
 
         btnCloseEventEdit = (FloatingActionButton) view.findViewById(R.id.btnCloseEventEdit);
@@ -390,6 +457,7 @@ public class EventInformation extends Activity {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
                         /////////////////(?) xoa event khoi database
+                        UpdateFirebase.removeData("Event/" + EventID);
                         //todo
                         arg0.dismiss();
                         dialog.dismiss();
@@ -493,6 +561,7 @@ public class EventInformation extends Activity {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("action", "edit");
+                bundle.putString("EventID", EventID);
                 Intent intent = new Intent(EventInformation.this, MapsActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -502,7 +571,6 @@ public class EventInformation extends Activity {
         });
 
     }
-
     public static void setImage(String imageSrc, Integer layout, View root){
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference imageRef = firebaseStorage.getReference().child(imageSrc);
@@ -524,6 +592,29 @@ public class EventInformation extends Activity {
                         e.printStackTrace();
                     }
                 }
+            }
+        });
+    }
+    public void checkOwner(){
+        String userID = MenuActivity.getMyLoginPref(getApplicationContext());
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        String EventID = bundle.getString("EventID", "");
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Event/" + EventID);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String owner = String.valueOf(snapshot.child("Organizer").getValue());
+                if (owner.compareTo(userID) == 0){
+                    btnJoin = (ExtendedFloatingActionButton) findViewById(R.id.btnJoin);
+                    btnJoin.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

@@ -452,7 +452,7 @@
             android:clickable="true"
             android:contentDescription="Join"
             android:focusable="true"
-            android:text="Join/Unjoin"
+            android:text="Join"
             android:visibility="invisible"
             app:icon="@drawable/ic_baseline_person_24"
             app:iconTint="@color/logo_red"
