@@ -338,7 +338,6 @@
                     app:layout_constraintEnd_toEndOf="@+id/textView15"
                     app:layout_constraintStart_toStartOf="@+id/textView15"
                     app:layout_constraintTop_toBottomOf="@id/textView15" />
-
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btnSetting"
                     android:layout_width="wrap_content"
@@ -353,7 +352,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_baseline_settings_24"
                     app:tint="@color/logo_black" />
-
 
                 <TextView
                     android:id="@+id/textView35"
@@ -371,6 +369,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/linearLayout12"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -398,9 +397,20 @@
                     android:layout_marginBottom="100dp"
                     android:text="012345655125"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/textView35"
                     app:layout_constraintStart_toStartOf="@+id/textView35"
                     app:layout_constraintTop_toBottomOf="@+id/textView35" />
+
+                <TextView
+                    android:id="@+id/btn_dial"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="Contact Now"
+                    android:textColor="@color/logo_red"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/textView35"
+                    app:layout_constraintStart_toEndOf="@+id/eventContact"
+                    app:layout_constraintTop_toTopOf="@+id/eventContact" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -452,7 +462,7 @@
             android:clickable="true"
             android:contentDescription="Join"
             android:focusable="true"
-            android:text="Join/Unjoin"
+            android:text="Join"
             android:visibility="invisible"
             app:icon="@drawable/ic_baseline_person_24"
             app:iconTint="@color/logo_red"

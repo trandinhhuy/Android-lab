@@ -1,5 +1,6 @@
 package com.example.everhope.ui.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -54,12 +55,12 @@ public class HomeFragment extends Fragment {
 
     String [] interestSplit;
     private HomeViewModel homeViewModel;
-
-    public static HomeFragment newInstance(SharedPreferences pref) {
+    Activity activity;
+    public static HomeFragment newInstance(SharedPreferences pref, Activity host) {
         Bundle args = new Bundle();
-
         HomeFragment fragment = new HomeFragment();
         fragment.pref = pref;
+        fragment.activity = host;
         fragment.setArguments(args);
         return fragment;
     }
@@ -128,31 +129,35 @@ public class HomeFragment extends Fragment {
                             StorageReference storageRef = storageReference.child("Event/Event" + idList.get(i));
                             final View singleFrame = getLayoutInflater().inflate(R.layout.activity_view, null);
                             singleFrame.setId(i);
-                            storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
-                                @Override
-                                public void onSuccess(ListResult listResult) {
-                                    for (StorageReference eventAvatar : listResult.getItems()){
-                                        try {
-                                            final File localFile = File.createTempFile("EventAVT", "jpg");
-                                            eventAvatar.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                                @Override
-                                                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                                    Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                                                    ImageView eventAvatar = (ImageView) singleFrame.findViewById(R.id.iconImg);
-                                                    eventAvatar.setImageBitmap(bitmap);
-                                                }
-                                            }).addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
+                            try {
+                                storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                                    @Override
+                                    public void onSuccess(ListResult listResult) {
+                                        for (StorageReference eventAvatar : listResult.getItems()) {
+                                            try {
+                                                final File localFile = File.createTempFile("EventAVT", "jpg");
+                                                eventAvatar.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                        Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                                        ImageView eventAvatar = (ImageView) singleFrame.findViewById(R.id.iconImg);
+                                                        eventAvatar.setImageBitmap(bitmap);
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
 
-                                                }
-                                            });
-                                        } catch (IOException e){
-                                            e.printStackTrace();
+                                                    }
+                                                });
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
                                         }
                                     }
-                                }
-                            });
+                                });
+                            } catch (IllegalStateException e){
+
+                            }
                             TextView caption = (TextView) singleFrame.findViewById(R.id.caption);
                             TextView dateView = (TextView) singleFrame.findViewById(R.id.date);
 

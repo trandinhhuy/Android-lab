@@ -1,6 +1,9 @@
 package com.example.everhope.ui.profile;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -47,6 +51,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,16 +72,18 @@ public class ProfileFragment extends Fragment {
     int checkedItem=0;
     String dt="";
 
-
+    ImageView avatar;
+    
     Uri imageUri;
     private ProfileViewModel profileViewModel;
-
-    public static ProfileFragment newInstance(SharedPreferences pref) {
+    Activity activity;
+    public static ProfileFragment newInstance(SharedPreferences pref, Activity host) {
 
         Bundle args = new Bundle();
 
         ProfileFragment fragment = new ProfileFragment();
         fragment.pref = pref;
+        fragment.activity = host;
         fragment.setArguments(args);
         return fragment;
     }
@@ -85,7 +92,7 @@ public class ProfileFragment extends Fragment {
         profileViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-        ImageView avatar = (ImageView) root.findViewById(R.id.avatar);
+        avatar = (ImageView) root.findViewById(R.id.avatar);
         ImageView chooseAvt = (ImageView) root.findViewById(R.id.selectAvatar);
 
         username = (TextView)root.findViewById(R.id.username);
@@ -179,8 +186,50 @@ public class ProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && data != null && data.getData() != null){
             imageUri = data.getData();
-
+            avatar.setImageURI(imageUri);
+            uploadImage(imageUri);
         }
+    }
+
+    private String getFileExtension(Uri imageUri){
+        ContentResolver cR = getActivity().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return  mime.getExtensionFromMimeType(cR.getType(imageUri));
+    }
+    private void uploadImage(Uri imagesUri){
+
+        //remove current file
+        FirebaseStorage removeFirebase = FirebaseStorage.getInstance();
+        StorageReference removeRef = removeFirebase.getReference().child("Avatar/User" + MenuActivity.getMyLoginPref(getActivity()));
+
+        removeRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for (StorageReference item : listResult.getItems()){
+                    item.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+
+                        }
+                    });
+                }
+            }
+        });
+
+
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference fileStorage = firebaseStorage.getReference().child("Avatar/User" + MenuActivity.getMyLoginPref(getActivity()) + "/" + String.valueOf(System.currentTimeMillis() + "." + getFileExtension(imageUri)));
+        fileStorage.putFile(imagesUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(getActivity(), "Avatar has been uploaded", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText((Context) getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void showDialog() {

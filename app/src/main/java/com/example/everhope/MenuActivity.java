@@ -1,5 +1,6 @@
 package com.example.everhope;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -37,6 +38,8 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -52,14 +55,13 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     private AppBarConfiguration mAppBarConfiguration;
     public static SharedPreferences pref;
+    Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         ImageView menu_icon = findViewById(R.id.menu_icon);
-
-        //FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //DatabaseReference myRef = database.getReference("message");
+        activity = this;
 
         pref = getApplication().getSharedPreferences("myloginpref", MODE_PRIVATE);
         String userID = pref.getString("userID", "-1");
@@ -129,13 +131,13 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         pref = getApplication().getSharedPreferences("myloginpref", MODE_PRIVATE);
         int id = item.getItemId();
         if (id == R.id.nav_home){
-            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, HomeFragment.newInstance(pref)).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, HomeFragment.newInstance(pref, activity)).commit();
         }
         if (id == R.id.nav_profile){
-            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, ProfileFragment.newInstance(pref)).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, ProfileFragment.newInstance(pref, activity)).commit();
         }
         if (id == R.id.nav_event){
-            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, YourTaskFragment.newInstance(pref)).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, YourTaskFragment.newInstance(pref, activity)).commit();
         }
         if (id == R.id.nav_leaderboard){
             getSupportFragmentManager().beginTransaction().replace(R.id.container_fragment, new LeaderBoardFragment()).commit();
@@ -171,4 +173,5 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         String userId = sharedPreferences.getString("userID", "");
         return  userId;
     }
+
 }

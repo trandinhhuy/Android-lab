@@ -1,12 +1,20 @@
 package com.example.everhope.supportClass;
 
+import android.app.Activity;
+import android.content.Context;
+import android.net.Uri;
+
 import com.example.everhope.CommentObj;
 import com.example.everhope.Event;
 import com.example.everhope.EventObj;
 import com.example.everhope.ReportedObject;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.net.URI;
 import java.util.UUID;
 
 public class UpdateFirebase {
@@ -14,7 +22,12 @@ public class UpdateFirebase {
     public static void updateData(String pathToNode, String data){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = firebaseDatabase.getReference(pathToNode);
-        myRef.setValue(data);
+        myRef.setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+
+            }
+        });
     }
     public static void updateReportedEvent(String path, ReportedObject reportedEvent){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -61,4 +74,5 @@ public class UpdateFirebase {
         firebaseDatabase.getReference(path+"/"+randomCommentID+"/Time").setValue(comment.getTime());
         firebaseDatabase.getReference(path+"/"+randomCommentID+"/Date").setValue(comment.getDate());
     }
+
 }
