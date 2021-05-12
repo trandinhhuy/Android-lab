@@ -476,19 +476,27 @@ public class EventInformation extends Activity {
                 alertDialogBuilder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        /////////////////(?) xoa event khoi database
+
+                        UpdateFirebase.removeData("EventComment/Event" + EventID);
+                        UpdateFirebase.removeData("EventParticipant/Event" + EventID);
                         UpdateFirebase.removeData("Event/" + EventID);
-                        finish();
-                        //todo
-                        arg0.dismiss();
+
+
+                        //todo xoa ra khoi report list
+
+
+
+                        Intent intent1 = new Intent(getApplicationContext(), MenuActivity.class);
+                        startActivity(intent1);
                         dialog.dismiss();
+                        finish();
                     }
                 });
                 android.app.AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
-                ////////// ......
             }
         });
+
 
         btnField.setOnClickListener(new View.OnClickListener() {
             @Override
