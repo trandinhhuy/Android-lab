@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AdminReportMain">
+    tools:context=".AdminUserReport">
 
     <Toolbar
         android:id="@+id/admin_tool_rp_main"
@@ -30,4 +30,10 @@
         android:id="@+id/admin_report_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <ListView
+        android:id="@+id/admin_rp_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
 </LinearLayout>

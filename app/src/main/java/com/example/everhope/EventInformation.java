@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -56,7 +58,7 @@ public class EventInformation extends Activity {
     String location;
     FloatingActionButton btnSetting;
     EditText editName, editDescription, editDatetime, editLocation, editHostPhone, editHostName, editField;
-    TextView btnDeleteEvent, btnChange;
+    TextView btnDeleteEvent, btnChange, btnDial;
     FloatingActionButton btnCloseEventEdit;
     TextView eventName, eventDescription, eventInterest, eventOrganizer, eventDatetime, eventContact, eventLocation;
     Button btnLocation, btnField, btnDatetime;
@@ -127,13 +129,13 @@ public class EventInformation extends Activity {
         btnMap = (ExtendedFloatingActionButton) findViewById(R.id.btnMap);
         btnReport = (ExtendedFloatingActionButton) findViewById(R.id.btnReport);
         btnJoin = (ExtendedFloatingActionButton) findViewById(R.id.btnJoin);
+        btnDial = (TextView)findViewById(R.id.btn_dial);
+
 
         rotateClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_close_anim);
         rotateOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_open_anim);
         fromBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.from_bottom_anim);
         toBottom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.to_bottom_anim);
-
-
 
 
         btnAddComment.setOnClickListener(new View.OnClickListener() {
@@ -345,7 +347,25 @@ public class EventInformation extends Activity {
             }
         });
 
+        btnDial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneNo = eventContact.getText().toString();
+                if (phoneNo.length()>0){
+                    Uri uri = Uri.parse("tel:" + phoneNo);
+                    Intent i = new Intent(Intent.ACTION_DIAL, uri);
+                    try{
+                        startActivity(i);
+                    }
+                    catch (SecurityException s){
+                        Toast.makeText(EventInformation.this,"Try again later.",Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+
     }
+
 
 
     public void showEditDialog() {
@@ -458,6 +478,7 @@ public class EventInformation extends Activity {
                     public void onClick(DialogInterface arg0, int arg1) {
                         /////////////////(?) xoa event khoi database
                         UpdateFirebase.removeData("Event/" + EventID);
+                        finish();
                         //todo
                         arg0.dismiss();
                         dialog.dismiss();

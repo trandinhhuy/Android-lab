@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
-public class Homepage_Admin extends Activity {
-    LinearLayout account, report, ban, logout;
+public class AdminHomepage extends Activity {
+    LinearLayout account, us_report, us_ban, logout, ev_report, ev_ban;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +18,11 @@ public class Homepage_Admin extends Activity {
         String userID = MenuActivity.getMyLoginPref(getApplicationContext());
 
         account = (LinearLayout) findViewById(R.id.admin_home_account);
-        report = (LinearLayout) findViewById(R.id.admin_home_req);
         logout = (LinearLayout) findViewById(R.id.admin_home_logout);
-        ban = (LinearLayout) findViewById(R.id.admin_home_ban);
+        us_report = (LinearLayout) findViewById(R.id.admin_home_user_req);
+        us_ban = (LinearLayout) findViewById(R.id.admin_home_user_ban);
+        ev_report = (LinearLayout) findViewById(R.id.admin_home_event_req);
+        ev_ban = (LinearLayout) findViewById(R.id.admin_home_event_ban);
 
         account.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,14 +31,6 @@ public class Homepage_Admin extends Activity {
                 Bundle profileBundle = new Bundle();
                 profileBundle.putString("UserID", userID);
                 profileIntent.putExtras(profileBundle);
-                startActivity(profileIntent);
-            }
-        });
-
-        report.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent profileIntent = new Intent(getApplicationContext(), AdminReportMain.class);
                 startActivity(profileIntent);
             }
         });
@@ -54,6 +48,32 @@ public class Homepage_Admin extends Activity {
                 finish();
             }
         });
+
+        ev_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), AdminEventReport.class);
+                startActivity(i);
+            }
+        });
+
+        us_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), AdminUserReport.class);
+                startActivity(i);
+            }
+        });
+
+/*
+        report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(getApplicationContext(), AdminReportMain.class);
+                startActivity(profileIntent);
+            }
+        });*/
+
 
     }
 }

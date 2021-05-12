@@ -15,7 +15,7 @@ public class AdminReportMain extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_rp_main);
+        setContentView(R.layout.admin_rp_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.admin_tool_rp_main);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
