@@ -31,4 +31,7 @@
 
     <color name="bag">#FAE4E4</color>
     <color name="comment">#F0F2F5</color>
+
+    <color name="alert">#FFC56F</color>
+    <color name="bg_alert">#FFEAE8</color>
 </resources>

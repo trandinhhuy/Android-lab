@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,12 +35,16 @@ import java.util.List;
 
 public class userProfile extends Activity {
     String curPass = "abc123";
-    Button btn_update, btn_exit, btn_changepass, btn_exitpass, btn_updatepass;
+    Button btn_update,  btn_changepass, btn_updatepass;
     ImageButton btn_edit, btn_rp_user;
-    EditText edit_name, edit_des, edit_dob, edit_interests, edit_currentpass, edit_newpass, edit_confirmpass;
-    TextView username, dob, des, interests;
+    EditText edit_name, edit_des, edit_dob, edit_interests, edit_currentpass, edit_newpass, edit_confirmpass, edit_phone, edit_gender;
+    TextView username, dob, des, interests, gender, phone;
     Calendar c;
     DatePickerDialog dpd;
+    FloatingActionButton btn_exit, btn_exitpass;
+    int checkedItem = 0;
+    String dt="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,8 @@ public class userProfile extends Activity {
         username = (TextView) findViewById(R.id.username);
         des = (TextView) findViewById(R.id.des);
         dob = (TextView) findViewById(R.id.dob);
+        phone = (TextView) findViewById(R.id.phone);
+        gender = (TextView) findViewById(R.id.gender);
         interests = (TextView) findViewById(R.id.interests);
         btn_edit = (ImageButton) findViewById(R.id.btn_edit);
         btn_rp_user = (ImageButton)findViewById(R.id.btn_rp_user) ;
@@ -72,6 +79,8 @@ public class userProfile extends Activity {
                 des.setText(String.valueOf(snapshot.child("Description").getValue()));
                 dob.setText(String.valueOf(snapshot.child("Dob").getValue()));
                 interests.setText(String.valueOf(snapshot.child("Interest").getValue()));
+                phone.setText(String.valueOf(snapshot.child("Phone").getValue()));
+                gender.setText(String.valueOf(snapshot.child("Gender").getValue()));
                 EventInformation.setImage("Avatar/User" + userId, R.id.user_profile_avatar, getWindow().getDecorView());
             }
 
@@ -108,17 +117,9 @@ public class userProfile extends Activity {
 
     private void showDialog() {
         AlertDialog.Builder alert;
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            alert = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
-        }
-        else{
-            alert = new AlertDialog.Builder(this);
-        }
-
+        alert = new AlertDialog.Builder(this, R.style.MaterialThemeDialog);
         LayoutInflater inflater = getLayoutInflater();
-
-        View view =  inflater.inflate(R.layout.up_edit,null);
+        View view = inflater.inflate(R.layout.up_edit, null);
 
         edit_name = (EditText) view.findViewById(R.id.edit_name);
         edit_name.setText(username.getText().toString());
@@ -128,15 +129,18 @@ public class userProfile extends Activity {
         edit_dob.setText(dob.getText().toString());
         edit_interests = (EditText) view.findViewById(R.id.edit_interests);
         edit_interests.setText(interests.getText().toString());
+        edit_gender = (EditText) view.findViewById(R.id.edit_gender);
+        edit_gender.setText(gender.getText().toString());
+        edit_phone = (EditText) view.findViewById(R.id.edit_phone);
+        edit_phone.setText(phone.getText().toString());
         btn_update = (Button) view.findViewById(R.id.btn_update);
-        btn_exit = (Button) view.findViewById(R.id.btn_exit);
+        btn_exit = (FloatingActionButton) view.findViewById(R.id.btn_exit);
         btn_changepass = (Button) view.findViewById(R.id.btn_changepass);
 
         alert.setView(view);
         alert.setCancelable(false);
 
         AlertDialog dialog = alert.create();
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.show();
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +149,19 @@ public class userProfile extends Activity {
                 des.setText(edit_des.getText().toString());
                 dob.setText(edit_dob.getText().toString());
                 interests.setText(edit_interests.getText().toString());
+                gender.setText(edit_gender.getText().toString());
+                phone.setText(edit_phone.getText().toString());
+                String ID = MenuActivity.getMyLoginPref(getApplicationContext());
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                String path = "User/"+ID;
+                firebaseDatabase.getReference(path+"/Description").setValue(edit_des.getText().toString());
+                firebaseDatabase.getReference(path+"/Dob").setValue(edit_dob.getText().toString());
+                firebaseDatabase.getReference(path+"/Interest").setValue(edit_interests.getText().toString());
+                firebaseDatabase.getReference(path+"/Gender").setValue(edit_gender.getText().toString());
+                firebaseDatabase.getReference(path+"/Phone").setValue(edit_phone.getText().toString());
+                firebaseDatabase.getReference(path+"/Name").setValue(edit_name.getText().toString());
+
+
                 dialog.dismiss();
 
             }
@@ -158,13 +175,54 @@ public class userProfile extends Activity {
                 int month = c.get(Calendar.MONTH);
                 int year = c.get(Calendar.YEAR);
 
-                dpd = new DatePickerDialog(userProfile.this, new DatePickerDialog.OnDateSetListener() {
+                dpd = new DatePickerDialog(userProfile.this,R.style.alert, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int mYear, int mMonth, int mDay) {
-                        edit_dob.setText(mDay+"/"+(mMonth+1)+"/"+mYear);
+                        dt=(mDay<10?"0":"")+mDay + "/" + (mMonth<9?"0":"")+(mMonth + 1) + "/" + mYear;
+                        edit_dob.setText(dt);
                     }
                 }, day,month, year);
                 dpd.show();
+            }
+        });
+
+        edit_gender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(userProfile.this);
+                alertDialog.setTitle("Choose Gender");
+                String[] items = {"Male","Female","Others"};
+                String g = edit_gender.getText().toString();
+                if(g.compareTo("Male")==0){
+                    checkedItem=0;
+                }
+                else if(g.compareTo("Female")==0){
+                    checkedItem=1;
+                }
+                else checkedItem=2;
+                alertDialog.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        checkedItem = which;
+                    }
+                });
+
+                alertDialog.setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        edit_gender.setText(items[checkedItem]);
+                    }
+                });
+
+                alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog alert = alertDialog.create();
+                alert.setCanceledOnTouchOutside(false);
+                alert.show();
             }
         });
 
@@ -242,12 +300,8 @@ public class userProfile extends Activity {
     private void showDialog1() {
         AlertDialog.Builder alert1;
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            alert1 = new AlertDialog.Builder(this, android.R.style.Theme_Material_Dialog_Alert);
-        }
-        else{
-            alert1 = new AlertDialog.Builder(this);
-        }
+        alert1 = new AlertDialog.Builder(this, R.style.MaterialThemeDialog);
+
 
         LayoutInflater inflater1 = getLayoutInflater();
 
@@ -258,13 +312,12 @@ public class userProfile extends Activity {
         edit_newpass = (EditText) view1.findViewById(R.id.edit_newpass);
         edit_confirmpass = (EditText) view1.findViewById(R.id.edit_confirmpass);
         btn_updatepass = (Button) view1.findViewById(R.id.btn_updatepass);
-        btn_exitpass = (Button) view1.findViewById(R.id.btn_exitpass);
+        btn_exitpass = (FloatingActionButton) view1.findViewById(R.id.btn_exitpass);
 
         alert1.setView(view1);
         alert1.setCancelable(false);
 
         AlertDialog dialog1 = alert1.create();
-        dialog1.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog1.show();
         btn_updatepass.setOnClickListener(new View.OnClickListener() {
             @Override
