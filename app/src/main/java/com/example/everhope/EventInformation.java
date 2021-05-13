@@ -44,6 +44,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -477,9 +478,32 @@ public class EventInformation extends Activity {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
 
-                        UpdateFirebase.removeData("EventComment/Event" + EventID);
-                        UpdateFirebase.removeData("EventParticipant/Event" + EventID);
-                        UpdateFirebase.removeData("Event/" + EventID);
+                        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                        DatabaseReference databaseReference = firebaseDatabase.getReference().child("EventReport");
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                List<String> reportIDRemove = new ArrayList<>();
+                                for (DataSnapshot item : snapshot.getChildren()){
+                                    if (String.valueOf(item.child("Reported").getValue()).compareTo(EventID) == 0){
+                                        reportIDRemove.add(item.getKey());
+                                    }
+                                }
+                                for (int i = 0 ; i < reportIDRemove.size() ; i++){
+                                    UpdateFirebase.removeData("EventReport/" + reportIDRemove.get(i));
+                                }
+                                UpdateFirebase.removeData("EventComment/Event" + EventID);
+                                UpdateFirebase.removeData("EventParticipant/Event" + EventID);
+                                UpdateFirebase.removeData("Event/" + EventID);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
 
 
                         //todo xoa ra khoi report list
