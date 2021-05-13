@@ -85,7 +85,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             });
         }
         if (viewStyle.compareTo("add") == 0){
+            searchView.setEnabled(true);
+            searchView.setVisibility(View.VISIBLE);
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    String location = searchView.getQuery().toString();
+                    List<Address> addressList = null;
+                    if (location != null && !location.isEmpty()) {
+                        Geocoder geocoder = new Geocoder(MapsActivity.this);
+                        try {
+                            addressList = geocoder.getFromLocationName(location, 1);
+                            Address address = addressList.get(0);
+                            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                            mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            e.printStackTrace();
+                        }
 
+                    }
+
+                    return false;
+                }
+
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+            });
         }
         else {
             searchView.setEnabled(true);
@@ -176,19 +207,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
-                    Intent getEventID = getIntent();
-                    Bundle getEventIdBundle = getEventID.getExtras();
-                    String eventID = getEventIdBundle.getString("EventID", "");
 
-                    Intent intent = new Intent(getApplicationContext(), EventInformation.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("latitude", String.valueOf(marker.getPosition().latitude));
-                    bundle.putString("longitude", String.valueOf(marker.getPosition().longitude));
-                    bundle.putString("title", marker.getTitle());
-                    bundle.putString("EventID", eventID);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    finish();
+                    if (action.compareTo("edit") == 0) {
+                        Intent getEventID = getIntent();
+                        Bundle getEventIdBundle = getEventID.getExtras();
+                        String eventID = getEventIdBundle.getString("EventID", "");
+
+                        Intent intent = new Intent(getApplicationContext(), EventInformation.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("latitude", String.valueOf(marker.getPosition().latitude));
+                        bundle.putString("longitude", String.valueOf(marker.getPosition().longitude));
+                        bundle.putString("title", marker.getTitle());
+                        bundle.putString("EventID", eventID);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    } else {
+                        Intent intent1 = new Intent();
+                        intent1.putExtra("position", marker.getTitle());
+                        intent1.putExtra("latitude", String.valueOf(marker.getPosition().latitude));
+                        intent1.putExtra("longitude", String.valueOf(marker.getPosition().longitude));
+                        setResult(RESULT_OK, intent1);
+                        finish();
+                    }
                     return true;
                 }
             });
@@ -201,7 +243,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent getintent = getIntent();
         Bundle bundle = getintent.getExtras();
         String viewStyle = bundle.getString("action", "view");
-        if (viewStyle.compareTo("view") == 0){
+        if (viewStyle.compareTo("view") == 0 || viewStyle.compareTo("add") == 0){
             finish();
         }
         else {

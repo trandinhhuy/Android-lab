@@ -91,9 +91,14 @@ public class AddEventActivity extends Activity {
         new_task_location_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Lat = "";
-                Long = "";
-                new_task_location.setText("Selected");
+                //Lat = "";
+                //Long = "";
+                //new_task_location.setText("Selected");
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("action", "add");
+                intent.putExtras(bundle);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -221,5 +226,18 @@ public class AddEventActivity extends Activity {
         });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK){
+                String position = data.getStringExtra("position");
+                Lat = data.getStringExtra("latitude");
+                Long = data.getStringExtra("longitude");
+                new_task_location.setText(position);
+            }
+        }
     }
 }
