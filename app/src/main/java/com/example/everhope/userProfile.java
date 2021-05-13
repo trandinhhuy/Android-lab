@@ -34,7 +34,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class userProfile extends Activity {
-    String curPass = "abc123";
     Button btn_update,  btn_changepass, btn_updatepass;
     ImageButton btn_edit, btn_rp_user;
     EditText edit_name, edit_des, edit_dob, edit_interests, edit_currentpass, edit_newpass, edit_confirmpass, edit_phone, edit_gender;
@@ -300,7 +299,7 @@ public class userProfile extends Activity {
     private void showDialog1() {
         AlertDialog.Builder alert1;
 
-        alert1 = new AlertDialog.Builder(this, R.style.MaterialThemeDialog);
+        alert1 = new AlertDialog.Builder(userProfile.this, R.style.MaterialThemeDialog);
 
 
         LayoutInflater inflater1 = getLayoutInflater();
@@ -318,25 +317,59 @@ public class userProfile extends Activity {
         alert1.setCancelable(false);
 
         AlertDialog dialog1 = alert1.create();
+        dialog1.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog1.show();
         btn_updatepass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(curPass.equals(edit_currentpass.getText().toString()) && edit_newpass.getText().toString().equals(edit_confirmpass.getText().toString())){
-                    Toast.makeText(userProfile.this,"Change password successfully!",Toast.LENGTH_SHORT).show();
-                    dialog1.dismiss();
+                String ID = MenuActivity.getMyLoginPref(getApplicationContext());
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference myref = firebaseDatabase.getReference().child("User").child(ID);
+                myref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String curpass = String.valueOf(snapshot.child("Password").getValue());
+                        String validPass = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{8,}";
+                        if(curpass.compareTo(SHA256.toSHA(edit_currentpass.getText().toString())) != 0){
+                            Toast.makeText(userProfile.this,"Wrong current password!!",Toast.LENGTH_SHORT).show();
 
-                }
-                else {
-                    Toast.makeText(userProfile.this,"Error! Please re-enter",Toast.LENGTH_SHORT).show();
-                }
+                        }
+                        else{
+                            if(edit_newpass.getText().toString().compareTo(edit_confirmpass.getText().toString())!=0){
+                                Toast.makeText(userProfile.this,"Wrong confirmed password!!",Toast.LENGTH_SHORT).show();
+
+                            }
+                            else{
+                                if(!edit_newpass.getText().toString().matches(validPass)){
+                                    Toast.makeText(userProfile.this,"New password is not valid!!",Toast.LENGTH_SHORT).show();
+
+                                }
+                                else{
+                                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                                    String path = "User/"+ID;
+                                    firebaseDatabase.getReference(path+"/Password").setValue(SHA256.toSHA(edit_newpass.getText().toString()));
+                                    edit_currentpass.setText(edit_newpass.getText().toString());
+                                    Toast.makeText(userProfile.this,"Change password successfully!",Toast.LENGTH_SHORT).show();
+                                    dialog1.dismiss();
+                                }
+
+                            }
+
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
 
             }
         });
-
-
-
 
         btn_exitpass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -344,7 +377,6 @@ public class userProfile extends Activity {
                 dialog1.dismiss();
             }
         });
-
 
     }
 
