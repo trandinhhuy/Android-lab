@@ -20,7 +20,7 @@ public class AdminEventReport extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.admin_rp_list);
+        setContentView(R.layout.admin_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.admin_tool_rp_main);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

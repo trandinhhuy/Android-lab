@@ -12,9 +12,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
-public class AdminUserReport extends AppCompatActivity {
+public class AdminUserUnban extends AppCompatActivity {
 
-    ArrayList<ReportedObject> lst = new ArrayList<>();
+    ArrayList<UnbannedObj> lst = new ArrayList<>();
     ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,21 +31,19 @@ public class AdminUserReport extends AppCompatActivity {
         });
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference userRef = firebaseDatabase.getReference().child("UserReport");
+        DatabaseReference userRef = firebaseDatabase.getReference().child("User");
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot item : snapshot.getChildren()){
-                    ReportedObject addNew = new ReportedObject();
-
-                    addNew.reason = String.valueOf(item.child("Reason").getValue());
-                    addNew.date = String.valueOf(item.child("Date").getValue());
-                    addNew.time = String.valueOf(item.child("Time").getValue());
-                    addNew.reportBy=String.valueOf(item.child("ReportedBy").getValue());
-                    addNew.reported = String.valueOf(item.child("Reported").getValue());
-                    addNew.detail=String.valueOf(item.child("Detail").getValue());
-                    addNew.key = String.valueOf(item.child("Key").getValue());
-
+                    UnbannedObj addNew = null;
+                    String check = String.valueOf(item.child("Ban").getValue().toString());
+                    if (check.compareTo("1")==0){
+                        addNew = new UnbannedObj();
+                        addNew.name = String.valueOf(item.child("Name").getValue());
+                        addNew.email = String.valueOf(item.child("Email").getValue());
+                        addNew.id = String.valueOf(item.getKey());
+                    }
                     if (addNew!=null) {
                         lst.add(addNew);
                     }
@@ -54,12 +52,12 @@ public class AdminUserReport extends AppCompatActivity {
                 if (lst.size() > 0) {
                     String[] title = new String[lst.size()];
                     for (int i = 0; i < lst.size(); i++) {
-                        title[i] = lst.get(i).reason;
+                        title[i] = lst.get(i).id;
                     }
 
-                    AdminReportAdapter adminReportAdapter = new AdminReportAdapter(AdminUserReport.this,2,lst,title);
+                    AdminUnbanAdapter adapter = new AdminUnbanAdapter(AdminUserUnban.this,lst,title,2);
                     listView = (ListView)findViewById(R.id.admin_rp_list);
-                    listView.setAdapter(adminReportAdapter);
+                    listView.setAdapter(adapter);
                 }
             }
 
