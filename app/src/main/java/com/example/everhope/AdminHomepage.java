@@ -69,7 +69,7 @@ public class AdminHomepage extends Activity {
         report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profileIntent = new Intent(getApplicationContext(), AdminReportMain.class);
+                Intent profileIntent = new Intent(getApplicationContext(), .class);
                 startActivity(profileIntent);
             }
         });*/

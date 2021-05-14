@@ -3,6 +3,7 @@ package com.example.everhope;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,10 +69,17 @@ public class AdminReportAdapter extends ArrayAdapter<String> {
                         if (accountType == 2) {
                             UpdateFirebase.updateData("User/" + lst.get(position).getReported() + "/Ban", "1");
                             UpdateFirebase.removeData("UserReport/" + lst.get(position).getKey() + "/");
+                            Intent intent = new Intent(context, AdminUserReport.class);
+                            context.startActivity(intent);
+                            context.finish();
                         } else { // if (accountType == 1)
                             UpdateFirebase.updateData("Event/" + lst.get(position).getReported() + "/Ban", "1");
                             UpdateFirebase.removeData("EventReport/" + lst.get(position).getKey() + "/");
+                            Intent intent = new Intent(context, AdminEventReport.class);
+                            context.startActivity(intent);
+                            context.finish();
                         }
+
                     }
                 });
                 AlertDialog alertDialog = alertDialogBuilder.create();
@@ -93,6 +101,20 @@ public class AdminReportAdapter extends ArrayAdapter<String> {
                 alertDialogBuilder.setNegativeButton("YES", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
+                        if (accountType == 1){
+                            String eventKey = lst.get(position).key;
+                            UpdateFirebase.removeData("EventReport/" + eventKey);
+                            Intent intent = new Intent(context, AdminEventReport.class);
+                            context.startActivity(intent);
+                            context.finish();
+                        }
+                        else {
+                            String userKey = lst.get(position).key;
+                            UpdateFirebase.removeData("UserReport/" + userKey);
+                            Intent intent = new Intent(context, AdminUserReport.class);
+                            context.startActivity(intent);
+                            context.finish();
+                        }
                     }
                 });
                 AlertDialog alertDialog = alertDialogBuilder.create();

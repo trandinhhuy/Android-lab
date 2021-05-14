@@ -3,10 +3,13 @@ package com.example.everhope;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -25,6 +29,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.everhope.supportClass.UpdateFirebase;
@@ -41,6 +46,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,17 +64,17 @@ public class EventInformation extends Activity {
     ViewGroup icons_view;
     String location;
     FloatingActionButton btnSetting;
+    ImageView btnChangeBackgroundPicture;
     EditText editName, editDescription, editDatetime, editLocation, editHostPhone, editHostName, editField;
     TextView btnDeleteEvent, btnChange, btnDial;
     FloatingActionButton btnCloseEventEdit;
     TextView eventName, eventDescription, eventInterest, eventOrganizer, eventDatetime, eventContact, eventLocation;
     Button btnLocation, btnField, btnDatetime;
-
+    Uri imageUri;
 
     int mYear, mMonth, mDay, mHour, mMinute;
     String dt="";
-    private String EventID;
-
+    public String EventID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -237,8 +243,15 @@ public class EventInformation extends Activity {
         eventContact = (TextView) findViewById(R.id.eventContact);
         eventLocation = (TextView) findViewById(R.id.eventLocation);
         eventLocation.setText(location);
-
+        btnChangeBackgroundPicture = (ImageView) findViewById(R.id.change_event_background_buton);
         btnSetting = (FloatingActionButton) findViewById(R.id.btnSetting);
+
+        btnChangeBackgroundPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -262,10 +275,12 @@ public class EventInformation extends Activity {
                 if (organizerID.compareTo(userID) == 0){
                     btnJoin.setVisibility(View.INVISIBLE);
                     btnSetting.setVisibility(View.VISIBLE);
+                    btnChangeBackgroundPicture.setVisibility(View.VISIBLE);
+                    btnChangeBackgroundPicture.setEnabled(true);
                     btnSetting.setEnabled(true);
                 }
                 else {
-
+                    btnChangeBackgroundPicture.setVisibility(View.INVISIBLE);
                     btnSetting.setVisibility(View.INVISIBLE);
                 }
                 FirebaseDatabase firebaseDatabase1 = FirebaseDatabase.getInstance();
@@ -367,7 +382,63 @@ public class EventInformation extends Activity {
 
     }
 
+    private void selectImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 1);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && data != null && data.getData() != null){
+            imageUri = data.getData();
+            ImageView eventImage = findViewById(R.id.event_image);
+            eventImage.setImageURI(imageUri);
+            uploadImage(imageUri);
+        }
+    }
 
+    private String getFileExtension(Uri imageUri){
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return  mime.getExtensionFromMimeType(cR.getType(imageUri));
+    }
+    private void uploadImage(Uri imagesUri){
+
+        //remove current file
+        FirebaseStorage removeFirebase = FirebaseStorage.getInstance();
+        StorageReference removeRef = removeFirebase.getReference().child("Event/Event" + EventID);
+
+        removeRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+            @Override
+            public void onSuccess(ListResult listResult) {
+                for (StorageReference item : listResult.getItems()){
+                    item.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+
+                        }
+                    });
+                }
+            }
+        });
+
+
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference fileStorage = firebaseStorage.getReference().child("Event/Event" + EventID + "/" + String.valueOf(System.currentTimeMillis() + "." + getFileExtension(imageUri)));
+        fileStorage.putFile(imagesUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(getApplicationContext(), "Avatar has been uploaded", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText( getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public void showEditDialog() {
         AlertDialog.Builder alert;
