@@ -16,13 +16,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:theme="@style/Theme.EverHope">
-        <activity android:name=".CommentActivity"></activity>
+        <activity android:name=".Gallery"></activity>
+        <activity android:name=".CommentActivity" />
         <activity android:name=".AllEventActivity" />
         <activity android:name=".SignIn" />
         <activity android:name=".SignUp" />
-        <activity android:name=".ReportEvent"/>
-        <activity android:name=".ReportUser"/>
+        <activity android:name=".ReportEvent" />
+        <activity android:name=".ReportUser" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -49,12 +52,11 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".AdminUserReport" />
         <activity android:name=".AdminEventReport" />
-
         <activity android:name=".IntroActivity" />
         <activity android:name=".EventInformation" />
         <activity android:name=".userProfile" />
         <activity android:name=".Leaderboard" />
-        <activity android:name=".AddEventActivity"/>
+        <activity android:name=".AddEventActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

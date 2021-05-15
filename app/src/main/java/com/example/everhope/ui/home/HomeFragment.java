@@ -124,58 +124,67 @@ public class HomeFragment extends Fragment {
                     }
                     if (count >= 5){
                         scrollView = (ViewGroup) root.findViewById(R.id.viewActivity);
+                        View singleFrame;
                         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
                         for (int i = 0 ; i < idList.size(); i++){
                             StorageReference storageRef = storageReference.child("Event/Event" + idList.get(i));
-                            final View singleFrame = getLayoutInflater().inflate(R.layout.activity_view, null);
-                            singleFrame.setId(i);
                             try {
-                                storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
-                                    @Override
-                                    public void onSuccess(ListResult listResult) {
-                                        for (StorageReference eventAvatar : listResult.getItems()) {
-                                            try {
-                                                final File localFile = File.createTempFile("EventAVT", "jpg");
-                                                eventAvatar.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                                    @Override
-                                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                                        Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                                                        ImageView eventAvatar = (ImageView) singleFrame.findViewById(R.id.iconImg);
-                                                        eventAvatar.setImageBitmap(bitmap);
-                                                    }
-                                                }).addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
+                                singleFrame = getLayoutInflater().inflate(R.layout.activity_view, null);
+                                singleFrame.setId(i);
+                                try {
+                                    View finalSingleFrame = singleFrame;
+                                    storageRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
+                                        @Override
+                                        public void onSuccess(ListResult listResult) {
+                                            for (StorageReference eventAvatar : listResult.getItems()) {
+                                                try {
+                                                    final File localFile = File.createTempFile("EventAVT", "jpg");
+                                                    eventAvatar.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                                            Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                                                            ImageView eventAvatar = (ImageView) finalSingleFrame.findViewById(R.id.iconImg);
+                                                            eventAvatar.setImageBitmap(bitmap);
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
 
-                                                    }
-                                                });
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
+                                                        }
+                                                    });
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
                                             }
                                         }
+                                    });
+                                } catch (IllegalStateException e){
+
+                                }
+                                TextView caption = (TextView) singleFrame.findViewById(R.id.caption);
+                                TextView dateView = (TextView) singleFrame.findViewById(R.id.date);
+
+                                caption.setText(nameList.get(i));
+                                dateView.setText(dateList.get(i));
+
+                                scrollView.addView(singleFrame);
+                                int finalI = i;
+                                singleFrame.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(getActivity(), EventInformation.class);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("EventID", idList.get(finalI));
+                                        intent.putExtras(bundle);
+                                        startActivity(intent);
                                     }
                                 });
                             } catch (IllegalStateException e){
 
                             }
-                            TextView caption = (TextView) singleFrame.findViewById(R.id.caption);
-                            TextView dateView = (TextView) singleFrame.findViewById(R.id.date);
 
-                            caption.setText(nameList.get(i));
-                            dateView.setText(dateList.get(i));
 
-                            scrollView.addView(singleFrame);
-                            int finalI = i;
-                            singleFrame.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(getActivity(), EventInformation.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString("EventID", idList.get(finalI));
-                                    intent.putExtras(bundle);
-                                    startActivity(intent);
-                                }
-                            });
+
                         }
                         break;
                     }

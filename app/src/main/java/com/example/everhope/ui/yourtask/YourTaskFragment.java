@@ -129,7 +129,7 @@ public class YourTaskFragment extends Fragment {
                                 Bundle bundle = new Bundle();
                                 bundle.putString("EventID", idList.get(position));
                                 intent.putExtras(bundle);
-                                startActivity(intent);
+                                startActivityForResult(intent, 2);
                             }
                         });
                     }
@@ -153,9 +153,20 @@ public class YourTaskFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddEventActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
         return root;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1){
+            getFragmentManager().beginTransaction().replace(R.id.container_fragment, YourTaskFragment.newInstance(pref, activity)).commit();
+        }
+        if (requestCode == 2){
+            getFragmentManager().beginTransaction().replace(R.id.container_fragment, HomeFragment.newInstance(pref, activity)).commit();
+        }
     }
 }

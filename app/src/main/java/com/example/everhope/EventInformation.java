@@ -524,6 +524,7 @@ public class EventInformation extends Activity {
                     UpdateFirebase.updateData("Event/" + EventID + "/Long", lng);
                 }
                 dialog.dismiss();
+                finish();
             }
         });
 
@@ -578,12 +579,6 @@ public class EventInformation extends Activity {
 
 
                         //todo xoa ra khoi report list
-
-
-
-                        Intent intent1 = new Intent(getApplicationContext(), MenuActivity.class);
-                        startActivity(intent1);
-                        dialog.dismiss();
                         finish();
                     }
                 });

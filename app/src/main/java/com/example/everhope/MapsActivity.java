@@ -118,7 +118,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             });
         }
-        else {
+        else if (viewStyle.compareTo("edit") == 0){
             searchView.setEnabled(true);
             searchView.setVisibility(View.VISIBLE);
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

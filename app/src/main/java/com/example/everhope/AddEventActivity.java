@@ -211,6 +211,7 @@ public class AddEventActivity extends Activity {
                 } catch (IllegalStateException e){
                     finish();
                 }
+                finish();
             }
         });
 
