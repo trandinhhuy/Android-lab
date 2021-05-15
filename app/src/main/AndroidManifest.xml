@@ -52,6 +52,11 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".AdminUserReport" />
         <activity android:name=".AdminEventReport" />
+<<<<<<< HEAD
+=======
+        <activity android:name=".AdminUserUnban" />
+        <activity android:name=".AdminEventUnban" />
+>>>>>>> 4eb0c57c01137843af2a825ffe9771bb27004223
         <activity android:name=".IntroActivity" />
         <activity android:name=".EventInformation" />
         <activity android:name=".userProfile" />

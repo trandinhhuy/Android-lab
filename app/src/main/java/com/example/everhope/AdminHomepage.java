@@ -64,16 +64,20 @@ public class AdminHomepage extends Activity {
                 startActivity(i);
             }
         });
-
-/*
-        report.setOnClickListener(new View.OnClickListener() {
+        us_ban.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profileIntent = new Intent(getApplicationContext(), .class);
-                startActivity(profileIntent);
+                Intent i = new Intent(getApplicationContext(), AdminUserUnban.class);
+                startActivity(i);
             }
-        });*/
-
+        });
+        ev_ban.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), AdminEventUnban.class);
+                startActivity(i);
+            }
+        });
 
     }
 }

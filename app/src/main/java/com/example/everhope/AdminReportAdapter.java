@@ -20,8 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class AdminReportAdapter extends ArrayAdapter<String> {
@@ -31,7 +29,7 @@ public class AdminReportAdapter extends ArrayAdapter<String> {
     private final int accountType;
 
     public AdminReportAdapter(Activity context, int type, ArrayList<ReportedObject> lst, String [] title) {
-        super(context, R.layout.admin_rp_item, title);
+        super(context, R.layout.admin_item_rp, title);
         this.context = context;
         this.accountType = type;
         this.lst = lst;
@@ -39,7 +37,7 @@ public class AdminReportAdapter extends ArrayAdapter<String> {
 
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
-        View v= inflater.inflate(R.layout.admin_rp_item, null,true);
+        View v= inflater.inflate(R.layout.admin_item_rp, null,true);
 
         TextView rpReason = (TextView) v.findViewById(R.id.admin_item_txt_rpReason);
         TextView rpDatetime = (TextView) v.findViewById(R.id.admin_item_txt_rpDatetime);

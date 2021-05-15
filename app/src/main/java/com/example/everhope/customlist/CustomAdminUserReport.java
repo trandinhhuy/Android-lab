@@ -1,7 +1,6 @@
 package com.example.everhope.customlist;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ public class CustomAdminUserReport extends ArrayAdapter {
         View root = convertView;
         LayoutInflater inflater = context.getLayoutInflater();
         if (convertView == null){
-            root = inflater.inflate(R.layout.admin_rp_item, null, true);
+            root = inflater.inflate(R.layout.admin_item_rp, null, true);
 
         }
 
